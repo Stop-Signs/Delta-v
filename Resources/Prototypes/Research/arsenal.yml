@@ -184,6 +184,7 @@
   - WeaponAdvancedLaser
   - PortableRecharger
   - WeaponEnergyGunAdvanced #DeltaV: Advanced Energy Gun
+  - GamblagatorCapacitor # DeltaV - added for superweapon
 
 #- type: technology # DeltaV - Removed for only causing issues
 #  id: ExperimentalBatteryAmmo
