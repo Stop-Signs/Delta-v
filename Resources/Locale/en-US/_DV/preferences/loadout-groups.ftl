@@ -132,6 +132,7 @@ loadout-group-all-gun = Security Sidearm
 loadout-group-security-gun-ammo = Ammunition
 loadout-group-revolver-ammo = Ammunition
 loadout-group-all-ammo = Ammunition
+loadout-group-head-of-security-longarm = Ordinance
 
 # Justice
 loadout-group-chiefjustice-head = Chief Justice head

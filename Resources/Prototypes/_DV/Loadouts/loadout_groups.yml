@@ -382,6 +382,16 @@
   - DuraVest
   - StasecWinterCoatHoS
 
+- type: loadoutGroup
+  id: HeadofSecurityLongarm
+  name: loadout-group-head-of-security-longarm
+  loadouts:
+  - WeaponEnergyShotgun
+  - WeaponSubMachineGunWt550
+  - AdvancedTruncheon
+  - WeaponShotgunBulldog
+
+
 ## Detective
 - type: loadoutGroup
   id: DetectiveJumpsuitDeltaV

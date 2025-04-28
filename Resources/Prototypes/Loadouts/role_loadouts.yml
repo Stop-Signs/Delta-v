@@ -380,6 +380,7 @@
   - GroupSpeciesBreathToolSecurity
   - SecurityAllFirearm # DeltaV - loadouts
   - SecurityAllAmmo # DeltaV - loadouts
+  - HeadofSecurityLongarm # DeltaV - loadouts
 
 - type: roleLoadout
   id: JobWarden
