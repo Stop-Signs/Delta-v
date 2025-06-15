@@ -16,8 +16,8 @@
       collection: ExplosionSmall
   - type: MeleeRequiresWield # You can't hit a home run with one hand, jimbo.
   - type: MeleeThrowOnHit
-    speed: 30
-    distance: 50
+    speed: 10
+    distance: 20
   - type: Item
     size: Large
   - type: Tool
