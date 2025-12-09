@@ -13,6 +13,7 @@
       "Muted": {28: 0}
   - type: Sprite
     sprite: Objects/Fun/Instruments/eguitar.rsi
+<<<<<<< HEAD
     state: icon
   - type: Item
     size: Normal
@@ -26,6 +27,20 @@
   - type: Tag
     tags:
     - StringInstrument
+=======
+  # Start DeltaV additions
+  - type: MeleeWeapon
+    wideAnimationRotation: 45
+    damage:
+      types:
+        Blunt: 8
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 6
+  # End DeltaV additions
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -43,6 +58,7 @@
       "Slap (XTra Funky)": {37: 0}
   - type: Sprite
     sprite: Objects/Fun/Instruments/bassguitar.rsi
+<<<<<<< HEAD
     state: icon
   - type: Item
     size: Normal
@@ -56,6 +72,20 @@
   - type: Tag
     tags:
     - StringInstrument
+=======
+  # Start DeltaV additions
+  - type: MeleeWeapon
+    wideAnimationRotation: 45
+    damage:
+      types:
+        Blunt: 8
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 6
+  # End DeltaV additions
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -96,7 +126,7 @@
     damage:
       types:
         Blunt: 4
-        Slash: 2
+        Slash: 4 # DeltaV: Increased by 2 to make it more like an "axe"
 
 - type: entity
   parent: BaseHandheldInstrument

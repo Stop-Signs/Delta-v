@@ -1,9 +1,6 @@
 ## Static
 
 - type: latheRecipePack
-  parent:
-  - IPCPartsStatic # Shitmed Change
-  - RoboticsStaticDeltaV # DeltaV
   id: RoboticsStatic
   recipes:
   - MMI
@@ -36,16 +33,17 @@
 ## Dynamic
 
 - type: latheRecipePack
-  parent:
-  - RoboticsDeltaV # DeltaV
   id: Robotics
   recipes:
   - ProximitySensor
 
 - type: latheRecipePack
+<<<<<<< HEAD
   parent:
   #- BorgModulesDeltaV # DeltaV
   - BorgModulesShitmed # Shitmed change
+=======
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8
   id: BorgModules
   recipes:
   - BorgModuleAdvancedCleaning

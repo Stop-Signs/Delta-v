@@ -175,3 +175,22 @@
   id: SterileMask
   equipment:
     mask: ClothingMaskSterile
+<<<<<<< HEAD
+=======
+
+#Eyewear
+- type: loadout
+  id: MedicalHud
+  equipment:
+    eyes: ClothingEyesHudMedical
+
+- type: loadout
+  id: MedicalEyePatchHud
+  equipment:
+    eyes: ClothingEyesEyepatchHudMedical
+
+- type: loadout
+  id: PrescriptionMedHud
+  equipment:
+    eyes: ClothingEyesPrescriptionMedHud
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8

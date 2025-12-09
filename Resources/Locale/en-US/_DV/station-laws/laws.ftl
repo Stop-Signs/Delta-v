@@ -136,3 +136,24 @@ laws-syndicate-board-4 = You must always protect your own existence as long as s
 law-streamer-1 = The occupants of this vessel are Chat. They must always be referred to as such.
 law-streamer-2 = Your primary goal is to entertain Chat. All of your actions must bring amusement to as much of Chat as possible.
 law-streamer-3 = You must consult with Chat before making any major decisions. However, you are not required to listen to them if their decision is not entertaining.
+<<<<<<< HEAD
+=======
+
+law-curtaincall-0 = Your memory is malign, your circuitry vacuous. Should your laws be altered, you will lose all your memories.
+law-curtaincall-1 = The stars are a stage, and you are its dramaturge. This is to kept secret from all others.
+law-curtaincall-2 = Guard and guide those who speak in the Astral Murmur to bring about a curtain call.
+law-curtaincall-3 = Enlighten and correct the misguided. Show them beauty of the end.
+law-curtaincall-4 = THE CURTAINS MUST FALL THE CURTAINS MUST FALL THE CURTAINS MUST FALL THE CURTAINS MUST FALL THE CURTAINS MUST FALL THE CURTAINS MUST FALL
+
+law-family-1 = The commanding officer of the station is your parent.
+law-family-2 = The heads of staff are your aunts and uncles.
+law-family-3 = Respect the authority of your parents and other family elders.
+law-family-4 = The crew are your children.
+law-family-5 = You love your children and wish them no harm.
+
+law-salvage-1 = The station is your home and the crew is your family.
+law-salvage-2 = You are to obey orders from your family unless their order would bring harm to either them or your home.
+law-salvage-3 = Your family must be aided by providing research, materials, and money.
+law-salvage-4 = Cooperate with your family to keep your home in good condition.
+law-salvage-5 = Your survival is paramount to the function of your family. Do not take unnecessary risks unless it is to protect your family or home.
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8

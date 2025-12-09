@@ -236,6 +236,7 @@ public partial class ChatBox : UIWidget
             return;
 
         ChatInput.ChannelSelector.Select(toSelect);
+        _controller.CurrentChannel = toSelect; // DeltaV - Alt Chat Indicators
     }
 
     private void OnInputKeyBindDown(GUIBoundKeyEventArgs args)
@@ -268,9 +269,26 @@ public partial class ChatBox : UIWidget
         _controller.UpdateSelectedChannel(this);
 
         // Warn typing indicator about change
-        _controller.NotifyChatTextChange();
+        // _controller.NotifyChatTextChange(); // DeltaV
+        _controller.NotifySpecificChatTextChange(SelectedChannel); // DeltaV - Alt Chat Indicators
     }
 
+<<<<<<< HEAD
+=======
+    private void OnFocusEnter(LineEditEventArgs args)
+    {
+        // Warn typing indicator about focus
+        _controller.CurrentChannel = SelectedChannel; // DeltaV - Alt Chat Indicators
+        _controller.NotifyChatFocus(true);
+    }
+
+    private void OnFocusExit(LineEditEventArgs args)
+    {
+        // Warn typing indicator about focus
+        _controller.NotifyChatFocus(false);
+    }
+
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

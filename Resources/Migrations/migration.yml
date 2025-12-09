@@ -669,4 +669,10 @@ VariedXenoArtifactItem: ComplexXenoArtifactItem
 # 2025-11-22 - DeltaV
 SoapBorg: SoapNT
 CableApcStackLingering10: CableApcStack
+<<<<<<< HEAD
 >>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
+=======
+
+# 2025-11-28 - DeltaV
+HoloprojectorEngineeringEmpty: HoloprojectorEngineering
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8

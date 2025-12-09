@@ -14,7 +14,12 @@
     baseDecayRate: 0.0467 #needs to eat more to survive
   - type: Thirst
 
+<<<<<<< HEAD
   - type: Carriable
+=======
+  - type: Inventory
+    speciesId: moth #same eyes
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8
 
   - type: Icon
     sprite: _DV/Mobs/Species/Chitinid/parts.rsi
@@ -161,3 +166,5 @@
   components:
   - type: HumanoidAppearance
     species: Chitinid
+  - type: Inventory
+    speciesId: moth

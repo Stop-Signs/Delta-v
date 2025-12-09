@@ -66,3 +66,37 @@
   - ClothingBackpackDuffelSyndicateCostumeClown
   - MobJonkBot
   - HappyHonk
+<<<<<<< HEAD
+=======
+
+- type: thiefBackpackSet
+  id: RoboNeuroticistPirate
+  name: roboneuroticist-set-pirate-name
+  description: roboneuroticist-set-pirate-description
+  sprite:
+    entity: CannonBall
+  content:
+  - BorgModuleCannon
+  - BorgModuleBuccaneer
+  - BorgModuleBuccaneer
+  - ClothingOuterHardsuitPirateCap
+  - ClothingHeadHatPirate
+  - ClothingHeadHatPirateTricord
+  - ClothingHeadHatPirateTricord
+  - ClothingHeadHatPirateTricord
+
+- type: thiefBackpackSet
+  id: RoboNeuroticistMalpractice
+  name: roboneurotocist-set-malpractice-name
+  description: roboneurotocist-set-malpractice-description
+  sprite:
+    entity: BorgHypo
+  content:
+  - PlayerBorgSyndicateMedicalGhostRole
+  - PowerCellHyper
+  - DefibrillatorSyndicate
+  - ClothingHandsGlovesMechanicalSurgical
+  - ClothingBackpackDuffelSyndicateFilledAutodoc
+  - BorgModuleSleeper
+  - SoapOmega # Scrubadubdub
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8

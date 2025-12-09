@@ -46,6 +46,9 @@
     - type: StationAiOverlay
       cosmetic: true # don't give roboticists reach hacks
   # End DeltaV Additions
+  - type: Tag
+    tags:
+    - HudDiagnostic
   - type: ShowHealthBars
     damageContainers:
     - Inorganic
@@ -261,6 +264,12 @@
     sprite: Clothing/Eyes/Hud/syndagent.rsi
   - type: ShowSyndicateIcons
   - type: ShowHealthBars
+    damageContainers:
+    - Biological
+    - BiologicalMetaphysical # DeltaV - Kitsune
+    - Inorganic # DeltaV
+    - Silicon # DeltaV - Borgs
+    - HumanoidSilicon # DeltaV - IPCs
   - type: Tag
     tags:
     - PetWearable

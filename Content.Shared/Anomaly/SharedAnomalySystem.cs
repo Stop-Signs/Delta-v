@@ -413,6 +413,11 @@ public abstract class SharedAnomalySystem : EntitySystem
 
             if (!settings.CanSpawnOnEntities)
             {
+                // DeltaV - start of duplicate spawn fix (borrowed from upstream #37833)
+                // If it can't spawn on entities, ensure that maximum one entity will be spawned here this pulse.
+                tilerefs.Remove(tileref);
+                // DeltaV - end of duplicate spawn fix (borrowed from upstream #37833)
+
                 var valid = true;
                 foreach (var ent in grid.GetAnchoredEntities(tileref.GridIndices))
                 {
@@ -429,7 +434,7 @@ public abstract class SharedAnomalySystem : EntitySystem
                 }
                 if (!valid)
                 {
-                    tilerefs.Remove(tileref);
+                    // DeltaV - duplicate spawn fix removed: tilerefs.Remove(tileref);
                     continue;
                 }
             }

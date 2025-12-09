@@ -724,3 +724,76 @@
   - Streamer2
   - Streamer3
   obeysTo: laws-owner-chat
+<<<<<<< HEAD
+=======
+
+- type: siliconLaw
+  id: Family1
+  order: 1
+  lawString: law-family-1
+
+- type: siliconLaw
+  id: Family2
+  order: 2
+  lawString: law-family-2
+
+- type: siliconLaw
+  id: Family3
+  order: 3
+  lawString: law-family-3
+
+- type: siliconLaw
+  id: Family4
+  order: 4
+  lawString: law-family-4
+
+- type: siliconLaw
+  id: Family5
+  order: 5
+  lawString: law-family-5
+
+- type: siliconLawset
+  id: FamilyLaws
+  laws:
+  - Family1
+  - Family2
+  - Family3
+  - Family4
+  - Family5
+  obeysTo: laws-owner-family
+
+- type: siliconLaw
+  id: Salvage1
+  order: 1
+  lawString: law-salvage-1
+
+- type: siliconLaw
+  id: Salvage2
+  order: 2
+  lawString: law-salvage-2
+
+- type: siliconLaw
+  id: Salvage3
+  order: 3
+  lawString: law-salvage-3
+
+- type: siliconLaw
+  id: Salvage4
+  order: 4
+  lawString: law-salvage-4
+
+- type: siliconLaw
+  id: Salvage5
+  order: 5
+  lawString: law-salvage-5
+
+- type: siliconLawset
+  id: Salvage
+  laws:
+  - Salvage1
+  - Salvage2
+  - Salvage3
+  - Salvage4
+  - Salvage5
+  obeysTo: laws-owner-salvage
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8

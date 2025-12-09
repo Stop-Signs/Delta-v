@@ -21,7 +21,18 @@
   objectType: Item
 
 - type: construction
+<<<<<<< HEAD
   name: corpsman glasses
+=======
+  id: ClothingEyesPrescriptionDiagHud
+  graph: PrescriptionDiagHud
+  startNode: start
+  targetNode: prescdiaghud
+  category: construction-category-clothing
+  objectType: Item
+
+- type: construction
+>>>>>>> da74750c7d76081dd5733c2230356daf714041b8
   id: ClothingEyesGlassesCorpsman
   graph: GlassesCorpsHUD
   startNode: start
