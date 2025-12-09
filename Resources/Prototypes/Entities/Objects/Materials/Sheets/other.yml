@@ -12,6 +12,10 @@
   - type: Tag
     tags:
     - Sheet
+<<<<<<< HEAD
+=======
+    - ConstructionMaterial
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
@@ -117,6 +121,10 @@
   - type: Tag
     tags:
     - Sheet
+<<<<<<< HEAD
+=======
+    - ConstructionMaterial
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: entity
   parent: SheetPlasma
@@ -149,7 +157,7 @@
     tags:
     - Plastic
     - Sheet
-    - BorgMaterial # DeltaV
+    - ConstructionMaterial
   - type: Material
   - type: PhysicalComposition
     materialComposition:

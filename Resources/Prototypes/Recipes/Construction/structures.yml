@@ -306,7 +306,23 @@
   - !type:TileNotBlocked
 
 - type: construction
+<<<<<<< HEAD
   name: grille
+=======
+  id: Cardwall
+  graph: Cardwall
+  startNode: start
+  targetNode: cardwall
+  category: construction-category-structures
+  conditions:
+  - !type:TileNotBlocked
+    failIfSpace: false
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+
+- type: construction
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   id: Grille
   graph: Grille
   startNode: start
@@ -1655,7 +1671,20 @@
     state: closed
 
 - type: construction
+<<<<<<< HEAD
   name: plastic flaps
+=======
+  id: CardDoor
+  graph: DoorGraph
+  startNode: start
+  targetNode: cardDoor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+
+- type: construction
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   id: PlasticFlapsClear
   name: construction-recipe-plastic-flaps-clear
   graph: PlasticFlapsGraph

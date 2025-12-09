@@ -65,6 +65,7 @@
   - type: Tag
     tags:
     - HudMedical
+    - PetWearable
     - WhitelistChameleon
 
 - type: entity
@@ -80,6 +81,7 @@
   - type: Tag
     tags:
     - HudSecurity
+    - PetWearable
     - WhitelistChameleon
 
 - type: entity
@@ -93,6 +95,10 @@
   - type: Clothing
     sprite: Clothing/Eyes/Hud/command.rsi
   - type: ShowJobIcons
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingEyesBase
@@ -109,6 +115,10 @@
     stealGroup: ClothingEyesHudBeer
   - type: SolutionScanner
   - type: SafeSolutionThrower # DeltaV - Beergoggles enable safe throw
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingEyesBase
@@ -234,6 +244,10 @@
   - type: Clothing
     sprite: Clothing/Eyes/Hud/synd.rsi
   - type: ShowSyndicateIcons
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: [ClothingEyesBase, ShowSecurityIcons, BaseSyndicateContraband]
@@ -247,6 +261,10 @@
     sprite: Clothing/Eyes/Hud/syndagent.rsi
   - type: ShowSyndicateIcons
   - type: ShowHealthBars
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: [ClothingEyesGlassesSunglasses, ShowSecurityIcons]
@@ -263,6 +281,11 @@
     sprite: Clothing/Eyes/Hud/medpatch.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/medpatch.rsi
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
+    - HudMedical
 
 - type: entity
   parent: [ClothingEyesEyepatchHudMedical, ClothingHeadEyeBaseFlipped]
@@ -279,6 +302,11 @@
     sprite: Clothing/Eyes/Hud/secpatch.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/secpatch.rsi
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
+    - HudSecurity
 
 - type: entity
   parent: [ClothingEyesEyepatchHudSecurity,  ClothingHeadEyeBaseFlipped]

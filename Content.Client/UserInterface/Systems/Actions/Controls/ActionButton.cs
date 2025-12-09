@@ -3,15 +3,22 @@ using Content.Client.Actions;
 using Content.Client.Actions.UI;
 using Content.Client.Cooldown;
 using Content.Client.Stylesheets;
+<<<<<<< HEAD
 using Content.Shared.Actions;
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Content.Shared.Actions.Components;
-using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
+<<<<<<< HEAD
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+using Content.Shared.Examine;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
+using Robust.Client.Player;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input;
@@ -26,6 +33,7 @@ namespace Content.Client.UserInterface.Systems.Actions.Controls;
 public sealed class ActionButton : Control, IEntityControl
 {
     private IEntityManager _entities;
+    private IPlayerManager _player;
     private SpriteSystem? _spriteSys;
     private ActionUIController? _controller;
     private bool _beingHovered;
@@ -69,6 +77,7 @@ public sealed class ActionButton : Control, IEntityControl
         // TODO why is this constructor so slooooow. The rest of the code is fine
 
         _entities = entities;
+        _player = IoCManager.Resolve<IPlayerManager>();
         _spriteSys = spriteSys;
         _controller = controller;
 
@@ -198,6 +207,7 @@ public sealed class ActionButton : Control, IEntityControl
             return null;
 
         var name = FormattedMessage.FromMarkupPermissive(Loc.GetString(metadata.EntityName));
+<<<<<<< HEAD
         var decr = FormattedMessage.FromMarkupPermissive(Loc.GetString(metadata.EntityDescription));
 
 <<<<<<< HEAD
@@ -221,6 +231,19 @@ public sealed class ActionButton : Control, IEntityControl
         }
 
         return new ActionAlertTooltip(name, decr);
+=======
+        var desc = FormattedMessage.FromMarkupPermissive(Loc.GetString(metadata.EntityDescription));
+
+        if (_player.LocalEntity is null)
+            return null;
+
+        var ev = new ExaminedEvent(desc, Action.Value, _player.LocalEntity.Value, true, !desc.IsEmpty);
+        _entities.EventBus.RaiseLocalEvent(Action.Value.Owner, ev);
+
+        var newDesc = ev.GetTotalMessage();
+
+        return new ActionAlertTooltip(name, newDesc);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 
     protected override void ControlFocusExited()

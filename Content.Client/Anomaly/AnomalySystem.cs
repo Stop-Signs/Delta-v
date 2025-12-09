@@ -61,11 +61,17 @@ public sealed class AnomalySystem : SharedAnomalySystem
     {
         base.Update(frameTime);
 
-        var query = EntityQueryEnumerator<AnomalySupercriticalComponent, SpriteComponent>();
+        var query = EntityQueryEnumerator<AnomalyComponent, AnomalySupercriticalComponent, SpriteComponent>();
 
+<<<<<<< HEAD
         while (query.MoveNext(out var super, out var sprite))
         {
             var completion = 1f - (float) ((super.EndTime - _timing.CurTime) / super.SupercriticalDuration);
+=======
+        while (query.MoveNext(out var uid, out var anomaly, out var super, out var sprite))
+        {
+            var completion = 1f - (float) ((super.EndTime - _timing.CurTime) / anomaly.SupercriticalDuration);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             var scale = completion * (super.MaxScaleAmount - 1f) + 1f;
             sprite.Scale = new Vector2(scale, scale);
 

@@ -1,12 +1,118 @@
+<<<<<<< HEAD
 using Content.Shared.Inventory;
 using Content.Shared.Movement.Components;
+=======
+using Content.Shared.CCVar;
+using Content.Shared.Inventory;
+using Content.Shared.Movement.Components;
+using Content.Shared.Standing;
+using Robust.Shared.Configuration;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Robust.Shared.Timing;
+
 
 namespace Content.Shared.Movement.Systems
 {
     public sealed class MovementSpeedModifierSystem : EntitySystem
     {
         [Dependency] private readonly IGameTiming _timing = default!;
+<<<<<<< HEAD
+=======
+        [Dependency] private readonly IConfigurationManager _configManager = default!;
+
+        private float _frictionModifier;
+        private float _airDamping;
+        private float _offGridDamping;
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            SubscribeLocalEvent<MovementSpeedModifierComponent, MapInitEvent>(OnModMapInit);
+            SubscribeLocalEvent<MovementSpeedModifierComponent, DownedEvent>(OnDowned);
+            SubscribeLocalEvent<MovementSpeedModifierComponent, StoodEvent>(OnStand);
+
+            Subs.CVar(_configManager, CCVars.TileFrictionModifier, value => _frictionModifier = value, true);
+            Subs.CVar(_configManager, CCVars.AirFriction, value => _airDamping = value, true);
+            Subs.CVar(_configManager, CCVars.OffgridFriction, value => _offGridDamping = value, true);
+        }
+
+        private void OnModMapInit(Entity<MovementSpeedModifierComponent> ent, ref MapInitEvent args)
+        {
+            // TODO: Dirty these smarter.
+            ent.Comp.WeightlessAcceleration = ent.Comp.BaseWeightlessAcceleration;
+            ent.Comp.WeightlessModifier = ent.Comp.BaseWeightlessModifier;
+            ent.Comp.WeightlessFriction = _airDamping * ent.Comp.BaseWeightlessFriction;
+            ent.Comp.WeightlessFrictionNoInput = _airDamping * ent.Comp.BaseWeightlessFriction;
+            ent.Comp.OffGridFriction = _offGridDamping * ent.Comp.BaseWeightlessFriction;
+            ent.Comp.Acceleration = ent.Comp.BaseAcceleration;
+            ent.Comp.Friction = _frictionModifier * ent.Comp.BaseFriction;
+            ent.Comp.FrictionNoInput = _frictionModifier * ent.Comp.BaseFriction;
+            Dirty(ent);
+        }
+
+        private void OnDowned(Entity<MovementSpeedModifierComponent> entity, ref DownedEvent args)
+        {
+            RefreshFrictionModifiers(entity);
+            RefreshMovementSpeedModifiers(entity);
+        }
+
+        private void OnStand(Entity<MovementSpeedModifierComponent> entity, ref StoodEvent args)
+        {
+            RefreshFrictionModifiers(entity);
+            RefreshMovementSpeedModifiers(entity);
+        }
+
+        /// <summary>
+        /// Copy this component's datafields from one entity to another.
+        /// This needs to refresh the modifiers after using CopyComp.
+        /// <summary>
+        public void CopyComponent(Entity<MovementSpeedModifierComponent?> source, EntityUid target)
+        {
+            if (!Resolve(source, ref source.Comp))
+                return;
+
+            CopyComp(source, target, source.Comp);
+            RefreshWeightlessModifiers(target);
+            RefreshMovementSpeedModifiers(target);
+            RefreshFrictionModifiers(target);
+        }
+
+        public void RefreshWeightlessModifiers(EntityUid uid, MovementSpeedModifierComponent? move = null)
+        {
+            if (!Resolve(uid, ref move, false))
+                return;
+
+            if (_timing.ApplyingState)
+                return;
+
+            var ev = new RefreshWeightlessModifiersEvent()
+            {
+                WeightlessAcceleration = move.BaseWeightlessAcceleration,
+                WeightlessAccelerationMod = 1.0f,
+                WeightlessModifier = move.BaseWeightlessModifier,
+                WeightlessFriction = move.BaseWeightlessFriction,
+                WeightlessFrictionMod = 1.0f,
+                WeightlessFrictionNoInput = move.BaseWeightlessFriction,
+                WeightlessFrictionNoInputMod = 1.0f,
+            };
+
+            RaiseLocalEvent(uid, ref ev);
+
+            if (MathHelper.CloseTo(ev.WeightlessAcceleration, move.WeightlessAcceleration) &&
+                MathHelper.CloseTo(ev.WeightlessModifier, move.WeightlessModifier) &&
+                MathHelper.CloseTo(ev.WeightlessFriction, move.WeightlessFriction) &&
+                MathHelper.CloseTo(ev.WeightlessFrictionNoInput, move.WeightlessFrictionNoInput))
+            {
+                return;
+            }
+
+            move.WeightlessAcceleration = ev.WeightlessAcceleration * ev.WeightlessAccelerationMod;
+            move.WeightlessModifier = ev.WeightlessModifier;
+            move.WeightlessFriction = _airDamping * ev.WeightlessFriction * ev.WeightlessFrictionMod;
+            move.WeightlessFrictionNoInput = _airDamping * ev.WeightlessFrictionNoInput * ev.WeightlessFrictionNoInputMod;
+            Dirty(uid, move);
+        }
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         public void RefreshMovementSpeedModifiers(EntityUid uid, MovementSpeedModifierComponent? move = null)
         {

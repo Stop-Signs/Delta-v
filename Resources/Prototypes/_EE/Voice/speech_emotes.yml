@@ -10,18 +10,30 @@
   icon: _DV/Interface/Emotes/ecg.png # DeltaV - Added icon
   category: Vocal
   whitelist:
+<<<<<<< HEAD
     components:
     - Silicon
   chatMessages: [ boops ]
+=======
+    tags: # DeltaV - let borgs, bots, and IPCs use it
+    - SiliconOrIPCEmotes
+  chatMessages: [ boops. ] # DeltaV - period
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   chatTriggers:
     - boops
 
 - type: emote
   id: Whirr # uncategorized as it is generic
   whitelist:
+<<<<<<< HEAD
     components:
     - Silicon
+=======
+    tags: # DeltaV - let borgs, bots, and IPCs use it
+    - SiliconOrIPCEmotes
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   name: chat-emote-name-whirr
-  chatMessages: [ whirrs ]
+  chatMessages: [ whirrs. ] # DeltaV - period
   chatTriggers:
+    - whirr
     - whirrs

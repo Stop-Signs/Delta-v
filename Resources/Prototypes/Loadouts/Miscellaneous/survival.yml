@@ -27,6 +27,8 @@
     - Chitinid
     - Thaven
     - Kitsune
+    - Avali
+    - Ovinia
     # End DeltaV additions
 
 - type: loadoutEffectGroup
@@ -75,6 +77,38 @@
     - BoxHugNitrogen
 
 # Mime
+<<<<<<< HEAD
+=======
+- type: loadoutEffectGroup
+  id: OxygenBreatherMime
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species:
+    - Arachnid
+    - Diona
+    - Dwarf
+    - Human
+    - Reptilian
+    # Begin DeltaV additions
+    - Felinid
+    - Harpy
+    - Oni
+    - Vulpkanin
+    - Rodentia
+    - Chitinid
+    - Thaven
+    - Kitsune
+    - Avali
+    # End DeltaV additions
+
+- type: loadoutEffectGroup
+  id: OxygenBreatherMimeMoth
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species:
+    - Moth
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 - type: loadout
   id: EmergencyOxygenMime
   effects:

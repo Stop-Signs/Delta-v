@@ -23,4 +23,16 @@ roles-antag-nuclear-operative-corpsman-objective = The team's combat medic taske
 
 roles-antag-menace-skeleton-name = Menace Skeleton
 roles-antag-menace-skeleton-objective = Rattle 'Em
+<<<<<<< HEAD
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+
+roles-antag-skia-name = Skia
+roles-antag-skia-objective = Rend souls from the living.
+
+roles-antag-syndicate-armsdealer-name = Arms Dealer
+roles-antag-syndicate-armsdealer-objective = Sell your firearms and stay away from the law.
+
+roles-antag-asakim-name = Asakim
+roles-antag-asakim-objective = Serve the ancient directives of your ship's AI.
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

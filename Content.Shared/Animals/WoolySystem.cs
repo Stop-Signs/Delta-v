@@ -22,7 +22,6 @@ public sealed class WoolySystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<WoolyComponent, BeforeFullyEatenEvent>(OnBeforeFullyEaten);
         SubscribeLocalEvent<WoolyComponent, MapInitEvent>(OnMapInit);
     }
 
@@ -53,7 +52,7 @@ public sealed class WoolySystem : EntitySystem
                 continue;
 
             // Actually there is food digestion so no problem with instant reagent generation "OnFeed"
-            if (EntityManager.TryGetComponent(uid, out HungerComponent? hunger))
+            if (TryComp(uid, out HungerComponent? hunger))
             {
                 // Is there enough nutrition to produce reagent?
                 if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
@@ -64,11 +63,5 @@ public sealed class WoolySystem : EntitySystem
 
             _solutionContainer.TryAddReagent(wooly.Solution.Value, wooly.ReagentId, wooly.Quantity, out _);
         }
-    }
-
-    private void OnBeforeFullyEaten(Entity<WoolyComponent> ent, ref BeforeFullyEatenEvent args)
-    {
-        // don't want moths to delete goats after eating them
-        args.Cancel();
     }
 }

@@ -7,7 +7,17 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 
 namespace Content.Shared.Configurable
 {
+<<<<<<< HEAD
     [RegisterComponent, NetworkedComponent]
+=======
+    /// <summary>
+    /// Configuration for mailing units.
+    /// </summary>
+    /// <remarks>
+    /// If you want a more detailed description ask the original coder.
+    /// </remarks>
+    [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     public sealed partial class ConfigurationComponent : Component
     {
         [DataField("config")]

@@ -29,11 +29,20 @@
   group: market
 
 - type: cargoProduct
+<<<<<<< HEAD
   id: OilPackCrate
   icon:
     sprite: _DV/Objects/Medical/Oilpack.rsi
     state: icon
   product: CrateOilPack
   cost: 1000
+=======
+  id: ViralCarePackageCrate
+  icon:
+    sprite: Objects/Specific/Chemistry/jug.rsi
+    state: jug
+  product: CrateViralCarePackage
+  cost: 10000
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   category: Medical
   group: market

@@ -1,13 +1,18 @@
-namespace Content.Server.Bed.Components
+using Content.Shared.Buckle.Components;
+using Robust.Shared.GameStates;
+
+namespace Content.Shared.Bed.Components;
+
+/// <summary>
+/// A <see cref="StrapComponent"/> that modifies a strapped entity's metabolic rate by the given multiplier
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[Access(typeof(SharedBedSystem))]
+public sealed partial class StasisBedComponent : Component
 {
-    [RegisterComponent]
-    public sealed partial class StasisBedComponent : Component
-    {
-        /// <summary>
-        /// What the metabolic update rate will be multiplied by (higher = slower metabolism)
-        /// </summary>
-        [ViewVariables(VVAccess.ReadOnly)] // Writing is is not supported. ApplyMetabolicMultiplierEvent needs to be refactored first
-        [DataField]
-        public float Multiplier = 10f;
-    }
+    /// <summary>
+    /// What the metabolic update rate will be multiplied by (higher = slower metabolism)
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float Multiplier = 10f;
 }

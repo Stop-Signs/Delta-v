@@ -31,6 +31,11 @@
   - HoloprojectorField
   - SignallerAdvanced
   - DeviceQuantumSpinInverter
+<<<<<<< HEAD
+=======
+  - DeviceDesynchronizer
+  # - ClothingBackpackHarmpack # DeltaV - HARMPACKS deemed harmful
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: latheRecipePack
   id: ScienceClothing
@@ -38,6 +43,7 @@
   - ClothingShoesBootsMagSci
   - ClothingShoesBootsMoon
   - ClothingShoesBootsSpeed
+  - ClothingShoesBootsJump
   - ClothingBackpackHolding
   - ClothingBackpackSatchelHolding
   - ClothingBackpackDuffelHolding

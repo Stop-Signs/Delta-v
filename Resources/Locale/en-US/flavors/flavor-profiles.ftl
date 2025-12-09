@@ -53,6 +53,11 @@ flavor-base-horrible = horrible
 flavor-base-terrible = terrible
 flavor-base-mindful = mindful
 flavor-base-chewy = chewy
+<<<<<<< HEAD
+=======
+flavor-base-trashy = trashy
+flavor-base-motivating = motivating
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 # Complex flavors. Put a flavor here when you want something that's more
 # specific.

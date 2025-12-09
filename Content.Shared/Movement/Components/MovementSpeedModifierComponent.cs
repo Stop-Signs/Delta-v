@@ -14,9 +14,13 @@ namespace Content.Shared.Movement.Components
         // Weightless
         public const float DefaultMinimumFrictionSpeed = 0.005f;
         public const float DefaultWeightlessFriction = 1f;
+<<<<<<< HEAD
         public const float DefaultWeightlessFrictionNoInput = 0.2f;
         public const float DefaultOffGridFriction = 0.05f;
         public const float DefaultWeightlessModifier = 0.7f;
+=======
+        public const float DefaultWeightlessModifier = 0.70f;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         public const float DefaultWeightlessAcceleration = 1f;
 
         public const float DefaultAcceleration = 20f;

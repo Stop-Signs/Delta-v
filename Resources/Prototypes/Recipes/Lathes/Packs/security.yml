@@ -87,6 +87,7 @@
   - PowerCageMedium
   - PowerCageSmall
   - TelescopicShield
+  #- ClothingBackpackHarmpack # DeltaV - HARMPACKS deemed harmful
 
 - type: latheRecipePack
   id: SecurityBoards

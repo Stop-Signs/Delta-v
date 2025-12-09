@@ -47,6 +47,24 @@ namespace Content.Client.Credits
             PopulateContributors(Ss14ContributorsContainer);
             PopulatePatrons(PatronsContainer);
             PopulateLicenses(LicensesContainer);
+<<<<<<< HEAD
+=======
+        else if (tab == AttributionsTab.GetPositionInParent())
+            PopulateAttributions(AttributionsContainer, 0);
+    }
+
+    private async void PopulateAttributions(BoxContainer attributionsContainer, int count)
+    {
+        attributionsContainer.RemoveAllChildren();
+
+        if (_attributions.Count == 0)
+        {
+            var rsi = await CollectRSiAttributions();
+            var rga = await CollectRgaAttributions();
+
+            _attributions.AddRange(rsi);
+            _attributions.AddRange(rga);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         }
 
         private void PopulateLicenses(BoxContainer licensesContainer)
@@ -95,7 +113,18 @@ namespace Content.Client.Credits
                 first = false;
                 patronsContainer.AddChild(new Label {StyleClasses = {StyleBase.StyleClassLabelHeading}, Text = $"{tier.Key}"});
 
+<<<<<<< HEAD
                 var msg = string.Join(", ", tier.OrderBy(p => p.Name).Select(p => p.Name));
+=======
+    private void PopulateLicenses(BoxContainer licensesContainer)
+    {
+        licensesContainer.RemoveAllChildren();
+
+        foreach (var entry in CreditsManager.GetLicenses(_resourceManager).OrderBy(p => p.Name))
+        {
+            licensesContainer.AddChild(new Label
+                { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = entry.Name });
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
                 var label = new RichTextLabel();
                 label.SetMessage(msg);
@@ -104,7 +133,20 @@ namespace Content.Client.Credits
             }
         }
 
+<<<<<<< HEAD
         private IEnumerable<PatronEntry> LoadPatrons()
+=======
+    private void PopulatePatrons(BoxContainer patronsContainer)
+    {
+        patronsContainer.RemoveAllChildren();
+
+        var patrons = LoadPatrons();
+
+        // Do not show "become a patron" button on Steam builds
+        // since Patreon violates Valve's rules about alternative storefronts.
+        var linkPatreon = _cfg.GetCVar(CCVars.InfoLinksPatreon);
+        if (!_cfg.GetCVar(CCVars.BrandingSteam) && linkPatreon != "")
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         {
             var yamlStream = _resourceManager.ContentFileReadYaml(new ("/Credits/Patrons.yml"));
             var sequence = (YamlSequenceNode) yamlStream.Documents[0].RootNode;
@@ -132,7 +174,51 @@ namespace Content.Client.Credits
 
             var first = true;
 
+<<<<<<< HEAD
             void AddSection(string title, string path, bool markup = false)
+=======
+        var first = true;
+        foreach (var tier in patrons.GroupBy(p => p.Tier).OrderBy(p => PatronTierPriority[p.Key]))
+        {
+            if (!first)
+                patronsContainer.AddChild(new Control { MinSize = new Vector2(0, 10) });
+
+            first = false;
+            patronsContainer.AddChild(new Label
+                { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = $"{tier.Key}" });
+
+            var msg = string.Join(", ", tier.OrderBy(p => p.Name).Select(p => p.Name));
+
+            var label = new RichTextLabel();
+            label.SetMessage(msg);
+
+            patronsContainer.AddChild(label);
+        }
+    }
+
+    private IEnumerable<PatronEntry> LoadPatrons()
+    {
+        var yamlStream = _resourceManager.ContentFileReadYaml(new ResPath("/Credits/Patrons.yml"));
+        var sequence = (YamlSequenceNode)yamlStream.Documents[0].RootNode;
+
+        return sequence
+            .Cast<YamlMappingNode>()
+            .Select(m => new PatronEntry(m["Name"].AsString(), m["Tier"].AsString()));
+    }
+
+    private void PopulateContributors(BoxContainer ss14ContributorsContainer)
+    {
+        ss14ContributorsContainer.RemoveAllChildren();
+
+        Button contributeButton;
+
+        ss14ContributorsContainer.AddChild(new BoxContainer
+        {
+            Orientation = LayoutOrientation.Horizontal,
+            HorizontalAlignment = HAlignment.Center,
+            SeparationOverride = 20,
+            Children =
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             {
                 if (!first)
                 {
@@ -170,7 +256,31 @@ namespace Content.Client.Credits
                 contributeButton.Visible = false;
         }
 
+<<<<<<< HEAD
         private sealed class PatronEntry
+=======
+        AddSection(Loc.GetString("credits-window-contributors-section-title"), "GitHub.txt");
+        AddSection(Loc.GetString("credits-window-codebases-section-title"), "SpaceStation13.txt");
+        AddSection(Loc.GetString("credits-window-original-remake-team-section-title"), "OriginalRemake.txt");
+        AddSection(Loc.GetString("credits-window-immortals-title"), "Immortals.txt", true);
+        AddSection(Loc.GetString("credits-window-special-thanks-section-title"), "SpecialThanks.txt", true);
+
+        var linkGithub = _cfg.GetCVar(CCVars.InfoLinksGithub);
+
+        contributeButton.OnPressed += _ =>
+            IoCManager.Resolve<IUriOpener>().OpenUri(linkGithub);
+
+        if (linkGithub == "")
+            contributeButton.Visible = false;
+    }
+
+    private sealed class PatronEntry
+    {
+        public string Name { get; }
+        public string Tier { get; }
+
+        public PatronEntry(string name, string tier)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         {
             public string Name { get; }
             public string Tier { get; }

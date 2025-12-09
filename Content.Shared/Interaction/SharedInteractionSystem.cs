@@ -9,6 +9,7 @@ using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Input;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Interaction.Events;
@@ -57,6 +58,13 @@ namespace Content.Shared.Interaction
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
         [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+<<<<<<< HEAD
+=======
+        [Dependency] private readonly EntityLookupSystem _lookup = default!;
+        [Dependency] private readonly SharedHandsSystem _hands = default!;
+        [Dependency] private readonly InventorySystem _inventory = default!;
+        [Dependency] private readonly PullingSystem _pullSystem = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         [Dependency] private readonly RotateToFaceSystem _rotateToFaceSystem = default!;
         [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
         [Dependency] private readonly SharedMapSystem _map = default!;
@@ -84,7 +92,11 @@ namespace Content.Shared.Interaction
         private EntityQuery<UseDelayComponent> _delayQuery;
         private EntityQuery<ActivatableUIComponent> _uiQuery;
 
-        private const CollisionGroup InRangeUnobstructedMask = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
+        /// <summary>
+        /// The collision mask used by default for
+        /// <see cref="InRangeUnobstructed(MapCoordinates,MapCoordinates,float,CollisionGroup,Ignored?,bool)" />
+        /// </summary>
+        public const CollisionGroup InRangeUnobstructedMask = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
 
         public const float InteractionRange = 1.5f;
         public const float InteractionRangeSquared = InteractionRange * InteractionRange;
@@ -339,7 +351,7 @@ namespace Content.Shared.Interaction
         public bool CombatModeCanHandInteract(EntityUid user, EntityUid? target)
         {
             // Always allow attack in these cases
-            if (target == null || !_handsQuery.TryComp(user, out var hands) || hands.ActiveHand?.HeldEntity is not null)
+            if (target == null || !_handsQuery.TryComp(user, out var hands) || _hands.GetActiveItem((user, hands)) is not null)
                 return false;
 
             // Only eat input if:
@@ -742,7 +754,7 @@ namespace Content.Shared.Interaction
             var inRange = true;
             MapCoordinates originPos = default;
             var targetPos = _transform.ToMapCoordinates(otherCoordinates);
-            Angle targetRot = default;
+            Angle targetRot = _transform.GetWorldRotation(otherCoordinates.EntityId) + otherAngle;
 
             // So essentially:
             // 1. If fixtures available check nearest point. We take in coordinates / angles because we might want to use a lag compensated position
@@ -761,8 +773,7 @@ namespace Content.Shared.Interaction
             {
                 var (worldPosA, worldRotA) = _transform.GetWorldPositionRotation(origin.Comp);
                 var xfA = new Transform(worldPosA, worldRotA);
-                var parentRotB = _transform.GetWorldRotation(otherCoordinates.EntityId);
-                var xfB = new Transform(targetPos.Position, parentRotB + otherAngle);
+                var xfB = new Transform(targetPos.Position, targetRot);
 
                 // Different map or the likes.
                 if (!_broadphase.TryGetNearest(
@@ -804,8 +815,6 @@ namespace Content.Shared.Interaction
             else
             {
                 originPos = _transform.GetMapCoordinates(origin, origin);
-                var otherParent = (other.Comp ?? Transform(other)).ParentUid;
-                targetRot = otherParent.IsValid() ? Transform(otherParent).LocalRotation + otherAngle : otherAngle;
             }
 
             // Do a raycast to check if relevant
@@ -846,7 +855,7 @@ namespace Content.Shared.Interaction
         /// if the target entity is a wallmount we ignore all other entities on the tile.
         /// </example>
         private Ignored GetPredicate(
-            MapCoordinates origin,
+            MapCoordinates originCoords,
             EntityUid target,
             MapCoordinates targetCoords,
             Angle targetRotation,
@@ -859,7 +868,24 @@ namespace Content.Shared.Interaction
             {
                 // If the target is an item, we ignore any colliding entities. Currently done so that if items get stuck
                 // inside of walls, users can still pick them up.
+<<<<<<< HEAD
                 ignored.UnionWith(_broadphase.GetEntitiesIntersectingBody(target, (int) collisionMask, false, physics));
+=======
+                // TODO: Bandaid, alloc spam
+                // We use 0.01 range just in case it's perfectly in between 2 walls and 1 gets missed.
+                foreach (var otherEnt in _lookup.GetEntitiesInRange(target, 0.01f, flags: LookupFlags.Static))
+                {
+                    if (target == otherEnt ||
+                        !_physicsQuery.TryComp(otherEnt, out var otherBody) ||
+                        !otherBody.CanCollide ||
+                        ((int)collisionMask & otherBody.CollisionLayer) == 0x0)
+                    {
+                        continue;
+                    }
+
+                    ignored.Add(otherEnt);
+                }
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             }
             else if (_wallMountQuery.TryComp(target, out var wallMount))
             {
@@ -870,7 +896,7 @@ namespace Content.Shared.Interaction
                     ignoreAnchored = true;
                 else
                 {
-                    var angle = Angle.FromWorldVec(origin.Position - targetCoords.Position);
+                    var angle = Angle.FromWorldVec(originCoords.Position - targetCoords.Position);
                     var angleDelta = (wallMount.Direction + targetRotation - angle).Reduced().FlipPositive();
                     ignoreAnchored = angleDelta < wallMount.Arc / 2 || Math.Tau - angleDelta < wallMount.Arc / 2;
                 }

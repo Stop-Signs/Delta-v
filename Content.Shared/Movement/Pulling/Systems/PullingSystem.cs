@@ -81,6 +81,40 @@ public sealed class PullingSystem : EntitySystem
             .Register<PullingSystem>();
     }
 
+<<<<<<< HEAD
+=======
+    private void HandlePullStarted(EntityUid uid, HandsComponent component, PullStartedMessage args)
+    {
+        if (args.PullerUid != uid)
+            return;
+
+        if (TryComp(args.PullerUid, out PullerComponent? pullerComp) && !pullerComp.NeedsHands)
+            return;
+
+        if (!_virtual.TrySpawnVirtualItemInHand(args.PulledUid, uid))
+        {
+            DebugTools.Assert("Unable to find available hand when starting pulling??");
+        }
+    }
+
+    private void HandlePullStopped(EntityUid uid, HandsComponent component, PullStoppedMessage args)
+    {
+        if (args.PullerUid != uid)
+            return;
+
+        // Try find hand that is doing this pull.
+        // and clear it.
+        foreach (var held in _handsSystem.EnumerateHeld((uid, component)))
+        {
+            if (!TryComp(held, out VirtualItemComponent? virtualItem) || virtualItem.BlockingEntity != args.PulledUid)
+                continue;
+
+            _handsSystem.TryDrop((args.PullerUid, component), held);
+            break;
+        }
+    }
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     private void OnStateChanged(EntityUid uid, PullerComponent component, ref UpdateMobStateEvent args)
     {
         if (component.Pulling == null)
@@ -188,7 +222,7 @@ public sealed class PullingSystem : EntitySystem
         if (component.Pulling != args.BlockingEntity)
             return;
 
-        if (EntityManager.TryGetComponent(args.BlockingEntity, out PullableComponent? comp))
+        if (TryComp(args.BlockingEntity, out PullableComponent? comp))
         {
             TryStopPull(args.BlockingEntity, comp);
         }
@@ -376,7 +410,7 @@ public sealed class PullingSystem : EntitySystem
             return false;
         }
 
-        if (!EntityManager.TryGetComponent<PhysicsComponent>(pullableUid, out var physics))
+        if (!TryComp<PhysicsComponent>(pullableUid, out var physics))
         {
             return false;
         }

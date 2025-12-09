@@ -125,8 +125,15 @@
   - type: Slippery
     slipSound:
       path: /Audio/Effects/glass_step.ogg
+<<<<<<< HEAD
     launchForwardsMultiplier: 0
   - type: DamageUserOnTrigger
+=======
+    slipData:
+      launchForwardsMultiplier: 0
+  - type: DamageOnTrigger
+    targetUser: true
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     damage:
       types:
         Piercing: 5

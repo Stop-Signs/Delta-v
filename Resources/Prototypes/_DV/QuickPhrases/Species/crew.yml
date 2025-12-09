@@ -78,3 +78,26 @@
   id: SpeciesKitsunePhrase
   parent: BaseCrewSpeciesPhrase
   text: species-name-kitsune
+<<<<<<< HEAD
+=======
+
+- type: quickPhrase
+  id: SpeciesIPCPhrase
+  parent: BaseCrewSpeciesPhrase
+  text: species-name-ipc
+
+- type: quickPhrase
+  id: SpeciesKThavenPhrase
+  parent: BaseCrewSpeciesPhrase
+  text: species-name-thaven
+
+- type: quickPhrase
+  id: SpeciesChitnidePhrase
+  parent: BaseCrewSpeciesPhrase
+  text: species-name-chitinid
+
+- type: quickPhrase
+  id: SpeciesAvaliPhrase
+  parent: BaseCrewSpeciesPhrase
+  text: species-name-avali
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

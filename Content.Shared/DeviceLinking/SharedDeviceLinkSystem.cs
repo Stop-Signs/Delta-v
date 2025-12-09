@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.DeviceLinking.Events;
@@ -140,6 +141,11 @@ public abstract class SharedDeviceLinkSystem : EntitySystem
         }
     }
 
+    public ProtoId<SourcePortPrototype>[] GetSourcePortIds(Entity<DeviceLinkSourceComponent> source)
+    {
+        return source.Comp.Ports.ToArray();
+    }
+
     /// <summary>
     /// Retrieves the available ports from a source
     /// </summary>
@@ -156,6 +162,11 @@ public abstract class SharedDeviceLinkSystem : EntitySystem
         }
 
         return sourcePorts;
+    }
+
+    public ProtoId<SinkPortPrototype>[] GetSinkPortIds(Entity<DeviceLinkSinkComponent> source)
+    {
+        return source.Comp.Ports.ToArray();
     }
 
     /// <summary>

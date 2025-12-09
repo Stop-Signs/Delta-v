@@ -38,7 +38,20 @@ public sealed partial class CCVars
         CVarDef.Create("outline.enabled", true, CVar.CLIENTONLY);
 
     /// <summary>
+<<<<<<< HEAD
     /// If true, the admin overlay will be displayed in the old style (showing only "ANTAG")
+=======
+    /// Determines the color to use when highlighting search results in the admin log browser.
+    /// </summary>
+    public static readonly CVarDef<string> AdminLogsHighlightColor =
+        CVarDef.Create("ui.admin_logs_highlight_color", Color.Red.ToHex(), CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Determines how antagonist status/roletype is displayed. Based on AdminOverlayAntagFormats enum
+    /// Binary: Roletypes of interest get an "ANTAG" label
+    /// Roletype: Roletypes of interest will have their roletype name displayed in their specific color
+    /// Subtype: Roletypes of interest will have their subtype displayed. if subtype is not set, roletype will be shown.
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     /// </summary>
     public static readonly CVarDef<bool> AdminOverlayClassic =
         CVarDef.Create("ui.admin_overlay_classic", false, CVar.CLIENTONLY | CVar.ARCHIVE);

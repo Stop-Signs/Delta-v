@@ -49,6 +49,9 @@ ui-options-misc-label = Misc
 ui-options-interface-label = Interface
 
 
+ui-options-auto-fill-highlights = Auto-fill the highlights with the character's information
+ui-options-highlights-color = Highlights color:
+ui-options-highlights-color-example = This is highlighted text.
 ui-options-show-held-item = Show held item next to cursor
 ui-options-show-combat-mode-indicators = Show combat mode indicators with cursor
 ui-options-opaque-storage-window = Opaque storage window
@@ -89,12 +92,16 @@ ui-options-vp-integer-scaling-tooltip = If this option is enabled, the viewport 
                                         at specific resolutions. While this results in crisp textures, it also often
                                         means that black bars appear at the top/bottom of the screen or that part
                                         of the viewport is not visible.
+ui-options-filter-label = Scaling filter:
+ui-options-filter-nearest = Nearest (no smoothing)
+ui-options-filter-bilinear = Bilinear (smoothed)
 ui-options-vp-vertical-fit = Vertical viewport fitting
 ui-options-vp-vertical-fit-tooltip = When enabled, the main viewport will ignore the horizontal axis entirely when
                                      fitting to your screen. If your screen is smaller than the viewport, then this
                                      will cause the viewport to be cut off on the horizontal axis.
 ui-options-vp-low-res = Low-resolution viewport
 ui-options-parallax-low-quality = Low-quality Parallax (background)
+ui-options-ambient-occlusion = Show Ambient Occlusion
 ui-options-fps-counter = Show FPS counter
 ui-options-vp-width = Viewport width:
 ui-options-hud-layout = HUD layout:
@@ -132,6 +139,7 @@ ui-options-function-move-left = Move Left
 ui-options-function-move-down = Move Down
 ui-options-function-move-right = Move Right
 ui-options-function-walk = Walk
+ui-options-function-toggle-knockdown = Toggle Crawling
 
 ui-options-function-camera-rotate-left = Rotate left
 ui-options-function-camera-rotate-right = Rotate right
@@ -357,7 +365,11 @@ ui-options-admin-playerlist-separate-symbols = Show separate symbols for each an
 ui-options-admin-playerlist-character-color = Color names of antagonist characters
 ui-options-admin-playerlist-roletype-color = Color role types
 
+ui-options-admin-logs-title = Admin Logs
+ui-options-admin-logs-highlight-color = Highlight Color
+
 ui-options-admin-overlay-title = Admin Overlay
+<<<<<<< HEAD
 ui-options-enable-classic-overlay = Revert overlay to classic mode
 ui-options-enable-overlay-symbols = Add antag symbol to text
 ui-options-enable-overlay-playtime = Show playtime
@@ -365,3 +377,22 @@ ui-options-enable-overlay-starting-job = Show starting job
 ui-options-overlay-merge-distance = Stack merge distance
 ui-options-overlay-ghost-fade-distance = Ghost overlay fade range from mouse
 ui-options-overlay-ghost-hide-distance = Ghost overlay hide range from mouse
+=======
+
+ui-options-admin-overlay-antag-format = Antag label style
+ui-options-admin-overlay-antag-format-binary = Show antag status
+ui-options-admin-overlay-antag-format-roletype = Show role type
+ui-options-admin-overlay-antag-format-subtype = Show subtype
+
+ui-options-admin-overlay-antag-symbol = Antag symbol style
+ui-options-admin-overlay-antag-symbol-off = No antag symbol
+ui-options-admin-overlay-antag-symbol-basic = Show standard antag symbol
+ui-options-admin-overlay-antag-symbol-specific = Show specific antag symbol
+
+ui-options-admin-enable-overlay-playtime = Show playtime
+ui-options-admin-enable-overlay-starting-job = Show starting job
+ui-options-admin-overlay-merge-distance = Stack merge distance
+ui-options-admin-overlay-ghost-fade-distance = Ghost overlay fade range from mouse
+ui-options-admin-overlay-ghost-hide-distance = Ghost overlay hide range from mouse
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

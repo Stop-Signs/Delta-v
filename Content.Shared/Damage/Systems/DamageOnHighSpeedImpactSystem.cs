@@ -30,7 +30,7 @@ public sealed class DamageOnHighSpeedImpactSystem : EntitySystem
         if (!args.OurFixture.Hard || !args.OtherFixture.Hard)
             return;
 
-        if (!EntityManager.HasComponent<DamageableComponent>(uid))
+        if (!HasComp<DamageableComponent>(uid))
             return;
 
         var speed = args.OurBody.LinearVelocity.Length();
@@ -45,7 +45,7 @@ public sealed class DamageOnHighSpeedImpactSystem : EntitySystem
         component.LastHit = _gameTiming.CurTime;
 
         if (_robustRandom.Prob(component.StunChance))
-            _stun.TryStun(uid, TimeSpan.FromSeconds(component.StunSeconds), true);
+            _stun.TryUpdateStunDuration(uid, TimeSpan.FromSeconds(component.StunSeconds));
 
         var damageScale = component.SpeedDamageFactor * speed / component.MinimumSpeed;
 

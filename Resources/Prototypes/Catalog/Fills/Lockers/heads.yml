@@ -45,7 +45,7 @@
     - id: ClothingHeadsetAltCommand
     - id: ClothingOuterArmorCaptainCarapace
     - id: CommsComputerCircuitboard
-    - id: DoorRemoteCommand
+    - id: DoorRemoteCustom
     - id: MedalCase
     - id: NukeDisk
     - id: PinpointerNuclear
@@ -170,9 +170,14 @@
     - id: ClothingHeadsetAltEngineering
     - id: DoorRemoteEngineering
     - id: CargoRequestEngineeringComputerCircuitboard
-    - id: RCD
+    - id: RCDRecharging # DeltaV (Untell ce can get there own rcd agian)
     - id: RCDAmmo
     - id: RubberStampCE
+<<<<<<< HEAD
+=======
+    - id: MetalFoamGrenade
+    - id: AirGrenade # DeltaV
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -298,7 +303,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingMaskBreath
-    - id: ClothingOuterHardsuitRd
+    - id: ClothingOuterHardsuitMystagogueLabcoat
     - id: OxygenTankFilled
 
 # No hardsuit locker
@@ -344,7 +349,7 @@
     - id: ClothingEyesGlassesSecurity
     - id: ClothingHeadsetAltSecurity
     - id: ClothingMaskNeckGaiter
-#    - id: ClothingOuterCoatHoSTrench # DeltaV - removed for incongruence
+    - id: ClothingOuterCoatHoSTrench
     - id: ClothingShoesBootsJack
     - id: DoorRemoteSecurity
     - id: HoloprojectorSecurity

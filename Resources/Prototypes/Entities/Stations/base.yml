@@ -51,7 +51,11 @@
   abstract: true
   components:
     - type: StationCargoShuttle
+<<<<<<< HEAD
       path: /Maps/Shuttles/cargo.yml
+=======
+      path: /Maps/_DV/Shuttles/Cargo/ntcs_express.yml # DeltaV - Custom cargo shuttle
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     - type: GridSpawn
       groups:
 #        trade: # DeltaV - trade station has its own map
@@ -65,7 +69,7 @@
           hide: true
           nameGrid: true
           minCount: 2
-          maxCount: 2
+          maxCount: 3
           stationGrid: false
           paths:
 <<<<<<< HEAD
@@ -73,6 +77,7 @@
           #- /Maps/Ruins/chunked_tcomms.yml # TODO
 =======
           #- /Maps/Ruins/abandoned_outpost.yml #  DeltaV - Moved to _DV/Salvage pool
+<<<<<<< HEAD
           #- /Maps/Ruins/atmos_interchange.yml # TODO
           - /Maps/_DV/Ruins/chunked_tcomms.yml  # DeltaV - Move to DV folder
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
@@ -90,7 +95,26 @@
           #- /Maps/Ruins/wrecklaimer.yml # TODO
 =======
           - /Maps/_DV/Ruins/mining_mostdestroyed.yml # DeltaV - Move to DV folder
+=======
+          - /Maps/_DV/Ruins/atmos_interchange.yml  # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/chunked_tcomms.yml  # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/biodome_satellite.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/derelict.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/djstation.yml # DeltaV - Moved to DV folder
+          #- /Maps/Ruins/empty_flagship.yml # TODO
+          - /Maps/_DV/Ruins/hydro_outpost.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/old_ai_sat.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/relaystation.yml # DeltaV - upstream removed
+          #- /Maps/Ruins/ruined_prison_ship.yml # TODO
+          - /Maps/_DV/Ruins/destroyed_syndicate_dropship.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/whiteship_ancient.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/whiteship_bluespacejumper.yml # DeltaV - Moved to DV folder
+          - /Maps/_DV/Ruins/mining_mostdestroyed.yml # DeltaV - Moved to DV folder
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
           #- /Maps/Ruins/displaced_telescience.yml # TODO
+          # DeltaV - Added maps
+          - /Maps/_DV/Ruins/the_pond.yml # DeltaV - Moved to DV folder
+          # DeltaV - End added maps
         wrecks: !type:DungeonSpawnGroup
           minimumDistance: 150
           maximumDistance: 300

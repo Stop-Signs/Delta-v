@@ -91,7 +91,20 @@
     - MobMothroach
 
 - type: entity
+<<<<<<< HEAD
   parent: MonkeyCube
+=======
+  parent: RehydratableAnimalCube
+  id: MoproachCube
+  name: moproach cube
+  components:
+  - type: Rehydratable
+    possibleSpawns:
+    - MobMoproach
+
+- type: entity
+  parent: RehydratableAnimalCube
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   id: MouseCube
   name: mouse cube
   components:

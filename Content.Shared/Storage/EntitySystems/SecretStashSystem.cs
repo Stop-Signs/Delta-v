@@ -38,6 +38,10 @@ public sealed class SecretStashSystem : EntitySystem
         SubscribeLocalEvent<SecretStashComponent, DestructionEventArgs>(OnDestroyed);
         SubscribeLocalEvent<SecretStashComponent, GotReclaimedEvent>(OnReclaimed);
         SubscribeLocalEvent<SecretStashComponent, InteractUsingEvent>(OnInteractUsing, after: new[] { typeof(ToolOpenableSystem), typeof(AnchorableSystem) });
+<<<<<<< HEAD
+=======
+        SubscribeLocalEvent<SecretStashComponent, FullyEatenEvent>(OnFullyEaten);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         SubscribeLocalEvent<SecretStashComponent, InteractHandEvent>(OnInteractHand);
         SubscribeLocalEvent<SecretStashComponent, GetVerbsEvent<InteractionVerb>>(OnGetVerb);
     }
@@ -57,6 +61,17 @@ public sealed class SecretStashSystem : EntitySystem
         DropContentsAndAlert(entity, args.ReclaimerCoordinates);
     }
 
+<<<<<<< HEAD
+=======
+    private void OnFullyEaten(Entity<SecretStashComponent> entity, ref FullyEatenEvent args)
+    {
+        // TODO: When newmed is finished should do damage to teeth (Or something like that!)
+        var damage = entity.Comp.DamageEatenItemInside;
+        if (HasItemInside(entity) && damage != null)
+            _damageableSystem.TryChangeDamage(args.User, damage, true);
+    }
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     private void OnInteractUsing(Entity<SecretStashComponent> entity, ref InteractUsingEvent args)
     {
         if (args.Handled || !IsStashOpen(entity))

@@ -16,4 +16,9 @@
     event: !type:InstantSpawnSpellEvent
       prototype: WallForce
       posData: !type:TargetInFront
+<<<<<<< HEAD
       speech: action-speech-spell-forcewall
+=======
+  - type: SpeakOnAction
+    sentence: action-speech-spell-forcewall
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

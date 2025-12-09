@@ -80,6 +80,8 @@ public abstract partial class SharedMoverController : VirtualController
     /// </summary>
     public Dictionary<EntityUid, bool> UsedMobMovement = new();
 
+    private readonly HashSet<EntityUid> _aroundColliderSet = [];
+
     public override void Initialize()
     {
         UpdatesBefore.Add(typeof(TileFrictionController));
@@ -179,6 +181,23 @@ public abstract partial class SharedMoverController : VirtualController
             return;
         }
 
+<<<<<<< HEAD
+=======
+        // If the body is in air but isn't weightless then it can't move
+        var weightless = _gravity.IsWeightless(uid);
+        var inAirHelpless = false;
+
+        if (physicsComponent.BodyStatus != BodyStatus.OnGround && !CanMoveInAirQuery.HasComponent(uid))
+        {
+            if (!weightless)
+            {
+                UsedMobMovement[uid] = false;
+                return;
+            }
+            inAirHelpless = true;
+        }
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         UsedMobMovement[uid] = true;
         // Specifically don't use mover.Owner because that may be different to the actual physics body being moved.
         var weightless = _gravity.IsWeightless(physicsUid, physicsComponent, xform);
@@ -441,7 +460,9 @@ public abstract partial class SharedMoverController : VirtualController
         var (uid, collider, mover, transform) = entity;
         var enlargedAABB = _lookup.GetWorldAABB(entity.Owner, transform).Enlarged(mover.GrabRange);
 
-        foreach (var otherEntity in lookupSystem.GetEntitiesIntersecting(transform.MapID, enlargedAABB))
+        _aroundColliderSet.Clear();
+        lookupSystem.GetEntitiesIntersecting(transform.MapID, enlargedAABB, _aroundColliderSet);
+        foreach (var otherEntity in _aroundColliderSet)
         {
             if (otherEntity == uid)
                 continue; // Don't try to push off of yourself!
@@ -595,4 +616,32 @@ public abstract partial class SharedMoverController : VirtualController
         sound = haveShoes ? tileDef.FootstepSounds : tileDef.BarestepSounds;
         return sound != null;
     }
+<<<<<<< HEAD
+=======
+
+    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed)
+    {
+        var (walkDir, sprintDir) = GetVelocityInput(mover);
+
+        var total = walkDir * walkSpeed + sprintDir * sprintSpeed;
+
+        var parentRotation = GetParentGridAngle(mover);
+        var wishDir = _relativeMovement ? parentRotation.RotateVec(total) : total;
+
+        DebugTools.Assert(MathHelper.CloseToPercent(total.Length(), wishDir.Length()));
+
+        return wishDir;
+    }
+
+    private void OnTileFriction(Entity<MovementSpeedModifierComponent> ent, ref TileFrictionEvent args)
+    {
+        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent) || !XformQuery.TryComp(ent, out var xform))
+            return;
+
+        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _gravity.IsWeightless(ent.Owner))
+            args.Modifier *= ent.Comp.BaseWeightlessFriction;
+        else
+            args.Modifier *= ent.Comp.BaseFriction;
+    }
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 }

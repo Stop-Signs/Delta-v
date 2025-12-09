@@ -46,6 +46,18 @@
   - type: Implanter
     implant: WatchdogImplant
 
+<<<<<<< HEAD
+=======
+- type: entity
+  parent: BaseImplantOnlyImplanterCentcomm
+  id: CentCommImplanter
+  name: centcomm implanter
+  suffix: mindshield
+  components:
+  - type: Implanter
+    implant: CentCommImplant
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 # Nukie implants
 
 - type: entity

@@ -16,8 +16,12 @@
   recipes:
   - BorgModuleCable
   - BorgModuleFireExtinguisher
+<<<<<<< HEAD
   - BorgModuleRadiationDetection
   - BorgModuleTool
+=======
+  - BorgModuleInflatable
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: latheRecipePack
   id: BorgLimbsStatic
@@ -46,6 +50,7 @@
   recipes:
   - BorgModuleAdvancedCleaning
   - BorgModuleAdvancedTool
+<<<<<<< HEAD
   - BorgModuleGPS
   - BorgModuleArtifact
   - BorgModuleAnomaly
@@ -53,6 +58,11 @@
   - BorgModuleHarvesting
   #- BorgModuleDefibrillator # DeltaV - made a default module
   - BorgModuleAdvancedTreatment
+=======
+  - BorgModuleAdvancedClowning
+  - BorgModuleAdvancedChemical
+  - BorgModuleAdvancedMining
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: latheRecipePack
   id: MechParts

@@ -55,4 +55,20 @@
   result: BaseChemistryEmptyVial
   completetime: 2
   materials:
+<<<<<<< HEAD
     Glass: 50
+=======
+    Steel: 100
+    Glass: 300
+    Plasma: 200
+
+- type: latheRecipe
+  id: HoverBedHoloSpawnFolded
+  result: HoverBedHoloSpawnFolded
+  completetime: 4
+  materials:
+    Steel: 500
+    Glass: 300
+    Plastic: 300
+    Silver: 200
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

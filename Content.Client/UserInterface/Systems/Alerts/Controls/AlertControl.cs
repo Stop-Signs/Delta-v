@@ -66,10 +66,15 @@ namespace Content.Client.UserInterface.Systems.Alerts.Controls
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
             TooltipSupplier = SupplyTooltip;
             Alert = alert;
+
+            HorizontalAlignment = HAlignment.Left;
             _severity = severity;
             _icon = new SpriteView
             {
-                Scale = new Vector2(2, 2)
+                Scale = new Vector2(2, 2),
+                MaxSize = new Vector2(64, 64),
+                Stretch = SpriteView.StretchMode.None,
+                HorizontalAlignment = HAlignment.Left
             };
 
             SetupIcon();

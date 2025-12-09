@@ -6,8 +6,14 @@
   - ClothingNeckShockCollar
   - ClothingOuterArmorPlateCarrier # plate carrier body armour
   - ClothingOuterArmorDuraVest # stabproof vest body armour
+  - ClothingOuterArmorDuraVestK9 # k9 stabproof vest body armour
   - ClothingOuterArmorReflective
   - HoloprojectorSecurity
+<<<<<<< HEAD
+=======
+  - RadioHandheldSecurity
+  - WeaponSwordSilver
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: latheRecipePack
   id: SecurityPracticeStaticDeltaV
@@ -89,9 +95,17 @@
   - ClothingOuterHardsuitJuggernautReverseEngineered
   - ClothingOuterHardsuitSyndieReverseEngineered
   - ClothingOuterHardsuitCombatOfficer
+  - ClothingOuterHardsuitCombatK9 # k9 combat suit
+  - ClothingOuterHardsuitCombatRiotK9 # k9 riot suit
 
 - type: latheRecipePack
   id: PrisonerSoftsuits
   recipes:
   - ClothingOuterHardsuitEVAPrisoner
   - ClothingHeadHelmetEVALarge
+
+- type: latheRecipePack
+  id: AdvancedPsionicProsthetics
+  recipes:
+  - PyroLeftArm
+  - ZapLeftArm

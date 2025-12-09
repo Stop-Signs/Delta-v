@@ -2,9 +2,10 @@
   parent: BaseAction
   id: ActionCosmicSiphon
   name: Siphon Entropy
-  description: Silently siphon entropy from your target, dealing some damage in the process.
+  description: Silently siphon entropy from your target.
   components:
   - type: Action
+<<<<<<< HEAD
     useDelay: 50
 <<<<<<< HEAD
     whitelist:
@@ -16,6 +17,9 @@
       - BibleUser
 =======
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+    useDelay: 30
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     itemIconStyle: NoItem
     icon:
       sprite: _DV/CosmicCult/Icons/cosmiccult_abilities.rsi
@@ -198,8 +202,12 @@
         - Door
 =======
   - type: Action
+<<<<<<< HEAD
     useDelay: 25
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+    useDelay: 15
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     itemIconStyle: NoItem
     icon:
       sprite: _DV/CosmicCult/Icons/cosmiccult_abilities.rsi
@@ -219,7 +227,12 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Action
+<<<<<<< HEAD
     useDelay: 160
+=======
+    useDelay: 80
+    checkCanInteract: false
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     itemIconStyle: NoItem
     icon:
       sprite: _DV/CosmicCult/Icons/cosmiccult_abilities.rsi
@@ -241,14 +254,18 @@
     range: 60
 =======
   - type: Action
+<<<<<<< HEAD
     useDelay: 45
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+    useDelay: 60
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     itemIconStyle: NoItem
     icon:
       sprite: _DV/CosmicCult/Icons/cosmiccult_abilities.rsi
       state: nova
   - type: TargetAction
-    range: 60
+    range: 6000 # You're just picking a direction anyways
   - type: WorldTargetAction
     event: !type:EventCosmicNova {}
 
@@ -383,7 +400,7 @@
     event: !type:EventRogueSlumber {}
 =======
   - type: Action
-    useDelay: 120
+    useDelay: 180
     checkCanInteract: false
     itemIconStyle: NoItem
     icon:

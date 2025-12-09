@@ -1,9 +1,9 @@
 - type: entity
   parent: ReagentDispenserBase
-  id: SodaDispenser
+  id: SodaDispenserEmpty
   name: soda dispenser
   description: A beverage dispenser with a selection of soda and several other common beverages. Has a single fill slot for containers.
-  suffix: Filled
+  suffix: Empty
   components:
   - type: Rotatable
   - type: Sprite
@@ -14,7 +14,45 @@
     storageWhitelist:
       tags:
       - DrinkBottle
+<<<<<<< HEAD
     pack: SodaDispenserInventory
+=======
+  - type: Transform
+    noRot: false
+  - type: Machine
+    board: SodaDispenserMachineCircuitboard
+  - type: GuideHelp
+    guides:
+    - Bartender
+    - Drinks
+
+- type: entity
+  parent: SodaDispenserEmpty
+  id: SodaDispenser
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: DrinkCoconutWaterJug
+    - id: DrinkCoffeeJug
+    - id: DrinkColaBottleFull
+    - id: DrinkCreamCartonXL
+    - id: DrinkDrGibbJug
+    - id: DrinkEnergyDrinkJug
+    - id: DrinkGreenTeaJug
+    - id: DrinkIceJug
+    - id: DrinkJuiceLimeCartonXL
+    - id: DrinkJuiceOrangeCartonXL
+    - id: DrinkLemonLimeJug
+    - id: DrinkRootBeerJug
+    - id: DrinkSodaWaterBottleFull
+    - id: DrinkSpaceMountainWindBottleFull
+    - id: DrinkSpaceUpBottleFull
+    - id: DrinkSugarJug
+    - id: DrinkTeaJug
+    - id: DrinkTonicWaterBottleFull
+    - id: DrinkWaterMelonJuiceJug
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: Transform
     noRot: false
   - type: Machine
@@ -23,6 +61,7 @@
     guides:
     - Bartender
     - Drinks # Delta-V: doesn't exist
+<<<<<<< HEAD
 
 - type: entity
   parent: SodaDispenser
@@ -34,3 +73,5 @@
       tags:
       - DrinkBottle
     pack: EmptyInventory
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

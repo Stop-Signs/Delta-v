@@ -17,6 +17,7 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
+    exactVolume: true
   - type: Hypospray
     onlyAffectsMobs: false
   - type: UseDelay
@@ -48,6 +49,7 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
+    exactVolume: true
   - type: Hypospray
     onlyAffectsMobs: false
   - type: UseDelay
@@ -122,6 +124,7 @@
         maxVol: 15
   - type: ExaminableSolution
     solution: pen
+    exactVolume: true
   - type: Hypospray
     solutionName: pen
     transferAmount: 15
@@ -143,6 +146,9 @@
     price: 75 # These are limited supply items.
   - type: TrashOnSolutionEmpty
     solution: pen
+  - type: CosmicTransmutable # DeltaV - cosmic cult
+    transmutesTo: CosmicMedipen
+    requiredGlyphType: CosmicGlyphBlades # Well I mean it DOES have a needle in it
 
 - type: entity
   name: emergency medipen
@@ -680,6 +686,7 @@
   - type: ExaminableSolution
     solution: hypospray
     heldOnly: true # Allow examination only when held in hand.
+    exactVolume: true
   - type: Hypospray
     onlyAffectsMobs: false
   - type: UseDelay

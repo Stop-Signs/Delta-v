@@ -126,6 +126,17 @@
     ClothingUniformJumpsuitSuitBrownMob: 2
     ClothingUniformJumpsuitSuitBlackMob: 2
     ClothingUniformJumpsuitSuitWhiteMob: 2
+<<<<<<< HEAD
+=======
+    ClothingUniformJumpskirtBlackElegantDress: 2
+    ClothingUniformJumpskirtRedElegantDress: 2
+    ClothingUniformJumpskirtBlueElegantDress: 2
+    ClothingUniformJumpskirtGreenElegantDress: 2
+    ClothingUniformJumpskirtPurpleElegantDress: 2
+    ClothingHeadHatSecretary: 2
+    ClothingUniformJumpskirtSecretary: 2
+    ClothingUniformJumpsuitSecretary: 2
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     ClothingUniformBrownSuit: 2
     ClothingUniformBrownSuitSkirt: 2
     ClothingShoesLeather: 2

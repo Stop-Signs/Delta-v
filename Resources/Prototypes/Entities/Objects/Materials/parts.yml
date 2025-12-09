@@ -19,6 +19,9 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: Tag
+    tags:
+    - ConstructionMaterial
 
 - type: entity
   parent: PartBase
@@ -71,10 +74,6 @@
   - type: GuideHelp
     guides:
     - ExpandingRepairingStation
-  - type: Tag # DeltaV
-    tags:
-    # no RodMetal 1 because ???
-    - BorgMaterial
 
 - type: entity
   parent: PartRodMetal
@@ -85,7 +84,7 @@
   - type: Tag
     tags:
     - RodMetal1
-    - BorgMaterial # DeltaV
+    - ConstructionMaterial
   - type: Sprite
     state: rods
   - type: Stack
@@ -100,11 +99,12 @@
   - type: Tag
     tags:
     - RodMetal1
-    - BorgMaterial # DeltaV
+    - ConstructionMaterial
   - type: Sprite
     state: rods
   - type: Stack
     count: 1
+<<<<<<< HEAD
 
 - type: entity
   parent: PartRodMetal
@@ -123,3 +123,5 @@
   - type: Stack
     lingering: true
     count: 0
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

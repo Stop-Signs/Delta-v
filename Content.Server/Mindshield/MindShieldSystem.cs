@@ -7,7 +7,11 @@ using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Revolutionary.Components;
+<<<<<<< HEAD
 using Content.Shared.Tag;
+=======
+using Content.Shared.Roles.Components;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Robust.Shared.Containers;
 
 namespace Content.Server.Mindshield;
@@ -29,8 +33,14 @@ public sealed class MindShieldSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+<<<<<<< HEAD
         SubscribeLocalEvent<SubdermalImplantComponent, ImplantImplantedEvent>(OnImplanted); // DeltaV - separate handlers for implanting and removal
         SubscribeLocalEvent<SubdermalImplantComponent, ImplantRemovedEvent>(OnRemoved); // DeltaV - proper event
+=======
+
+        SubscribeLocalEvent<MindShieldImplantComponent, ImplantImplantedEvent>(OnImplantImplanted);
+        SubscribeLocalEvent<MindShieldImplantComponent, ImplantRemovedEvent>(OnImplantRemoved);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 
     /// <summary>
@@ -42,6 +52,7 @@ public sealed class MindShieldSystem : EntitySystem
             EntityManager.AddComponents(user, components);
     }
 
+<<<<<<< HEAD
     /// <summary>
     /// DeltaV: Removes components when implanted.
     /// </summary>
@@ -49,6 +60,10 @@ public sealed class MindShieldSystem : EntitySystem
     {
         if (ent.Comp.AddedComponents is {} components && args.Implanted is {} user)
             EntityManager.RemoveComponents(user, components);
+=======
+        EnsureComp<MindShieldComponent>(ev.Implanted);
+        MindShieldRemovalCheck(ev.Implanted, ev.Implant);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 
     /// <summary>
@@ -70,10 +85,14 @@ public sealed class MindShieldSystem : EntitySystem
         }
     }
 
+<<<<<<< HEAD
     /* DeltaV - unused
     private void OnImplantDraw(Entity<MindShieldImplantComponent> ent, ref EntGotRemovedFromContainerMessage args)
+=======
+    private void OnImplantRemoved(Entity<MindShieldImplantComponent> ent, ref ImplantRemovedEvent args)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     {
-        RemComp<MindShieldComponent>(args.Container.Owner);
+        RemComp<MindShieldComponent>(args.Implanted);
     }
     */
 }

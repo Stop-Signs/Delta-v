@@ -44,6 +44,8 @@ namespace Content.Server.Disposal.Unit.EntitySystems
             _xformQuery = GetEntityQuery<TransformComponent>();
 
             SubscribeLocalEvent<DisposalHolderComponent, ComponentStartup>(OnComponentStartup);
+            SubscribeLocalEvent<DisposalHolderComponent, ContainerIsInsertingAttemptEvent>(CanInsert);
+            SubscribeLocalEvent<DisposalHolderComponent, EntInsertedIntoContainerMessage>(OnInsert);
         }
 
         private void OnComponentStartup(EntityUid uid, DisposalHolderComponent holder, ComponentStartup args)
@@ -51,34 +53,16 @@ namespace Content.Server.Disposal.Unit.EntitySystems
             holder.Container = _containerSystem.EnsureContainer<Container>(uid, nameof(DisposalHolderComponent));
         }
 
-        public bool TryInsert(EntityUid uid, EntityUid toInsert, DisposalHolderComponent? holder = null)
+        private void CanInsert(Entity<DisposalHolderComponent> ent, ref ContainerIsInsertingAttemptEvent args)
         {
-            if (!Resolve(uid, ref holder))
-                return false;
-            if (!CanInsert(uid, toInsert, holder))
-                return false;
-
-            if (!_containerSystem.Insert(toInsert, holder.Container))
-                return false;
-
-            if (_physicsQuery.TryGetComponent(toInsert, out var physBody))
-                _physicsSystem.SetCanCollide(toInsert, false, body: physBody);
-
-            return true;
+            if (!HasComp<ItemComponent>(args.EntityUid) && !HasComp<BodyComponent>(args.EntityUid))
+                args.Cancel();
         }
 
-        private bool CanInsert(EntityUid uid, EntityUid toInsert, DisposalHolderComponent? holder = null)
+        private void OnInsert(Entity<DisposalHolderComponent> ent, ref EntInsertedIntoContainerMessage args)
         {
-            if (!Resolve(uid, ref holder))
-                return false;
-
-            if (!_containerSystem.CanInsert(toInsert, holder.Container))
-            {
-                return false;
-            }
-
-            return HasComp<ItemComponent>(toInsert) ||
-                   HasComp<BodyComponent>(toInsert);
+            if (_physicsQuery.TryGetComponent(args.Entity, out var physBody))
+                _physicsSystem.SetCanCollide(args.Entity, false, body: physBody);
         }
 
         public void ExitDisposals(EntityUid uid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null)
@@ -157,7 +141,7 @@ namespace Content.Server.Disposal.Unit.EntitySystems
                 holder.Air.Clear();
             }
 
-            EntityManager.DeleteEntity(uid);
+            Del(uid);
         }
 
         // Note: This function will cause an ExitDisposals on any failure that does not make an ExitDisposals impossible.
@@ -244,7 +228,7 @@ namespace Content.Server.Disposal.Unit.EntitySystems
                 holder.TimeLeft -= time;
                 frameTime -= time;
 
-                if (!EntityManager.EntityExists(holder.CurrentTube))
+                if (!Exists(holder.CurrentTube))
                 {
                     ExitDisposals(uid, holder);
                     break;
@@ -269,7 +253,7 @@ namespace Content.Server.Disposal.Unit.EntitySystems
 
                 // Find next tube
                 var nextTube = _disposalTubeSystem.NextTubeFor(currentTube, holder.CurrentDirection);
-                if (!EntityManager.EntityExists(nextTube))
+                if (!Exists(nextTube))
                 {
                     ExitDisposals(uid, holder);
                     break;

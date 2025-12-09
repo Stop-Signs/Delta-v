@@ -196,8 +196,23 @@ public sealed class GasTankWindow
         _lblPressure.SetMarkup(Loc.GetString("gas-tank-window-tank-pressure-text", ("tankPressure", $"{state.TankPressure:0.##}")));
         _btnInternals.Disabled = !state.CanConnectInternals;
         _lblInternals.SetMarkup(Loc.GetString("gas-tank-window-internal-text",
+<<<<<<< HEAD
             ("status", Loc.GetString(state.InternalsConnected ? "gas-tank-window-internal-connected" : "gas-tank-window-internal-disconnected"))));
         if (state.OutputPressure.HasValue)
+=======
+            ("status", Loc.GetString(internalsConnected ? "gas-tank-window-internal-connected" : "gas-tank-window-internal-disconnected"))));
+        if (!_spbPressure.HasKeyboardFocus())
+            // Don't update release pressure if we're currently editing it
+            _spbPressure.Value = outputPressure;
+    }
+
+    protected override void FrameUpdate(FrameEventArgs args)
+    {
+        base.FrameUpdate(args);
+
+        // Easier than managing state on any ent changes. Previously this was just ticked on server's GasTankSystem.
+        if (_entManager.TryGetComponent(Entity, out GasTankComponent? tank))
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         {
             _spbPressure.Value = state.OutputPressure.Value;
         }

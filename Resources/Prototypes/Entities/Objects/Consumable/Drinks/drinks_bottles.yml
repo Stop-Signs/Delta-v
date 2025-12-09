@@ -101,6 +101,8 @@
     layers:
       - state: icon
         map: ["enum.OpenableVisuals.Layer"]
+  - type: ExaminableSolution
+    examinableWhileClosed: false # If you can't see fill levels, it's probably opaque
 
 - type: entity
   id: DrinkBottleVisualsAll
@@ -124,6 +126,9 @@
   - type: SolutionContainerVisuals
     maxFillLevels: 5
     fillBaseName: fill-
+    inHandsMaxFillLevels: 3
+    inHandsFillBaseName: -fill-
+  - type: ExaminableSolution
 
 - type: entity
   parent: [DrinkBottleVisualsAll, DrinkBottleGlassBaseFull]
@@ -689,7 +694,70 @@
     currentLabel: reagent-name-tonic-water
 
 - type: entity
+<<<<<<< HEAD
   parent: [DrinkBottleVisualsOpenable, DrinkBottleGlassBaseFull]
+=======
+  parent: [DrinkBottleVisualsAll, DrinkBottlePlasticSmallBaseFull]
+  id: DrinkWaterBottleFull
+  name: water bottle
+  description: Simple clean water of unknown origin. You think that maybe you dont want to know it.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 30
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/waterbottle.rsi
+  - type: Label
+    currentLabel: reagent-name-water
+  - type: Sealable
+
+- type: entity
+  parent: [DrinkBottleVisualsAll, DrinkBottleGlassSmallBaseFull]
+  id: DrinkBeerBottleFull
+  name: beer bottle # beer it is. coffee. beer? coff-ee? be-er? c-o... b-e
+  description: An alcoholic beverage made from malted grains, hops, yeast, and water.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Beer
+          Quantity: 50
+  - type: Label
+    currentLabel: reagent-name-beer
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/beer.rsi
+  - type: Openable
+    closeable: false
+  - type: Tag
+    tags:
+    - Beer
+
+- type: entity
+  parent: [DrinkBottleVisualsAll, DrinkBottleGlassSmallBaseFull]
+  id: DrinkAleBottleFull
+  name: Magm-Ale bottle
+  description: A true dorf's drink of choice.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Ale
+          Quantity: 50
+  - type: Label
+    currentLabel: reagent-name-ale
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/alebottle.rsi
+  - type: Openable
+    closeable: false
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottleGlassSmallBaseFull]
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   id: DrinkSakeBottleFull
   name: small sake bottle
   description: The regret of the next morning seems to be nipping on the bottle too.

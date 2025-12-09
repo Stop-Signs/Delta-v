@@ -45,17 +45,16 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefMan = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly ReactiveSystem _reactive = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
     [Dependency] private readonly SharedPopupSystem _popups = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
     [Dependency] private readonly StepTriggerSystem _stepTrigger = default!;
     [Dependency] private readonly SpeedModifierContactsSystem _speedModContacts = default!;
     [Dependency] private readonly TileFrictionController _tile = default!;
+<<<<<<< HEAD
 
     [ValidatePrototypeId<ReagentPrototype>]
     private const string Blood = "Blood";
@@ -67,6 +66,10 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     private const string CopperBlood = "CopperBlood";
 
     private static string[] _standoutReagents = [Blood, Slime, CopperBlood];
+=======
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly TurfSystem _turf = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     public static readonly float PuddleVolume = 1000;
 
@@ -90,8 +93,11 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
 
         // Shouldn't need re-anchoring.
         SubscribeLocalEvent<PuddleComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+<<<<<<< HEAD
         SubscribeLocalEvent<PuddleComponent, SolutionContainerChangedEvent>(OnSolutionUpdate);
         SubscribeLocalEvent<PuddleComponent, ComponentInit>(OnPuddleInit);
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         SubscribeLocalEvent<PuddleComponent, SpreadNeighborsEvent>(OnPuddleSpread);
         SubscribeLocalEvent<PuddleComponent, SlipEvent>(OnPuddleSlip);
 
@@ -324,15 +330,21 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         TickEvaporation();
     }
 
+<<<<<<< HEAD
     private void OnPuddleInit(Entity<PuddleComponent> entity, ref ComponentInit args)
     {
         _solutionContainerSystem.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out _, FixedPoint2.New(PuddleVolume));
     }
 
     private void OnSolutionUpdate(Entity<PuddleComponent> entity, ref SolutionContainerChangedEvent args)
+=======
+    protected override void OnSolutionUpdate(Entity<PuddleComponent> entity, ref SolutionContainerChangedEvent args)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     {
         if (args.SolutionId != entity.Comp.SolutionName)
             return;
+
+        base.OnSolutionUpdate(entity, ref args);
 
         if (args.Solution.Volume <= 0)
         {
@@ -344,46 +356,6 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         UpdateSlip(entity, entity.Comp, args.Solution);
         UpdateSlow(entity, args.Solution);
         UpdateEvaporation(entity, args.Solution);
-        UpdateAppearance(entity, entity.Comp);
-    }
-
-    private void UpdateAppearance(EntityUid uid, PuddleComponent? puddleComponent = null,
-        AppearanceComponent? appearance = null)
-    {
-        if (!Resolve(uid, ref puddleComponent, ref appearance, false))
-        {
-            return;
-        }
-
-        var volume = FixedPoint2.Zero;
-        Color color = Color.White;
-
-        if (_solutionContainerSystem.ResolveSolution(uid, puddleComponent.SolutionName, ref puddleComponent.Solution,
-                out var solution))
-        {
-            volume = solution.Volume / puddleComponent.OverflowVolume;
-
-            // Make blood stand out more
-            // Kinda EH
-            // Could potentially do alpha per-solution but future problem.
-
-            color = solution.GetColorWithout(_prototypeManager, _standoutReagents);
-            color = color.WithAlpha(0.7f);
-
-            foreach (var standout in _standoutReagents)
-            {
-                var quantity = solution.GetTotalPrototypeQuantity(standout);
-                if (quantity <= FixedPoint2.Zero)
-                    continue;
-
-                var interpolateValue = quantity.Float() / solution.Volume.Float();
-                color = Color.InterpolateBetween(color,
-                    _prototypeManager.Index<ReagentPrototype>(standout).SubstanceColor, interpolateValue);
-            }
-        }
-
-        _appearance.SetData(uid, PuddleVisuals.CurrentVolume, volume.Float(), appearance);
-        _appearance.SetData(uid, PuddleVisuals.SolutionColor, color, appearance);
     }
 
     private void UpdateSlip(EntityUid entityUid, PuddleComponent component, Solution solution)
@@ -394,10 +366,51 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         var amountRequired = FixedPoint2.New(component.OverflowVolume.Float() * LowThreshold);
         var slipperyAmount = FixedPoint2.Zero;
 
+<<<<<<< HEAD
         // Utilize the defaults from their relevant systems... this sucks, and is a bandaid
         var launchForwardsMultiplier = SlipperyComponent.DefaultLaunchForwardsMultiplier;
         var paralyzeTime = SlipperyComponent.DefaultParalyzeTime;
         var requiredSlipSpeed = StepTriggerComponent.DefaultRequiredTriggeredSpeed;
+=======
+        // Ensure we actually have the component
+        EnsureComp<TileFrictionModifierComponent>(entity);
+
+        EnsureComp<SlipperyComponent>(entity, out var slipComp);
+
+        // This is the base amount of reagent needed before a puddle can be considered slippery. Is defined based on
+        // the sprite threshold for a puddle larger than 5 pixels.
+        var smallPuddleThreshold = FixedPoint2.New(entity.Comp.OverflowVolume.Float() * LowThreshold);
+
+        // Stores how many units of slippery reagents a puddle has
+        var slipperyUnits = FixedPoint2.Zero;
+        // Stores how many units of super slippery reagents a puddle has
+        var superSlipperyUnits = FixedPoint2.Zero;
+
+        // These three values will be averaged later and all start at zero so the calculations work
+        // A cumulative weighted amount of minimum speed to slip values
+        var puddleFriction = FixedPoint2.Zero;
+        // A cumulative weighted amount of minimum speed to slip values
+        var slipStepTrigger = FixedPoint2.Zero;
+        // A cumulative weighted amount of launch multipliers from slippery reagents
+        var launchMult = FixedPoint2.Zero;
+        // A cumulative weighted amount of stun times from slippery reagents
+        var stunTimer = TimeSpan.Zero;
+        // A cumulative weighted amount of knockdown times from slippery reagents
+        var knockdownTimer = TimeSpan.Zero;
+
+        // Check if the puddle is big enough to slip in to avoid doing unnecessary logic
+        if (solution.Volume <= smallPuddleThreshold)
+        {
+            _stepTrigger.SetActive(entity, false, comp);
+            _tile.SetModifier(entity, 1f);
+            slipComp.SlipData.SlipFriction = 1f;
+            slipComp.AffectsSliding = false;
+            Dirty(entity, slipComp);
+            return;
+        }
+
+        slipComp.AffectsSliding = true;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         foreach (var (reagent, quantity) in solution.Contents)
         {
@@ -407,9 +420,18 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
                 continue;
             slipperyAmount += quantity;
 
+<<<<<<< HEAD
             if (slipperyAmount <= amountRequired)
                 continue;
             isSlippery = true;
+=======
+            slipperyUnits += quantity;
+            // Aggregate launch speed based on quantity
+            launchMult += reagentProto.SlipData.LaunchForwardsMultiplier * quantity;
+            // Aggregate stun times based on quantity
+            stunTimer += reagentProto.SlipData.StunTime * (float)quantity;
+            knockdownTimer += reagentProto.SlipData.KnockdownTime * (float)quantity;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
             foreach (var tileReaction in reagentProto.TileReactions)
             {
@@ -424,6 +446,7 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
 
         if (isSlippery)
         {
+<<<<<<< HEAD
             var comp = EnsureComp<StepTriggerComponent>(entityUid);
             _stepTrigger.SetActive(entityUid, true, comp);
             var friction = EnsureComp<TileFrictionModifierComponent>(entityUid);
@@ -442,6 +465,21 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
             _stepTrigger.SetActive(entityUid, false, comp);
             RemCompDeferred<TileFrictionModifierComponent>(entityUid);
         }
+=======
+            slipComp.SlipData.LaunchForwardsMultiplier = (float)(launchMult/slipperyUnits);
+            slipComp.SlipData.StunTime = (stunTimer/(float)slipperyUnits);
+            slipComp.SlipData.KnockdownTime = (knockdownTimer/(float)slipperyUnits);
+        }
+
+        // Only make it super slippery if there is enough super slippery units for its own puddle
+        slipComp.SlipData.SuperSlippery = superSlipperyUnits >= smallPuddleThreshold;
+
+        // Lower tile friction based on how slippery it is, lets items slide across a puddle of lube
+        slipComp.SlipData.SlipFriction = (float)(puddleFriction / solution.Volume);
+        _tile.SetModifier(entity, slipComp.SlipData.SlipFriction);
+
+        Dirty(entity, slipComp);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 
     private void UpdateSlow(EntityUid uid, Solution solution)
@@ -660,7 +698,7 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         }
 
         // If space return early, let that spill go out into the void
-        if (tileRef.Tile.IsEmpty || tileRef.IsSpace(_tileDefMan))
+        if (tileRef.Tile.IsEmpty || _turf.IsSpace(tileRef))
         {
             puddleUid = EntityUid.Invalid;
             return false;
@@ -715,7 +753,7 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         }
 
         var coords = _map.GridTileToLocal(gridId, mapGrid, tileRef.GridIndices);
-        puddleUid = EntityManager.SpawnEntity("Puddle", coords);
+        puddleUid = Spawn("Puddle", coords);
         EnsureComp<PuddleComponent>(puddleUid);
         if (TryAddSolution(puddleUid, solution, sound))
         {
@@ -726,20 +764,6 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     }
 
     #endregion
-
-    public void DoTileReactions(TileRef tileRef, Solution solution)
-    {
-        for (var i = solution.Contents.Count - 1; i >= 0; i--)
-        {
-            var (reagent, quantity) = solution.Contents[i];
-            var proto = _prototypeManager.Index<ReagentPrototype>(reagent.Prototype);
-            var removed = proto.ReactionTile(tileRef, quantity, EntityManager, reagent.Data);
-            if (removed <= FixedPoint2.Zero)
-                continue;
-
-            solution.RemoveReagent(reagent, removed);
-        }
-    }
 
     /// <summary>
     /// Tries to get the relevant puddle entity for a tile.

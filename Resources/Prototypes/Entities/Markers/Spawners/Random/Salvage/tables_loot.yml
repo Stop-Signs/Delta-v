@@ -96,6 +96,7 @@
         range: 1, 2
     - !type:NestedSelector
       tableId: RandomInstrumentTable
+    - id: AncientBookDamagedCommon # DeltaV
 
 - type: entityTable
   id: SalvageTreasureUncommon
@@ -121,6 +122,7 @@
     - id: WristwatchGold
     - !type:NestedSelector
       tableId: RingTableCommon
+    - id: AncientBookDamagedUncommon # DeltaV
 
 - type: entityTable
   id: SalvageTreasureRare
@@ -154,6 +156,7 @@
           weight: 1
     - !type:NestedSelector
       tableId: RingTableRare
+    - id: AncientBookDamagedRare # DeltaV
 
 - type: entityTable
   id: SalvageTreasureLegendary
@@ -163,6 +166,7 @@
     - id: ClothingHeadHatFancyCrown
     - id: GoldenBikeHorn
     - id: ClothingHeadHatCatEars
+    - id: GoldenPersonalAI
     - id: TreasureCoinDiamond
       amount: !type:RangeNumberSelector
         range: 2, 5

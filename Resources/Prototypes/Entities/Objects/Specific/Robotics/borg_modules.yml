@@ -46,7 +46,7 @@
   - type: SelectableBorgModule
   - type: ContainerContainer
     containers:
-      provided_container: !type:Container { }
+      holding_container: !type:Container { }
 
 - type: entity
   parent: BaseAction
@@ -286,6 +286,7 @@
     - state: generic
     - state: icon-cables
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Cables # Frontier
     items:
     - CableApcStackLingering10
@@ -308,6 +309,33 @@
         - Electronics
         - MachineBoard
   # End DeltaV Additions
+=======
+    hands:
+    - item: CableApcStack10
+      hand:
+        emptyRepresentative: CableApcStack10
+        emptyLabel: borg-slot-cables-empty
+        whitelist:
+          tags:
+          - CableCoil
+    - item: CableMVStack10
+      hand:
+        emptyRepresentative: CableMVStack10
+        emptyLabel: borg-slot-cables-empty
+        whitelist:
+          tags:
+          - CableCoil
+    - item: CableHVStack10
+      hand:
+        emptyRepresentative: CableHVStack10
+        emptyLabel: borg-slot-cables-empty
+        whitelist:
+          tags:
+          - CableCoil
+    - item: Wirecutter
+    - item: Crowbar
+    - item: trayScanner
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: wire-module }
 
@@ -320,6 +348,7 @@
     layers:
     - state: generic
     - state: icon-fire-extinguisher
+<<<<<<< HEAD
   # Frontier: droppable borg items
   #- type: ItemBorgModule
   #  items:
@@ -332,6 +361,14 @@
         tags:
         - FireExtinguisher
   # End Frontier
+=======
+  - type: ItemBorgModule
+    hands:
+    - item: BorgFireExtinguisher
+    - item: BorgHandheldGPSBasic
+    - item: HandheldStationMapUnpowered
+    - item: HandHeldMassScannerBorg
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: extinguisher-module }
 
@@ -379,6 +416,7 @@
     - state: generic
     - state: icon-tools
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Tools # Frontier
     items:
     - Crowbar
@@ -388,8 +426,47 @@
     - Multitool
     - WelderIndustrial
     - GasAnalyzer # DeltaV - Add gas analyzer to the tools module
+=======
+    hands:
+    - item: Crowbar
+    - item: Wrench
+    - item: Screwdriver
+    - item: Wirecutter
+    - item: WelderIndustrial
+    - item: Multitool
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: tool-module }
+
+- type: entity
+  id: BorgModuleInflatable
+  parent: [ BaseBorgModule, BaseProviderBorgModule ]
+  name: inflatable cyborg module
+  components:
+  - type: Sprite
+    layers:
+    - state: generic
+    - state: icon-inflatable
+  - type: ItemBorgModule
+    hands:
+    - item: InflatableDoorStack
+      hand:
+        emptyRepresentative: InflatableDoorStack
+        emptyLabel: borg-slot-inflatable-door-empty
+        whitelist:
+          tags:
+          - Inflatable
+    - item: InflatableWallStack
+      hand:
+        emptyRepresentative: InflatableWallStack
+        emptyLabel: borg-slot-inflatable-wall-empty
+        whitelist:
+          tags:
+          - Inflatable
+    - item: BoxInflatable
+    - item: WeaponMeleeNeedle
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: inflatable-module }
 
 # cargo modules
 - type: entity
@@ -402,9 +479,19 @@
     - state: cargo
     - state: icon-appraisal
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Appraisal # Frontier
     items:
     - AppraisalTool
+=======
+    hands:
+    - item: AppraisalTool
+    - item: Pen
+    - item: HandLabeler
+    - item: RubberStampApproved
+    - item: RubberStampDenied
+    - item: RadioHandheld
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: appraisal-module }
 
@@ -418,6 +505,7 @@
     - state: cargo
     - state: icon-mining
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Mining # Frontier
     items:
     - MiningDrill
@@ -434,23 +522,61 @@
         components:
         - NFOreBag
   # End Frontier: droppable borg items
+=======
+    hands:
+    - item: MiningDrill
+    - item: Shovel
+    - item: MineralScannerUnpowered
+    - item: BorgOreBag
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: mining-module }
 
 - type: entity
   id: BorgModuleGrapplingGun
   parent: [ BaseBorgModuleCargo, BaseProviderBorgModule ]
+<<<<<<< HEAD
   name: grappling gun cyborg module
+=======
+  name: advanced mining cyborg module
+  description: Advanced cargo module containing advanced mining equipment. Studies show it advances productivity of a cyborg by 150%.
+  components:
+  - type: Sprite
+    layers:
+    - state: cargo
+    - state: icon-mining-adv
+  - type: ItemBorgModule
+    hands:
+    - item: MiningDrillDiamond
+    - item: Shovel
+    - item: AdvancedMineralScannerUnpowered
+    - item: OreBagOfHolding
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: adv-mining-module }
+
+- type: entity
+  id: BorgModuleTraversal
+  parent: [ BaseBorgModuleCargo, BaseProviderBorgModule ]
+  name: traversal cyborg module
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   components:
   - type: Sprite
     layers:
     - state: cargo
     - state: icon-grappling-gun
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: GrapplingGun # Frontier
     items:
     - WeaponGrapplingGun
     - HandheldGPSBasic
+=======
+    hands:
+    - item: WeaponGrapplingGun
+    - item: BorgFireExtinguisher
+    - item: BorgHandheldGPSBasic
+    - item: HandHeldMassScannerBorg
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: grappling-module }
 
@@ -465,6 +591,7 @@
     - state: engineering
     - state: icon-tools-adv
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: AdvancedTools # Frontier
     items:
     - JawsOfLife
@@ -474,8 +601,24 @@
     - RemoteSignaller
     - GasAnalyzer
     - GeigerCounter
+=======
+    hands:
+    - item: JawsOfLife
+    - item: PowerDrill
+    - item: WelderExperimental
+    - item: Multitool
+    - item: RemoteSignallerAdvanced
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: adv-tools-module }
+
+- type: entity
+  id: BorgModuleConstructionMaterialPlaceholder
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Sheets/other.rsi
+    state: generic_materials
 
 - type: entity
   id: BorgModuleConstruction
@@ -486,6 +629,7 @@
     layers:
     - state: engineering
     - state: icon-construction
+<<<<<<< HEAD
   # Begin DeltaV Removals - replaced by hands
   #- type: ItemBorgModule
   #  moduleId: Construction # Frontier
@@ -532,6 +676,67 @@
         - BorgStockPart
   # End DeltaV Additions
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+  - type: ItemBorgModule
+    hands:
+    - hand:
+        emptyRepresentative: BorgModuleConstructionMaterialPlaceholder
+        emptyLabel: borg-slot-construction-empty
+        whitelist:
+          tags:
+          - ConstructionMaterial
+    - hand:
+        emptyRepresentative: BorgModuleConstructionMaterialPlaceholder
+        emptyLabel: borg-slot-construction-empty
+        whitelist:
+          tags:
+          - ConstructionMaterial
+    - hand:
+        emptyRepresentative: BorgModuleConstructionMaterialPlaceholder
+        emptyLabel: borg-slot-construction-empty
+        whitelist:
+          tags:
+          - ConstructionMaterial
+    - hand:
+        emptyRepresentative: DoorElectronics
+        emptyLabel: borg-slot-circuitboards-empty
+        whitelist:
+          components:
+          - Circuitboard
+        blacklist:
+          components:
+          - SiliconLawProvider
+    - hand:
+        emptyRepresentative: MicroManipulatorStockPart
+        emptyLabel: borg-slot-construction-empty
+        whitelist:
+          tags:
+          - ConstructionMaterial
+    - hand:
+        emptyRepresentative: SpaceHeaterFlatpack
+        emptyLabel: borg-slot-flatpacks-empty
+        whitelist:
+          components:
+          - Flatpack
+    - hand:
+        emptyRepresentative: FloorTileItemSteel
+        emptyLabel: borg-slot-tiles-empty
+        whitelist:
+          components:
+          - FloorTile
+    - hand:
+        emptyRepresentative: FloorTileItemWhite
+        emptyLabel: borg-slot-tiles-empty
+        whitelist:
+          components:
+          - FloorTile
+    - hand:
+        emptyRepresentative: FloorTileItemDark
+        emptyLabel: borg-slot-tiles-empty
+        whitelist:
+          components:
+          - FloorTile
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: construction-module }
 
@@ -544,6 +749,7 @@
     layers:
     - state: engineering
     - state: icon-rcd
+<<<<<<< HEAD
   # Begin DeltaV Removals - Changed to hands
   #- type: ItemBorgModule
   #  moduleId: RCD # Frontier
@@ -563,6 +769,16 @@
         components:
         - RCDAmmo
   # End DeltaV Additions
+=======
+  - type: ItemBorgModule
+    hands:
+    - item: RCDRecharging
+    - item: BorgFireExtinguisher
+    - item: BorgHandheldGPSBasic
+    - item: GasAnalyzer
+    - item: HolofanProjectorBorg
+    - item: GeigerCounter
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: rcd-module }
 
@@ -577,11 +793,25 @@
     - state: janitor
     - state: icon-light-replacer
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: LightReplacer # Frontier
     items:
     - LightReplacer
     - Crowbar
     - Screwdriver
+=======
+    hands:
+    - item: LightReplacer
+    - item: BorgTrashBag
+    - item: Plunger
+    - item: SoapNT
+      hand:
+        emptyLabel: borg-slot-soap-empty
+        emptyRepresentative: SoapNT
+        whitelist:
+          tags:
+          - Soap
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: light-replacer-module }
 
@@ -595,6 +825,7 @@
     - state: janitor
     - state: icon-mop
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Cleaning # Frontier
     items:
     - MopItem
@@ -609,6 +840,13 @@
         tags:
         - Bucket
   # End Frontier
+=======
+    hands:
+    - item: MopItem
+    - item: BorgBucket
+    - item: BorgSprayBottle
+    - item: HoloprojectorBorg
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: cleaning-module }
 
@@ -622,6 +860,7 @@
     - state: janitor
     - state: icon-mop-adv
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: AdvancedCleaning # Frontier
     items:
     - AdvMopItem
@@ -644,6 +883,21 @@
         - GlassBeaker
   # End DeltaV Additions
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+    hands:
+    - item: AdvMopItem
+    - item: BorgMegaSprayBottle
+    - item: WireBrush # DeltaV
+    - item: HoloprojectorBorg
+    - item: BorgDropper
+    - item: Beaker
+      hand:
+        emptyLabel: borg-slot-beakers-empty
+        emptyRepresentative: Beaker
+        whitelist:
+          tags:
+          - GlassBeaker
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: adv-cleaning-module }
 
@@ -658,10 +912,9 @@
     - state: medical
     - state: icon-diagnosis
   - type: ItemBorgModule
-    moduleId: Diagnosis # Frontier
-    items:
-    - HandheldHealthAnalyzerUnpowered
-    - ClothingNeckStethoscope
+    hands:
+    - item: HandheldHealthAnalyzerUnpowered
+    - item: ClothingNeckStethoscope
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: diagnosis-module }
 
@@ -675,6 +928,7 @@
     - state: medical
     - state: icon-treatment
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Treatment # Frontier
     items:
     - HandheldHealthAnalyzerUnpowered
@@ -706,6 +960,38 @@
         components:
         - Healing
   # End DeltaV Additions
+=======
+    hands:
+    - item: HandheldHealthAnalyzerUnpowered
+    - item: Gauze
+      hand:
+        emptyLabel: borg-slot-topicals-empty
+        emptyRepresentative: Gauze
+        whitelist:
+          components:
+          - Healing
+    - item: Brutepack
+      hand:
+        emptyLabel: borg-slot-topicals-empty
+        emptyRepresentative: Brutepack
+        whitelist:
+          components:
+          - Healing
+    - item: Ointment
+      hand:
+        emptyLabel: borg-slot-topicals-empty
+        emptyRepresentative: Ointment
+        whitelist:
+          components:
+          - Healing
+    - item: Bloodpack
+      hand:
+        emptyLabel: borg-slot-topicals-empty
+        emptyRepresentative: Bloodpack
+        whitelist:
+          components:
+          - Healing
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: treatment-module }
 
@@ -719,22 +1005,75 @@
     - state: medical
     - state: icon-defib
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Defibrillator # Frontier
     items:
     - DefibrillatorOneHandedUnpowered
+=======
+    hands:
+    - item: HandheldHealthAnalyzerUnpowered
+    - item: DefibrillatorOneHandedUnpowered
+    - item: BorgFireExtinguisher
+    - item: BorgHandheldGPSBasic
+    - item: HandLabeler
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: defib-module }
 
 - type: entity
   id: BorgModuleAdvancedTreatment
   parent: [ BaseBorgModuleMedical, BaseProviderBorgModule ]
+<<<<<<< HEAD
   name: advanced treatment cyborg module
+=======
+  name: chemical cyborg module
+  components:
+  - type: Sprite
+    layers:
+    - state: medical
+    - state: icon-chem
+  - type: ItemBorgModule
+    hands:
+    - item: HandheldHealthAnalyzerUnpowered
+    - item: Syringe
+    - item: BorgDropper
+    - item: BaseChemistryEmptyVial
+      hand:
+        emptyLabel: borg-slot-small-containers-empty
+        emptyRepresentative: BaseChemistryEmptyVial
+        whitelist:
+          components:
+          - FitsInDispenser
+    - item: BaseChemistryEmptyVial
+      hand:
+        emptyLabel: borg-slot-small-containers-empty
+        emptyRepresentative: BaseChemistryEmptyVial
+        whitelist:
+          components:
+          - FitsInDispenser
+    - item: BaseChemistryEmptyVial
+      hand:
+        emptyLabel: borg-slot-small-containers-empty
+        emptyRepresentative: BaseChemistryEmptyVial
+        whitelist:
+          components:
+          - FitsInDispenser
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: chem-module }
+
+- type: entity
+  id: BorgModuleAdvancedChemical
+  parent: [ BaseBorgModuleMedical, BaseProviderBorgModule ]
+  name: advanced chemical cyborg module
+  description: Advanced medical module containing the cyborg adaptation of the highly coveted hypospray. Now your cyborgs can inject crew-harmers with chloral hydrate even faster!
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   components:
   - type: Sprite
     layers:
     - state: medical
     - state: icon-chemist
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: AdvancedTreatment # Frontier
     items:
     - HandheldHealthAnalyzerUnpowered
@@ -755,6 +1094,40 @@
         tags:
         - GlassBeaker
   # End Frontier: droppable borg items
+=======
+    hands:
+    - item: HandheldHealthAnalyzerUnpowered
+    - item: BorgHypo
+    - item: Syringe
+    - item: BorgDropper
+    - item: Beaker
+      hand:
+        emptyLabel: borg-slot-chemical-containers-empty
+        emptyRepresentative: Beaker
+        whitelist:
+          components:
+          - FitsInDispenser
+          tags:
+          - ChemDispensable
+    - item: Beaker
+      hand:
+        emptyLabel: borg-slot-chemical-containers-empty
+        emptyRepresentative: Beaker
+        whitelist:
+          components:
+          - FitsInDispenser
+          tags:
+          - ChemDispensable
+    - item: Beaker
+      hand:
+        emptyLabel: borg-slot-chemical-containers-empty
+        emptyRepresentative: Beaker
+        whitelist:
+          components:
+          - FitsInDispenser
+          tags:
+          - ChemDispensable
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: adv-diagnosis-module }
 
@@ -770,9 +1143,25 @@
     - state: science
     - state: icon-artifacts
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Artifact # Frontier
     items:
     - NodeScanner
+=======
+    hands:
+    - item: NodeScanner
+    - item: SprayBottle
+    - item: GasAnalyzer
+    - item: BorgDropper
+    - item: BaseChemistryEmptyVial
+      hand:
+        emptyLabel: borg-slot-small-containers-empty
+        emptyRepresentative: BaseChemistryEmptyVial
+        whitelist:
+          components:
+          - FitsInDispenser
+    - item: GeigerCounter
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: node-scanner-module }
 
@@ -786,6 +1175,7 @@
     - state: science
     - state: icon-anomalies
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Anomaly # Frontier
     items:
     - AnomalyScanner
@@ -793,6 +1183,25 @@
     - AnomalyLocatorWideUnpowered
     - RemoteSignaller
     - Multitool
+=======
+    hands:
+    - item: AnomalyScanner
+    - item: AnomalyLocatorUnpowered
+    - item: AnomalyLocatorWideUnpowered
+    - item: HandLabeler
+    - hand:
+        emptyRepresentative: SheetRGlass
+        emptyLabel: borg-slot-construction-empty
+        whitelist:
+          tags:
+          - ConstructionMaterial
+    - hand:
+        emptyRepresentative: SheetRPGlass
+        emptyLabel: borg-slot-construction-empty
+        whitelist:
+          tags:
+          - ConstructionMaterial
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: anomaly-module }
 
@@ -807,6 +1216,7 @@
     - state: service
     - state: icon-pen
   - type: ItemBorgModule
+<<<<<<< HEAD
     moduleId: Service # Frontier
     items:
     - Pen
@@ -832,6 +1242,45 @@
         components:
         - NFShaker
   # End Frontier
+=======
+    hands:
+    - item: Pen
+    - item: BooksBag
+    - hand:
+        emptyLabel: borg-slot-documents-empty
+        emptyRepresentative: BookBase
+        whitelist:
+          tags:
+          - Book
+          - Dice
+          - Document
+          - Figurine
+          - TabletopBoard
+          - Write
+    - hand:
+        emptyLabel: borg-slot-documents-empty
+        emptyRepresentative: Paper
+        whitelist:
+          tags:
+          - Book
+          - Dice
+          - Document
+          - Figurine
+          - TabletopBoard
+          - Write
+    - item: HandLabeler
+    - item: RubberStampApproved
+    - item: RubberStampDenied
+    - item: BorgDropper
+    - item: DrinkShaker
+      hand:
+        emptyLabel: borg-slot-small-containers-empty
+        emptyRepresentative: DrinkShaker
+        whitelist:
+          components:
+          - FitsInDispenser
+    - item: BarSpoon
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: service-module }
 
@@ -844,37 +1293,29 @@
     layers:
     - state: service
     - state: icon-musique
-  # Begin DeltaV Removals - replaced by hands
-  #- type: ItemBorgModule
-  #  moduleId: Music # Frontier
-  #  items:
-  #  - SynthesizerInstrument
-  #  - ElectricGuitarInstrument
-  #  - SaxophoneInstrument
-  # End DeltaV Removals
-  # Begin DeltaV Additions
-  - type: DroppableBorgModule
-    moduleId: Music # Frontier
-    items:
-    - id: SynthesizerInstrument
-      whitelist:
-        requireAll: true # no picking up harpies or grand pianos
-        components:
-        - Instrument
-        - Item
-    - id: ElectricGuitarInstrument
-      whitelist:
-        requireAll: true
-        components:
-        - Instrument
-        - Item
-    - id: SaxophoneInstrument
-      whitelist:
-        requireAll: true
-        components:
-        - Instrument
-        - Item
-  # End DeltaV Additions
+  - type: ItemBorgModule
+    hands:
+    - item: SynthesizerInstrument
+      hand:
+        emptyLabel: borg-slot-instruments-empty
+        emptyRepresentative: SynthesizerInstrument
+        whitelist:
+          components:
+          - Instrument
+    - item: ElectricGuitarInstrument
+      hand:
+        emptyLabel: borg-slot-instruments-empty
+        emptyRepresentative: ElectricGuitarInstrument
+        whitelist:
+          components:
+          - Instrument
+    - item: SaxophoneInstrument
+      hand:
+        emptyLabel: borg-slot-instruments-empty
+        emptyRepresentative: SaxophoneInstrument
+        whitelist:
+          components:
+          - Instrument
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: musical-module }
 
@@ -888,21 +1329,11 @@
     - state: service
     - state: icon-gardening
   - type: ItemBorgModule
-    moduleId: Gardening # Frontier
-    items:
-    - HydroponicsToolMiniHoe
-    - HydroponicsToolSpade
-    - HydroponicsToolClippers
-    # - Bucket # Frontier
-  # Frontier: droppable borg items
-  - type: DroppableBorgModule
-    moduleId: Gardening
-    items:
-    - id: Bucket
-      whitelist:
-        tags:
-        - Bucket
-  # End Frontier
+    hands:
+    - item: HydroponicsToolMiniHoe
+    - item: HydroponicsToolSpade
+    - item: HydroponicsToolClippers
+    - item: Bucket
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: gardening-module }
 
@@ -916,20 +1347,10 @@
     - state: service
     - state: icon-harvesting
   - type: ItemBorgModule
-    moduleId: Harvesting # Frontier
-    items:
-    - HydroponicsToolScythe
-    - HydroponicsToolHatchet
-    # - PlantBag # Frontier
-  # Frontier: droppable borg items
-  - type: DroppableBorgModule
-    moduleId: Harvesting
-    items:
-    - id: PlantBag
-      whitelist:
-        components:
-        - NFPlantBag
-  # End Frontier
+    hands:
+    - item: HydroponicsToolScythe
+    - item: HydroponicsToolHatchet
+    - item: PlantBag
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: harvesting-module }
 
@@ -943,18 +1364,37 @@
     - state: service
     - state: icon-clown
   - type: ItemBorgModule
-    moduleId: Clowning # Frontier
-    items:
-    - BikeHorn
-    - ClownRecorder
-    - BikeHornInstrument
+    hands:
+    - item: BikeHorn
+    - item: ClownRecorder
+    - item: BikeHornInstrument
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: clowning-module }
 
+- type: entity
+  id: BorgModuleAdvancedClowning
+  parent: [ BaseBorgModuleService, BaseProviderBorgModule ]
+  name: advanced clowning cyborg module
+  description: Advanced service module for only the silliest cyborgs! Comes with a built-in oven that bakes pies automatically over time, a holopeel projector, and a push horn.
+  components:
+  - type: Sprite
+    layers:
+    - state: service
+    - state: icon-clown-adv
+  - type: ItemBorgModule
+    hands:
+    - item: HoloprojectorClownBorg
+    - item: BorgLauncherCreamPie
+    - item: ClownRecorder
+    - item: PushHorn
+    - item: BikeHornInstrument
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: adv-clowning-module }
+
 #syndicate modules
 - type: entity
-  id: BorgModuleSyndicateWeapon
   parent: [ BaseBorgModule, BaseProviderBorgModule, BaseSyndicateContraband ]
+  id: BorgModuleSyndicateWeapon
   name: weapon cyborg module
   components:
   - type: Sprite
@@ -962,10 +1402,9 @@
     - state: syndicate
     - state: icon-syndicate
   - type: ItemBorgModule
-    moduleId: Weapons # Frontier
-    items:
-    - WeaponPistolEchis
-    - EnergyDaggerLoud
+    hands:
+    - item: WeaponPistolEchis
+    - item: EnergyDaggerLoud
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-weapon-module }
   - type: Item
@@ -990,8 +1429,8 @@
     price: 2500
 
 - type: entity
-  id: BorgModuleOperative
   parent: [ BaseBorgModuleSyndicate, BaseProviderBorgModule, BaseSyndicateContraband ]
+  id: BorgModuleOperative
   name: operative cyborg module
   description: A module that comes with a crowbar, an Emag, an Access Breaker and a syndicate pinpointer.
   components:
@@ -1000,54 +1439,86 @@
       - state: syndicate
       - state: icon-syndicate
     - type: ItemBorgModule
-      moduleId: Operative # Frontier
-      items:
-      - Crowbar
-      - Emag
-      - Doorjack # DeltaV - replaces AccessBreaker
-      - PinpointerSyndicateNuclear
+      hands:
+      - item: Crowbar
+      - item: Emag
+      #- item: AccessBreaker # DeltaV
+      - item: Doorjack # DeltaV - replaces AccessBreaker
+      - item: PinpointerSyndicateNuclear
     - type: BorgModuleIcon
       icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-operative-module }
 
 - type: entity
-  id: BorgModuleEsword
   parent: [ BaseBorgModuleSyndicate, BaseProviderBorgModule, BaseSyndicateContraband ]
+  id: BorgModuleEsword
   name: energy sword cyborg module
-  description: A module that comes with a double energy sword.
+  description: A weapons module that comes with an energy sword.
   components:
-    - type: Sprite
-      layers:
-      - state: syndicate
-      - state: icon-syndicate
-    - type: ItemBorgModule
-      moduleId: EnergySword # Frontier
-      items:
-      - CyborgEnergySwordDouble
-      - PinpointerSyndicateNuclear
-    - type: BorgModuleIcon
-      icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-esword-module }
+  - type: Sprite
+    layers:
+    - state: syndicate
+    - state: icon-syndicate
+  - type: ItemBorgModule
+    hands:
+    - item: CyborgEnergySword
+    - item: PinpointerSyndicateNuclear
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-esword-module }
 
 - type: entity
-  id: BorgModuleL6C
+  id: BorgModuleDoubleEsword
+  parent: [ BaseBorgModuleSyndicate, BaseProviderBorgModule, BaseSyndicateContraband ]
+  name: double energy sword cyborg module
+  description: A weapons module that comes with a double energy sword.
+  components:
+  - type: Sprite
+    layers:
+    - state: syndicate
+    - state: icon-syndicate
+  - type: ItemBorgModule
+    hands:
+    - item: CyborgEnergySwordDouble
+    - item: PinpointerSyndicateNuclear
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-desword-module }
+
+- type: entity
   parent: [ BaseBorgModuleSyndicateAssault, BaseProviderBorgModule, BaseSyndicateContraband ]
+  id: BorgModuleL6C
   name: L6C ROW cyborg module
-  description: A module that comes with a L6C.
+  description: A weapons module that comes with a L6C.
   components:
-    - type: Sprite
-      layers:
-      - state: syndicate
-      - state: icon-syndicate
-    - type: ItemBorgModule
-      moduleId: L6CROW # Frontier
-      items:
-        - WeaponLightMachineGunL6C
-        - PinpointerSyndicateNuclear
-    - type: BorgModuleIcon
-      icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-l6c-module }
+  - type: Sprite
+    layers:
+    - state: syndicate
+    - state: icon-syndicate
+  - type: ItemBorgModule
+    hands:
+    - item: WeaponLightMachineGunL6C
+    - item: PinpointerSyndicateNuclear
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-l6c-module }
 
 - type: entity
-  id: BorgModuleMartyr
+  parent: [ BaseBorgModuleSyndicateAssault, BaseProviderBorgModule, BaseSyndicateContraband ]
+  id: BorgModuleC20r
+  name: C20-r ROW cyborg module
+  description: A weapons module that comes with a burst-fire C-20r.
+  components:
+  - type: Sprite
+    layers:
+    - state: syndicate
+    - state: icon-syndicate
+  - type: ItemBorgModule
+    hands:
+    - item: WeaponSubMachineGunC20rROW
+    - item: PinpointerSyndicateNuclear
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-c20r-module }
+
+- type: entity
   parent: [ BaseBorgModule, BaseProviderBorgModule, BaseSyndicateContraband ]
+  id: BorgModuleMartyr
   name: martyr cyborg module
   description: "A module that comes with an explosive you probably don't want to handle yourself."
   components:
@@ -1056,9 +1527,8 @@
         - state: syndicateborgbomb
         - state: icon-bomb
     - type: ItemBorgModule
-      moduleId: Martyr # Frontier
-      items:
-        - SelfDestructSeq
+      hands:
+      - item: SelfDestructSeq
     - type: BorgModuleIcon
       icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-martyr-module }
     - type: Construction # DeltaV: construction for adding explosive payload to the dud version
@@ -1092,18 +1562,17 @@
   parent: [ BaseXenoborgModuleGeneric, BaseProviderBorgModule, BaseXenoborgContraband ]
   id: XenoborgModuleBasic
   name: basic xenoborg module
-  description: Essential items for any xenoborg.
+  description: Essential items for any Xenoborg.
   components:
   - type: Sprite
     layers:
     - state: xenoborg_generic
     - state: icon-xenoborg-basic
   - type: ItemBorgModule
-    moduleId: XenoborgBasic # DeltaV
-    items:
-    - MaterialBag
-    - PinpointerMothership
-    - HandheldGPSBasic
+    hands:
+    - item: MaterialBag
+    - item: PinpointerMothership
+    - item: HandheldGPSBasic
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-basic-module }
 
@@ -1111,21 +1580,20 @@
   parent: [ BaseXenoborgModuleGeneric, BaseProviderBorgModule, BaseXenoborgContraband ]
   id: XenoborgModuleTool
   name: tool xenoborg module
-  description: Simple tools for most xenoborgs.
+  description: Simple tools for most Xenoborgs.
   components:
   - type: Sprite
     layers:
     - state: xenoborg_generic
     - state: icon-xenoborg-tools
   - type: ItemBorgModule
-    moduleId: XenoborgTool # DeltaV
-    items:
-    - Crowbar
-    - Wrench
-    - Screwdriver
-    - Wirecutter
-    - Multitool
-    - RefuelingWelder
+    hands:
+    - item: Crowbar
+    - item: Wrench
+    - item: Screwdriver
+    - item: Wirecutter
+    - item: Multitool
+    - item: RefuelingWelder
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-tool-module }
 
@@ -1140,10 +1608,10 @@
     - state: xenoborg_engi
     - state: icon-xenoborg-access-breaker
   - type: ItemBorgModule
-    moduleId: XenoborgAccessBreaker # DeltaV
-    items:
-    - Doorjack # DeltaV - replaces AccessBreaker
-    - Emag # DeltaV - for lockers/etc
+    hands:
+    #- item: AccessBreaker # DeltaV
+    - item: Doorjack # DeltaV - replaces AccessBreaker
+    - item: Emag # DeltaV - for lockers/etc
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-access-breaker-module }
 
@@ -1158,9 +1626,8 @@
     - state: xenoborg_engi
     - state: icon-xenoborg-fire-extinguisher
   - type: ItemBorgModule
-    moduleId: XenoborgFireExtinguisher # DeltaV
-    items:
-    - SelfRechargingFireExtinguisher
+    hands:
+    - item: SelfRechargingFireExtinguisher
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-extinguisher-module }
 
@@ -1175,9 +1642,8 @@
     - state: xenoborg_heavy
     - state: icon-xenoborg-jammer
   - type: ItemBorgModule
-    moduleId: XenoborgJammer # DeltaV
-    items:
-    - XenoborgRadioJammer
+    hands:
+    - item: XenoborgRadioJammer
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-jammer-module }
 
@@ -1192,9 +1658,8 @@
     - state: xenoborg_heavy
     - state: icon-xenoborg-laser
   - type: ItemBorgModule
-    moduleId: XenoborgLaser # DeltaV
-    items:
-    - XenoborgLaserGun
+    hands:
+    - item: XenoborgLaserGun
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-laser-module }
 
@@ -1209,9 +1674,8 @@
     - state: xenoborg_heavy
     - state: icon-xenoborg-laser2
   - type: ItemBorgModule
-    moduleId: XenoborgHeavyLaser # DeltaV
-    items:
-    - XenoborgHeavyLaserGun
+    hands:
+    - item: XenoborgHeavyLaserGun
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-laser2-module }
 
@@ -1219,20 +1683,19 @@
   parent: [ BaseXenoborgModuleScout, BaseProviderBorgModule, BaseXenoborgContraband ]
   id: XenoborgModuleSpaceMovement
   name: space movement xenoborg module
-  description: Module that helps a xenoborg move better in space.
+  description: Module that helps a Xenoborg move better in space.
   components:
   - type: Sprite
     layers:
     - state: xenoborg_scout
     - state: icon-xenoborg-space-movement
   - type: ItemBorgModule
-    moduleId: XenoborgSpaceMovement # DeltaV
-    items:
-    - HandheldGPSBasic
-    - HandHeldMassScannerBorg
-    - HandheldStationMapUnpowered
-    - WeaponGrapplingGun
-    - JetpackXenoborg
+    hands:
+    - item: HandheldGPSBasic
+    - item: HandHeldMassScannerBorg
+    - item: HandheldStationMapUnpowered
+    - item: WeaponGrapplingGun
+    - item: JetpackXenoborg
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-space-movement-module }
 
@@ -1247,10 +1710,9 @@
     - state: xenoborg_scout
     - state: icon-xenoborg-sword
   - type: ItemBorgModule
-    moduleId: XenoborgSword # DeltaV
-    items:
-    - KukriKnife
-    - JetpackXenoborg
+    hands:
+    - item: KukriKnife
+    - item: JetpackXenoborg
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-sword-module }
 
@@ -1265,10 +1727,9 @@
     - state: xenoborg_scout
     - state: icon-xenoborg-sword2
   - type: ItemBorgModule
-    moduleId: XenoborgEnergySword # DeltaV
-    items:
-    - EnergyDaggerLoudBlue
-    - JetpackXenoborg
+    hands:
+    - item: EnergyDaggerLoudBlue
+    - item: JetpackXenoborg
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-sword2-module }
 
@@ -1283,9 +1744,8 @@
     - state: xenoborg_stealth
     - state: icon-xenoborg-hypo
   - type: ItemBorgModule
-    moduleId: XenoborgHypo # DeltaV
-    items:
-    - NocturineHypo
+    hands:
+    - item: NocturineHypo
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-hypo-module }
 
@@ -1300,9 +1760,8 @@
     - state: xenoborg_stealth
     - state: icon-xenoborg-projector
   - type: ItemBorgModule
-    moduleId: XenoborgChameleonProjector # DeltaV
-    items:
-    - ChameleonProjector
+    hands:
+    - item: ChameleonProjector
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-projector-module }
 
@@ -1317,9 +1776,27 @@
     - state: xenoborg_stealth
     - state: icon-xenoborg-cloak
   - type: ItemBorgModule
-    moduleId: XenoborgCloakDevice # DeltaV
-    items:
-    - CloakingDevice
+    hands:
+    - item: CloakingDevice
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-eye-module }
+<<<<<<< HEAD
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+
+- type: entity
+  parent: [ BaseXenoborgModuleStealth, BaseProviderBorgModule, BaseXenoborgContraband ]
+  id: XenoborgModuleSuperCloakDevice
+  name: cloaking device xenoborg module
+  description: Module with a device that allows xenoborgs to become truly invisible for less time.
+  components:
+  - type: Sprite
+    layers:
+    - state: xenoborg_stealth
+    - state: icon-xenoborg-cloak2
+  - type: ItemBorgModule
+    hands:
+    - item: SuperCloakingDevice
+  - type: BorgModuleIcon
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: xenoborg-eye2-module }
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

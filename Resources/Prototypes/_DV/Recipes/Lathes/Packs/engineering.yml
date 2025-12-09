@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+## Static
+
+- type: latheRecipePack
+  id: EngineeringStaticDeltaV
+  recipes:
+  - HoloprojectorEngineering
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 ## Dynamic
 
 - type: latheRecipePack

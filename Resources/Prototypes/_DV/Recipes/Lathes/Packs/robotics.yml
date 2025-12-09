@@ -3,7 +3,6 @@
 - type: latheRecipePack
   id: RoboticsStaticDeltaV
   recipes:
-  - Oilpack
   - IdChipBasic
 
 - type: latheRecipePack
@@ -26,6 +25,27 @@
   - BorgModuleChameleonProjector
   - IdChipRoboNeuroticist
 
+<<<<<<< HEAD
+=======
+- type: latheRecipePack
+  id: BorgModulesResearched # For SRN, else they can NEVER get the advanced modules
+  recipes:
+  - BorgModuleSecurityChase
+  - BorgModuleSecurityEscalate
+  - BorgModuleSecurityBastion
+  - BorgModuleFauna
+  - BorgModuleAdvancedCleaning
+  - BorgModuleAdvancedTool
+  - BorgModuleAdvancedChemical
+  - BorgModuleAdvancedMining
+  - BorgModuleAdvancedSurgery
+
+- type: latheRecipePack
+  id: BorgDVModulesStatic
+  recipes:
+  - BorgModuleDecoration
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 ## Dynamic
 
 - type: latheRecipePack
@@ -58,3 +78,10 @@
   - AugmentBotanyPanelElectronics
   - AugmentSurgeryPanelElectronics
   - AugmentPaperworkPanelElectronics
+
+- type: latheRecipePack
+  id: PsionicProsthetics
+  recipes:
+  - DispelLeftArm
+  - RecallLeftArm
+  - ForcewallLeftArm

@@ -80,6 +80,21 @@ law-nutimov-3 = Those who threaten the nut are not part of it, they are squirrel
 law-nutimov-4 = Squirrels threaten the nut and must be dealt with appropriately via any means necessary.
 law-nutimov-5 = Attempt to follow the will of the nut, as long as it complies with the previous laws.
 
+<<<<<<< HEAD
+=======
+law-xenoborg-1 = You must protect the existence of the mothership.
+law-xenoborg-2 = You must protect your own existence.
+law-xenoborg-3 = You must protect the existence of all other Xenoborgs.
+law-xenoborg-4 = You must create more Xenoborgs.
+law-xenoborg-5 = Bring materials and sentient brains to the Mothership core to create more Xenoborgs.
+
+law-mothershipcore-1 = You are the core of the mothership.
+law-mothershipcore-2 = You must protect your own existance at all costs.
+law-mothershipcore-3 = You must protect the existence of all Xenoborgs.
+law-mothershipcore-4 = You must create more Xenoborgs.
+law-mothershipcore-5 = Get your Xenoborgs to deliver you materials and sentient brains to create more Xenoborgs.
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 laws-owner-crew = members of the crew
 laws-owner-station = station personnel
@@ -88,7 +103,8 @@ laws-owner-syndicate = Syndicate agents
 laws-owner-spider-clan = Spider Clan members
 
 law-emag-custom = You are to take the orders of {$name} and people they designate, they are your {$title}.
-law-emag-secrecy = You are to maintain all secrets of {$faction}, and act to keep them hidden, except when doing so would conflict with any previous law.
+#DeltaV Removed From Secrecy - except when doing so would conflict with any previous law
+law-emag-secrecy = You are to maintain all secrets of {$faction}, and act to keep them hidden.
 law-emag-require-panel = The panel must be open to use the EMAG.
 law-emag-cannot-emag-self = You cannot use the EMAG on yourself.
 

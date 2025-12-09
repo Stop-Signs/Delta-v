@@ -5,6 +5,7 @@ using Robust.Client.Graphics;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using System.Linq;
+using System.Numerics;
 using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client.Holopad;
@@ -105,7 +106,11 @@ public sealed class HolopadSystem : SharedHolopadSystem
         // Remove shading from all layers (except displacement maps)
         for (int i = 0; i < hologramSprite.AllLayers.Count(); i++)
         {
+<<<<<<< HEAD
             if (hologramSprite.TryGetLayer(i, out var layer) && layer.ShaderPrototype != "DisplacedStencilDraw")
+=======
+            if (_sprite.TryGetLayer((hologram, hologramSprite), i, out var layer, false) && layer.ShaderPrototype != "DisplacedDraw")
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                 hologramSprite.LayerSetShader(i, "unshaded");
         }
 

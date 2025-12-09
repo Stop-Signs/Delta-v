@@ -78,12 +78,18 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
 
     private void MovementSpeedCheck(EntityUid uid, SpeedModifiedByContactComponent component, RefreshMovementSpeedModifiersEvent args)
     {
-        if (!EntityManager.TryGetComponent<PhysicsComponent>(uid, out var physicsComponent))
+        if (!TryComp<PhysicsComponent>(uid, out var physicsComponent))
             return;
 
         var walkSpeed = 0.0f;
         var sprintSpeed = 0.0f;
 
+<<<<<<< HEAD
+=======
+        // Cache the result of the airborne check, as it's expensive and independent of contacting entities, hence need only be done once.
+        var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(uid);
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         bool remove = true;
         var entries = 0;
         foreach (var ent in _physics.GetContactingEntities(uid, physicsComponent))

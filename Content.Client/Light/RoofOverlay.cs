@@ -76,12 +76,47 @@ public sealed class RoofOverlay : Overlay
         worldHandle.RenderInRenderTarget(target,
             () =>
             {
+<<<<<<< HEAD
+=======
+                var invMatrix = target.GetWorldToLocalMatrix(eye, scale);
+
+                for (var i = 0; i < _grids.Count; i++)
+                {
+                    var grid = _grids[i];
+
+                    if (!_entManager.TryGetComponent(grid.Owner, out ImplicitRoofComponent? roof))
+                        continue;
+
+                    var gridMatrix = _xformSystem.GetWorldMatrix(grid.Owner);
+                    var matty = Matrix3x2.Multiply(gridMatrix, invMatrix);
+
+                    worldHandle.SetTransform(matty);
+
+                    var tileEnumerator = _mapSystem.GetTilesEnumerator(grid.Owner, grid, bounds);
+                    var color = roof.Color;
+
+                    while (tileEnumerator.MoveNext(out var tileRef))
+                    {
+                        var local = _lookup.GetLocalBounds(tileRef, grid.Comp.TileSize);
+                        worldHandle.DrawRect(local, color);
+                    }
+
+                    // Don't need it for the next stage.
+                    _grids.RemoveAt(i);
+                    i--;
+                }
+            }, null);
+
+        worldHandle.RenderInRenderTarget(target,
+            () =>
+            {
+                var invMatrix = target.GetWorldToLocalMatrix(eye, scale);
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                 foreach (var grid in _grids)
                 {
                     if (!_entManager.TryGetComponent(grid.Owner, out RoofComponent? roof))
                         continue;
-
-                    var invMatrix = target.GetWorldToLocalMatrix(eye, scale);
 
                     var gridMatrix = _xformSystem.GetWorldMatrix(grid.Owner);
                     var matty = Matrix3x2.Multiply(gridMatrix, invMatrix);

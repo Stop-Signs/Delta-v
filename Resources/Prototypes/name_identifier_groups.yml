@@ -1,4 +1,4 @@
-﻿# Non-fungible apes, anyone?
+# Non-fungible apes, anyone?
 - type: nameIdentifierGroup
   id: Monkey
   prefix: MK
@@ -29,6 +29,21 @@
   minValue: 1000
   maxValue: 9999
 
+<<<<<<< HEAD
+=======
+- type: nameIdentifierGroup
+  id: Xenoborg
+  prefix: XI # DeltaV - was don't have Format: Was name-identifier-format-xenoborg
+  minValue: 1000
+  maxValue: 9999
+
+- type: nameIdentifierGroup
+  id: StationAi
+  prefix: AI
+  minValue: 100
+  maxValue: 999
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 # Used to suffix a number to any mob to identify player controlled mob griefing.
 - type: nameIdentifierGroup
   id: GenericNumber
@@ -42,4 +57,10 @@
   id: CargoTelepads
   prefix: TELE
   minValue: 0
+  maxValue: 999
+
+- type: nameIdentifierGroup
+  id: XenoArtifactNode
+  prefix: XAN
+  minValue: 1
   maxValue: 999

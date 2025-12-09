@@ -177,8 +177,20 @@ public sealed class NewsSystem : SharedNewsSystem
             RaiseLocalEvent(readerUid, ref args);
         }
 
+<<<<<<< HEAD
+=======
+        if (_webhookSendDuringRound)
+            AddNewsSendWebhook(article);
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         UpdateWriterDevices();
     }
+
+    private async void AddNewsSendWebhook(NewsArticle article)
+    {
+        await Task.Run(async () => await SendArticleToDiscordWebhook(article));
+    }
+
     #endregion
 
     #region Reader Event Handlers
@@ -324,4 +336,65 @@ public sealed class NewsSystem : SharedNewsSystem
     {
         UpdateWriterUi(ent);
     }
+<<<<<<< HEAD
+=======
+
+    #region Discord Hook
+
+    private void OnRoundEndMessageEvent(RoundEndMessageEvent ev)
+    {
+        if (_webhookSendDuringRound)
+            return;
+
+        var query = EntityQueryEnumerator<StationNewsComponent>();
+
+        while (query.MoveNext(out _, out var comp))
+        {
+            SendArticlesListToDiscordWebhook(comp.Articles.OrderBy(article => article.ShareTime));
+        }
+    }
+
+    private async void SendArticlesListToDiscordWebhook(IOrderedEnumerable<NewsArticle> articles)
+    {
+        foreach (var article in articles)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1)); // TODO: proper discord rate limit handling
+            await SendArticleToDiscordWebhook(article);
+        }
+    }
+
+    private async Task SendArticleToDiscordWebhook(NewsArticle article)
+    {
+        if (_webhookId is null)
+            return;
+
+        try
+        {
+            var embed = new WebhookEmbed
+            {
+                Title = article.Title,
+                // There is no need to cut article content. It's MaxContentLength smaller then discord's limit (4096):
+                Description = FormattedMessage.RemoveMarkupPermissive(article.Content),
+                Color = _webhookEmbedColor.ToArgb() & 0xFFFFFF, // HACK: way to get hex without A (transparency)
+                Footer = new WebhookEmbedFooter
+                {
+                    Text = Loc.GetString("news-discord-footer",
+                        ("server", _baseServer.ServerName),
+                        ("round", _ticker.RoundId),
+                        ("author", article.Author ?? Loc.GetString("news-discord-unknown-author")),
+                        ("time", article.ShareTime.ToString(@"hh\:mm\:ss")))
+                }
+            };
+            var payload = new WebhookPayload { Embeds = [embed] };
+            await _discord.CreateMessage(_webhookId.Value, payload);
+            Log.Info("Sent news article to Discord webhook");
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Error while sending discord news article:\n{e}");
+        }
+    }
+
+    #endregion
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 }

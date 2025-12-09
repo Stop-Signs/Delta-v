@@ -35,10 +35,24 @@ station-beacon-camera-servers = Cameras
 
 station-beacon-boxing-ring = Boxing
 station-beacon-park = Park
+<<<<<<< HEAD
+=======
+station-beacon-laser-tag = Laser Tag
+station-beacon-restroom = Restroom
+station-beacon-arcade = Arcade
+station-beacon-laundromat = Laundromat
+station-beacon-pool = Pool
+station-beacon-barbershop = Barbershop
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 station-beacon-corpsman = Corpsman
+station-beacon-security-solitary = Solitary Confinement
+station-beacon-bomb-training = Bomb Training
+station-beacon-perma-disposals = Perma Disposals
 
 station-beacon-justice = Justice
 station-beacon-chiefjustice = Chief Justice
 station-beacon-prosecutor = Prosecutor
 station-beacon-clerk = Clerk
+station-beacon-attorney = Attorney
+station-beacon-zoo = Zoo

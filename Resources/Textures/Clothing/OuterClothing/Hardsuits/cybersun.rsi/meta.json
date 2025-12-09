@@ -1,7 +1,11 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
+<<<<<<< HEAD
   "copyright": "Sprite made by Gtheglorious based on the sprite made by emisse for ss14, vox state made by Flareguy for SS14. | harpy variant by VMSolidus",
+=======
+  "copyright": "Sprite made by Gtheglorious based on the sprite made by emisse for ss14, vox state made by Flareguy for SS14, monkey state made by MercerBray for Ss14. | harpy variant by VMSolidus, equipped-OUTERCLOTHING-dog modified from equipped-OUTERCLOTHING by casiliuscestus for SS14",
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   "size": {
     "x": 32,
     "y": 32
@@ -23,6 +27,17 @@
       "directions": 4
     },
     {
+<<<<<<< HEAD
+=======
+      "name": "equipped-OUTERCLOTHING-monkey",
+      "directions": 4
+    },
+    {
+        "name": "equipped-OUTERCLOTHING-dog",
+        "directions": 4
+    },
+    {
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
       "name": "inhand-left",
       "directions": 4
     },

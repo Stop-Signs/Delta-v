@@ -29,13 +29,17 @@ namespace Content.Server.Decals
     {
         [Dependency] private readonly IPlayerManager _playerManager = default!;
         [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefMan = default!;
         [Dependency] private readonly IParallelManager _parMan = default!;
         [Dependency] private readonly ChunkingSystem _chunking = default!;
         [Dependency] private readonly IConfigurationManager _conf = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+<<<<<<< HEAD
+=======
+        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly TurfSystem _turf = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         private readonly Dictionary<NetEntity, HashSet<Vector2i>> _dirtyChunks = new();
         private readonly Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> _previousSentChunks = new();
@@ -172,8 +176,22 @@ namespace Content.Server.Decals
 
             foreach (var (uid, decal) in chunk.Decals)
             {
+<<<<<<< HEAD
                 if (new Vector2((int) Math.Floor(decal.Coordinates.X), (int) Math.Floor(decal.Coordinates.Y)) ==
                     args.NewTile.GridIndices)
+=======
+                if (!_turf.IsSpace(change.NewTile))
+                    continue;
+
+                var indices = GetChunkIndices(change.GridIndices);
+
+                if (!grid.ChunkCollection.ChunkCollection.TryGetValue(indices, out var chunk))
+                    continue;
+
+                toDelete.Clear();
+
+                foreach (var (uid, decal) in chunk.Decals)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                 {
                     toDelete.Add(uid);
                 }
@@ -300,7 +318,7 @@ namespace Content.Server.Decals
             if (!TryComp(gridId, out MapGridComponent? grid))
                 return false;
 
-            if (_mapSystem.GetTileRef(gridId.Value, grid, coordinates).IsSpace(_tileDefMan))
+            if (_turf.IsSpace(_mapSystem.GetTileRef(gridId.Value, grid, coordinates)))
                 return false;
 
             if (!TryComp(gridId, out DecalGridComponent? comp))

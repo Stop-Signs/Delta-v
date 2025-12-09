@@ -29,8 +29,12 @@ namespace Content.IntegrationTests.Tests.Disposal
                 SubscribeLocalEvent<DoInsertDisposalUnitEvent>(ev =>
                 {
                     var (_, toInsert, unit) = ev;
+<<<<<<< HEAD
                     var insertTransform = EntityManager.GetComponent<TransformComponent>(toInsert);
                     var unitTransform = EntityManager.GetComponent<TransformComponent>(unit);
+=======
+                    var insertTransform = Comp<TransformComponent>(toInsert);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                     // Not in a tube yet
                     Assert.That(insertTransform.ParentUid, Is.EqualTo(unit));
                 }, after: new[] { typeof(SharedDisposalUnitSystem) });

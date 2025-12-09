@@ -23,7 +23,11 @@ public abstract class SharedCryostorageSystem : EntitySystem
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] protected readonly SharedMindSystem Mind = default!;
+<<<<<<< HEAD
     [Dependency] private readonly MobStateSystem _mobState = default!;
+=======
+    [Dependency] private readonly MetaDataSystem _meta = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     protected EntityUid? PausedMap { get; private set; }
 
@@ -156,7 +160,7 @@ public abstract class SharedCryostorageSystem : EntitySystem
         if (PausedMap == null || !Exists(PausedMap))
             return;
 
-        EntityManager.DeleteEntity(PausedMap.Value);
+        Del(PausedMap.Value);
         PausedMap = null;
     }
 
@@ -165,9 +169,16 @@ public abstract class SharedCryostorageSystem : EntitySystem
         if (PausedMap != null && Exists(PausedMap))
             return;
 
+<<<<<<< HEAD
         var map = _mapManager.CreateMap();
         _mapManager.SetMapPaused(map, true);
         PausedMap = _mapManager.GetMapEntityId(map);
+=======
+        var mapUid = _map.CreateMap();
+        _meta.SetEntityName(mapUid, Loc.GetString("cryostorage-paused-map-name"));
+        _map.SetPaused(mapUid, true);
+        PausedMap = mapUid;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 
     public bool IsInPausedMap(Entity<TransformComponent?> entity)

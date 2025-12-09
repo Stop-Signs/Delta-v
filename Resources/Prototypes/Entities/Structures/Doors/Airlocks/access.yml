@@ -591,6 +591,18 @@
       board: [ DoorElectronicsChapel ]
 
 - type: entity
+  parent: AirlockStandardGlass
+  id: AirlockChapelStandardGlassLocked
+  suffix: Chapel, Locked
+  categories: [ HideSpawnMenu ] # DeltaV - Chapel is Epistemics and redundant
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsChapel ]
+  - type: Wires
+    layoutId: AirlockService
+
+- type: entity
   parent: AirlockEngineeringGlass
   id: AirlockEngineeringGlassLocked
   suffix: Engineering, Locked
@@ -848,6 +860,15 @@
   parent: AirlockMaint
   id: AirlockMaintLocked
   suffix: Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsMaintenance ]
+
+- type: entity
+  parent: AirlockXeno
+  id: AirlockXenoMaintLocked
+  suffix: Maintenance, Locked
   components:
   - type: ContainerFill
     containers:
@@ -1178,6 +1199,17 @@
     containers:
       board: [ DoorElectronicsNukeop ]
 
+- type: entity
+  parent: AirlockXenoborg
+  id: AirlockXenoborgLocked
+  suffix: Xenoborg, Locked
+  components:
+  - type: StationAiWhitelist
+    enabled: false
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsXenoborg ]
+
 # Shuttle airlocks
 - type: entity
   parent: AirlockShuttle
@@ -1205,6 +1237,17 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsNukeop ]
+
+- type: entity
+  parent: AirlockShuttleXenoborg
+  id: AirlockGlassShuttleXenoborgLocked
+  suffix: External, Docking, Xenoborg, Locked
+  components:
+  - type: StationAiWhitelist
+    enabled: false
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsXenoborg ]
 
 - type: entity
   parent: AirlockGlassShuttle

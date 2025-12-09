@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using System.Numerics;
 using Content.Server.Access.Systems;
 using Content.Server.DeviceNetwork;
@@ -25,42 +26,30 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+=======
+using Content.Server.DeviceNetwork.Systems;
+using Content.Server.Emp;
+using Content.Server.Medical.CrewMonitoring;
+using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.Medical.SuitSensor;
+using Content.Shared.Medical.SuitSensors;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Robust.Shared.Timing;
 
 namespace Content.Server.Medical.SuitSensors;
 
-public sealed class SuitSensorSystem : EntitySystem
+public sealed class SuitSensorSystem : SharedSuitSensorSystem
 {
     [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly IdCardSystem _idCardSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly SingletonDeviceNetServerSystem _singletonServerSystem = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawn);
-        SubscribeLocalEvent<SuitSensorComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<SuitSensorComponent, ClothingGotEquippedEvent>(OnEquipped);
-        SubscribeLocalEvent<SuitSensorComponent, ClothingGotUnequippedEvent>(OnUnequipped);
-        SubscribeLocalEvent<SuitSensorComponent, ExaminedEvent>(OnExamine);
-        SubscribeLocalEvent<SuitSensorComponent, GetVerbsEvent<Verb>>(OnVerb);
-        SubscribeLocalEvent<SuitSensorComponent, EntGotInsertedIntoContainerMessage>(OnInsert);
-        SubscribeLocalEvent<SuitSensorComponent, EntGotRemovedFromContainerMessage>(OnRemove);
+
         SubscribeLocalEvent<SuitSensorComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<SuitSensorComponent, EmpDisabledRemoved>(OnEmpFinished);
-        SubscribeLocalEvent<SuitSensorComponent, SuitSensorChangeDoAfterEvent>(OnSuitSensorDoAfter);
     }
 
     public override void Update(float frameTime)
@@ -68,7 +57,7 @@ public sealed class SuitSensorSystem : EntitySystem
         base.Update(frameTime);
 
         var curTime = _gameTiming.CurTime;
-        var sensors = EntityManager.EntityQueryEnumerator<SuitSensorComponent, DeviceNetworkComponent>();
+        var sensors = EntityQueryEnumerator<SuitSensorComponent, DeviceNetworkComponent>();
 
         while (sensors.MoveNext(out var uid, out var sensor, out var device))
         {
@@ -79,14 +68,13 @@ public sealed class SuitSensorSystem : EntitySystem
             if (curTime < sensor.NextUpdate)
                 continue;
 
-            if (!CheckSensorAssignedStation(uid, sensor))
+            if (!CheckSensorAssignedStation((uid, sensor)))
                 continue;
 
-            // TODO: This would cause imprecision at different tick rates.
-            sensor.NextUpdate = curTime + sensor.UpdateRate;
+            sensor.NextUpdate += sensor.UpdateRate;
 
             // get sensor status
-            var status = GetSensorState(uid, sensor);
+            var status = GetSensorState((uid, sensor));
             if (status == null)
                 continue;
 
@@ -113,159 +101,21 @@ public sealed class SuitSensorSystem : EntitySystem
         }
     }
 
-    /// <summary>
-    /// Checks whether the sensor is assigned to a station or not
-    /// and tries to assign an unassigned sensor to a station if it's currently on a grid
-    /// </summary>
-    /// <returns>True if the sensor is assigned to a station or assigning it was successful. False otherwise.</returns>
-    private bool CheckSensorAssignedStation(EntityUid uid, SuitSensorComponent sensor)
-    {
-        if (!sensor.StationId.HasValue && Transform(uid).GridUid == null)
-            return false;
-
-        sensor.StationId = _stationSystem.GetOwningStation(uid);
-        return sensor.StationId.HasValue;
-    }
-
-    private void OnPlayerSpawn(PlayerSpawnCompleteEvent ev)
-    {
-        // If the player spawns in arrivals then the grid underneath them may not be appropriate.
-        // in which case we'll just use the station spawn code told us they are attached to and set all of their
-        // sensors.
-        var sensorQuery = GetEntityQuery<SuitSensorComponent>();
-        var xformQuery = GetEntityQuery<TransformComponent>();
-        RecursiveSensor(ev.Mob, ev.Station, sensorQuery, xformQuery);
-    }
-
-    private void RecursiveSensor(EntityUid uid, EntityUid stationUid, EntityQuery<SuitSensorComponent> sensorQuery, EntityQuery<TransformComponent> xformQuery)
-    {
-        var xform = xformQuery.GetComponent(uid);
-        var enumerator = xform.ChildEnumerator;
-
-        while (enumerator.MoveNext(out var child))
-        {
-            if (sensorQuery.TryGetComponent(child, out var sensor))
-            {
-                sensor.StationId = stationUid;
-            }
-
-            RecursiveSensor(child, stationUid, sensorQuery, xformQuery);
-        }
-    }
-
-    private void OnMapInit(EntityUid uid, SuitSensorComponent component, MapInitEvent args)
-    {
-        // Fallback
-        component.StationId ??= _stationSystem.GetOwningStation(uid);
-
-        // generate random mode
-        if (component.RandomMode)
-        {
-            //make the sensor mode favor higher levels, except coords.
-            var modesDist = new[]
-            {
-                SuitSensorMode.SensorOff,
-                SuitSensorMode.SensorBinary, SuitSensorMode.SensorBinary,
-                SuitSensorMode.SensorVitals, SuitSensorMode.SensorVitals, SuitSensorMode.SensorVitals,
-                SuitSensorMode.SensorCords, SuitSensorMode.SensorCords
-            };
-            component.Mode = _random.Pick(modesDist);
-        }
-    }
-
-    private void OnEquipped(EntityUid uid, SuitSensorComponent component, ref ClothingGotEquippedEvent args)
-    {
-        component.User = args.Wearer;
-    }
-
-    private void OnUnequipped(EntityUid uid, SuitSensorComponent component, ref ClothingGotUnequippedEvent args)
-    {
-        component.User = null;
-    }
-
-    private void OnExamine(EntityUid uid, SuitSensorComponent component, ExaminedEvent args)
-    {
-        if (!args.IsInDetailsRange)
-            return;
-
-        string msg;
-        switch (component.Mode)
-        {
-            case SuitSensorMode.SensorOff:
-                msg = "suit-sensor-examine-off";
-                break;
-            case SuitSensorMode.SensorBinary:
-                msg = "suit-sensor-examine-binary";
-                break;
-            case SuitSensorMode.SensorVitals:
-                msg = "suit-sensor-examine-vitals";
-                break;
-            case SuitSensorMode.SensorCords:
-                msg = "suit-sensor-examine-cords";
-                break;
-            default:
-                return;
-        }
-
-        args.PushMarkup(Loc.GetString(msg));
-    }
-
-    private void OnVerb(EntityUid uid, SuitSensorComponent component, GetVerbsEvent<Verb> args)
-    {
-        // check if user can change sensor
-        if (component.ControlsLocked)
-            return;
-
-        // standard interaction checks
-        if (!args.CanInteract || args.Hands == null)
-            return;
-
-        if (!_interactionSystem.InRangeUnobstructed(args.User, args.Target))
-            return;
-
-        // check if target is incapacitated (cuffed, dead, etc)
-        if (component.User != null && args.User != component.User && _actionBlocker.CanInteract(component.User.Value, null))
-            return;
-
-        args.Verbs.UnionWith(new[]
-        {
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorOff),
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorBinary),
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorVitals),
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorCords)
-        });
-    }
-
-    private void OnInsert(EntityUid uid, SuitSensorComponent component, EntGotInsertedIntoContainerMessage args)
-    {
-        if (args.Container.ID != component.ActivationContainer)
-            return;
-
-        component.User = args.Container.Owner;
-    }
-
-    private void OnRemove(EntityUid uid, SuitSensorComponent component, EntGotRemovedFromContainerMessage args)
-    {
-        if (args.Container.ID != component.ActivationContainer)
-            return;
-
-        component.User = null;
-    }
-
-    private void OnEmpPulse(EntityUid uid, SuitSensorComponent component, ref EmpPulseEvent args)
+    private void OnEmpPulse(Entity<SuitSensorComponent> ent, ref EmpPulseEvent args)
     {
         args.Affected = true;
         args.Disabled = true;
 
-        component.PreviousMode = component.Mode;
-        SetSensor((uid, component), SuitSensorMode.SensorOff, null);
+        ent.Comp.PreviousMode = ent.Comp.Mode;
+        SetSensor(ent.AsNullable(), SuitSensorMode.SensorOff, null);
 
-        component.PreviousControlsLocked = component.ControlsLocked;
-        component.ControlsLocked = true;
+        ent.Comp.PreviousControlsLocked = ent.Comp.ControlsLocked;
+        ent.Comp.ControlsLocked = true;
     }
 
-    private void OnEmpFinished(EntityUid uid, SuitSensorComponent component, ref EmpDisabledRemoved args)
+    private void OnEmpFinished(Entity<SuitSensorComponent> ent, ref EmpDisabledRemoved args)
     {
+<<<<<<< HEAD
         SetSensor((uid, component), component.PreviousMode, null);
         component.ControlsLocked = component.PreviousControlsLocked;
     }
@@ -505,5 +355,9 @@ public sealed class SuitSensorSystem : EntitySystem
             Coordinates = coords,
         };
         return status;
+=======
+        SetSensor(ent.AsNullable(), ent.Comp.PreviousMode, null);
+        ent.Comp.ControlsLocked = ent.Comp.PreviousControlsLocked;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 }

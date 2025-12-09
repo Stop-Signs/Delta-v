@@ -2,6 +2,7 @@
 
 namespace Content.Client.Station;
 
+<<<<<<< HEAD
 /// <summary>
 /// This handles letting the client know stations are a thing. Only really used by an admin menu.
 /// </summary>
@@ -30,3 +31,7 @@ public sealed class StationSystem : EntitySystem
         _stations.AddRange(ev.Stations);
     }
 }
+=======
+/// <inheritdoc/>
+public sealed partial class StationSystem : SharedStationSystem;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

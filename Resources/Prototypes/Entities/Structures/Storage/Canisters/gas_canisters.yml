@@ -35,6 +35,14 @@
             1: { state: can-o1, shader: "unshaded" }
             2: { state: can-o2, shader: "unshaded" }
             3: { state: can-o3, shader: "unshaded" }
+<<<<<<< HEAD
+=======
+    - type: ActivatableUI
+      key: enum.GasCanisterUiKey.Key
+    - type: UIRequiresLock
+      userInterfaceKeys:
+      - enum.GasCanisterUiKey.Key
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     - type: UserInterface
       interfaces:
         enum.GasCanisterUiKey.Key:
@@ -119,6 +127,8 @@
     - type: GuideHelp
       guides:
       - GasCanisters
+    - type: Paintable
+      group: Canisters
 
 - type: entity
   parent: GasCanister

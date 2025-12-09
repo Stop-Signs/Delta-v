@@ -132,7 +132,11 @@
   parent: ClothingBackpackDuffelSyndicateAmmo
   id: ClothingBackpackDuffelSyndicateAmmoFilled
   name: ammo bundle
+<<<<<<< HEAD
   description: "Reloading! Contains 4 magazines for the C-20r, 4 drums for the Bulldog, and 2 ammo boxes for the L6 SAW."
+=======
+  description: "Reloading! Contains 4 magazines for the C-20r, 5 drums for the Bulldog, 3 magazines for the Estoc DMR, and 2 ammo boxes for the L6 SAW."
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   components:
   - type: StorageFill
     contents:
@@ -140,6 +144,13 @@
         amount: 4
       - id: MagazineShotgun
         amount: 4
+<<<<<<< HEAD
+=======
+      - id: MagazineRifle
+        amount: 3
+      - id: MagazineShotgunSlug
+        amount: 1
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
       - id: MagazineLightRifleBox
         amount: 2
 
@@ -351,3 +362,39 @@
         amount: 2
       - id: SyndieTrickyBomb
         amount: 2
+<<<<<<< HEAD
+=======
+
+- type: entity
+  parent: [ ClothingBackpackDuffelBundle, BaseMajorContraband ]
+  id: ClothingBackpackDuffelAcolyteBundle
+  name: acolyte armor bundle
+  description: "Contains the Acolyte Armor, the must have of any cult leader."
+  components:
+  - type: StorageFill
+    contents:
+    - id: ClothingOuterArmorCult
+    - id: ClothingHeadHelmetCult
+    - id: ClothingShoesCult
+    - id: BedsheetCult
+
+- type: entity
+  parent: ClothingBackpackDuffelSyndicateBundle
+  id: ClothingBackpackDuffelSyndicateFilledStarterKit
+  name: basic operative bundle
+  description: "Contains a weapon, medical supplies, breaching tools, spare ammo, and some simple utilities."
+  components:
+  - type: StorageFill
+    contents:
+      - id: WeaponSubMachineGunC20r
+      - id: MagazinePistolSubMachineGun
+        amount: 3
+      - id: MagazinePistol
+      - id: SyndicateJawsOfLife
+      - id: C4
+        amount: 2
+      - id: MedkitCombatFilled
+      - id: EmpImplanter
+      - id: ClothingShoesBootsMagSyndie
+      - id: AgentIDCard
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

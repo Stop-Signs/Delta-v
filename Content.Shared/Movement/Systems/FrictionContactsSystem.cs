@@ -55,9 +55,24 @@ public sealed class FrictionContactsSystem : EntitySystem
 
     public override void Update(float frameTime)
     {
+<<<<<<< HEAD
         base.Update(frameTime);
 
         foreach (var uid in _toUpdate)
+=======
+        if (!TryComp<PhysicsComponent>(entity, out var physicsComponent))
+            return;
+
+        var friction = 0.0f;
+        var frictionNoInput = 0.0f;
+        var acceleration = 0.0f;
+
+        var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(entity.Owner);
+
+        var remove = true;
+        var entries = 0;
+        foreach (var ent in _physics.GetContactingEntities(entity, physicsComponent))
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         {
             ApplyFrictionChange(uid);
         }

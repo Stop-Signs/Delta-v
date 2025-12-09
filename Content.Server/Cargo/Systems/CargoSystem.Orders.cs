@@ -1,7 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Cargo.Components;
+<<<<<<< HEAD
 using Content.Server.Labels.Components;
 using Content.Server.Station.Components;
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.BUI;
 using Content.Shared.Cargo.Components;
@@ -12,6 +15,7 @@ using Content.Shared.Emag.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Paper;
+using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -619,7 +623,7 @@ namespace Content.Server.Cargo.Systems
             _transformSystem.Unanchor(item, Transform(item));
 
             // Create a sheet of paper to write the order details on
-            var printed = EntityManager.SpawnEntity(paperProto, spawn);
+            var printed = Spawn(paperProto, spawn);
             if (TryComp<PaperComponent>(printed, out var paper))
             {
                 // fill in the order data

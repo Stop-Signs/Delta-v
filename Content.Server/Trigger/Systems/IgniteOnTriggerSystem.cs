@@ -1,0 +1,71 @@
+<<<<<<< HEAD:Content.Server/IgnitionSource/IgniteOnTriggerSystem.cs
+using Content.Server.Explosion.EntitySystems;
+using Content.Shared.Timing;
+using Robust.Shared.Audio.Systems;
+=======
+using Content.Shared.IgnitionSource;
+using Content.Shared.Trigger;
+using Content.Shared.Trigger.Components.Effects;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d:Content.Server/Trigger/Systems/IgniteOnTriggerSystem.cs
+using Robust.Shared.Timing;
+
+namespace Content.Server.Trigger.Systems;
+
+/// <summary>
+/// Handles igniting when triggered and stopping ignition after the delay.
+/// </summary>
+/// <seealso cref="FireStackOnTriggerSystem"/>
+public sealed class IgniteOnTriggerSystem : EntitySystem
+{
+    [Dependency] private readonly IGameTiming _timing = default!;
+<<<<<<< HEAD:Content.Server/IgnitionSource/IgniteOnTriggerSystem.cs
+    [Dependency] private readonly IgnitionSourceSystem _source = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+=======
+    [Dependency] private readonly SharedIgnitionSourceSystem _source = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d:Content.Server/Trigger/Systems/IgniteOnTriggerSystem.cs
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<IgniteOnTriggerComponent, TriggerEvent>(OnTrigger);
+    }
+
+    // TODO: move this into ignition source component
+    // it already has an update loop
+    public override void Update(float deltaTime)
+    {
+        base.Update(deltaTime);
+
+        var query = EntityQueryEnumerator<IgniteOnTriggerComponent, IgnitionSourceComponent>();
+        while (query.MoveNext(out var uid, out var comp, out var source))
+        {
+            if (!source.Ignited)
+                continue;
+
+            if (_timing.CurTime < comp.IgnitedUntil)
+                continue;
+
+            _source.SetIgnited((uid, source), false);
+        }
+    }
+
+    private void OnTrigger(Entity<IgniteOnTriggerComponent> ent, ref TriggerEvent args)
+    {
+        if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
+            return;
+
+        var target = ent.Comp.TargetUser ? args.User : ent.Owner;
+
+        if (target == null)
+            return;
+
+        _source.SetIgnited(target.Value);
+        ent.Comp.IgnitedUntil = _timing.CurTime + ent.Comp.IgnitedTime;
+        Dirty(ent);
+
+        args.Handled = true;
+    }
+}

@@ -41,7 +41,7 @@ namespace Content.Server.Chemistry.EntitySystems
 
         private void HandleCollide(Entity<VaporComponent> entity, ref StartCollideEvent args)
         {
-            if (!EntityManager.TryGetComponent(entity.Owner, out SolutionContainerManagerComponent? contents)) return;
+            if (!TryComp(entity.Owner, out SolutionContainerManagerComponent? contents)) return;
 
             foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((entity.Owner, contents)))
             {
@@ -52,7 +52,7 @@ namespace Content.Server.Chemistry.EntitySystems
             // Check for collision with a impassable object (e.g. wall) and stop
             if ((args.OtherFixture.CollisionLayer & (int) CollisionGroup.Impassable) != 0 && args.OtherFixture.Hard)
             {
-                EntityManager.QueueDeleteEntity(entity);
+                QueueDel(entity);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Content.Server.Chemistry.EntitySystems
             despawn.Lifetime = aliveTime;
 
             // Set Move
-            if (EntityManager.TryGetComponent(vapor, out PhysicsComponent? physics))
+            if (TryComp(vapor, out PhysicsComponent? physics))
             {
                 _physics.SetLinearDamping(vapor, physics, 0f);
                 _physics.SetAngularDamping(vapor, physics, 0f);
@@ -127,8 +127,47 @@ namespace Content.Server.Chemistry.EntitySystems
 
                     if (reaction > reagentQuantity.Quantity)
                     {
+<<<<<<< HEAD
                         Log.Error($"Tried to tile react more than we have for reagent {reagentQuantity}. Found {reaction} and we only have {reagentQuantity.Quantity}");
                         reaction = reagentQuantity.Quantity;
+=======
+                        // Iterate over the reagents in the solution
+                        // Reason: Each reagent in our solution may have a unique TileReaction
+                        // In this instance, we check individually for each reagent's TileReaction
+                        // This is not doing chemical reactions!
+                        var contents = soln.Comp.Solution;
+                        foreach (var reagentQuantity in contents.Contents.ToArray())
+                        {
+                            // Check if the reagent is empty
+                            if (reagentQuantity.Quantity == FixedPoint2.Zero)
+                                continue;
+
+                            var reagent = _protoManager.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
+
+                            // Limit the reaction amount to a minimum value to ensure no floating point funnies.
+                            // Ex: A solution with a low percentage transfer amount will slowly approach 0.01... and never get deleted
+                            var clampedAmount = Math.Max(
+                                (float)reagentQuantity.Quantity * vaporComp.TransferAmountPercentage,
+                                vaporComp.MinimumTransferAmount);
+
+                            // Preform the reagent's TileReaction
+                            var reaction =
+                                reagent.ReactionTile(tile,
+                                    clampedAmount,
+                                    EntityManager,
+                                    reagentQuantity.Reagent.Data);
+
+                            if (reaction > reagentQuantity.Quantity)
+                                reaction = reagentQuantity.Quantity;
+
+                            _solutionContainerSystem.RemoveReagent(soln, reagentQuantity.Reagent, reaction);
+                        }
+
+                        // Delete the vapor entity if it has no contents
+                        if (contents.Volume == 0)
+                            QueueDel(uid);
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                     }
 
                     _solutionContainerSystem.RemoveReagent(soln, reagentQuantity.Reagent, reaction);

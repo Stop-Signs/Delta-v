@@ -23,7 +23,11 @@
   discountDownTo:
     Telecrystal: 2
   cost:
+<<<<<<< HEAD
     Telecrystal: 4 # Originally was 13 and then 8 TC but was not used due to high cost
+=======
+    Telecrystal: 4
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   categories:
   - UplinkWeaponry
 
@@ -152,9 +156,9 @@
   productEntity: BriefcaseSyndieSniperBundleFilled
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 5 # DeltaV - was 6
+    Telecrystal: 4 # DeltaV - was 6
   cost:
-    Telecrystal: 10 # DeltaV - was 12 changed because the Hristov is REALLY bad
+    Telecrystal: 9 # DeltaV - was 12 changed because the Hristov is REALLY bad
   categories:
   - UplinkWeaponry
 
@@ -166,9 +170,13 @@
   productEntity: ClothingBackpackDuffelSyndicateFilledSMG
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 10
+    Telecrystal: 8
   cost:
+<<<<<<< HEAD
     Telecrystal: 17
+=======
+    Telecrystal: 15 # DeltaV - was 17
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   categories:
   - UplinkWeaponry
 
@@ -194,9 +202,13 @@
   productEntity: ClothingBackpackDuffelSyndicateFilledShotgun
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 12
+    Telecrystal: 8
   cost:
+<<<<<<< HEAD
     Telecrystal: 20
+=======
+    Telecrystal: 15 # DeltaV - was 20
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   categories:
   - UplinkWeaponry
 
@@ -222,7 +234,7 @@
   productEntity: ClothingBackpackDuffelSyndicateFilledLMG
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 20 # DeltaV - Was 8
+    Telecrystal: 12 # DeltaV - Was 8
   cost:
     Telecrystal: 24 # DeltaV - Was 12
   categories:
@@ -1228,7 +1240,7 @@
   productEntity: ReinforcementRadioSyndicateCyborgAssault
   icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-borg-assault }
   cost:
-    Telecrystal: 65
+    Telecrystal: 40 # DeltaV - was 65
   categories:
     - UplinkAllies
   conditions:
@@ -1606,9 +1618,9 @@
   productEntity: ClothingOuterVestWeb
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 3 # DeltaV - was 1
   cost:
-    Telecrystal: 3
+    Telecrystal: 5 # DeltaV - Was 3
   categories:
   - UplinkWearables
 
@@ -1693,7 +1705,7 @@
   discountDownTo:
     Telecrystal: 7
   cost:
-    Telecrystal: 10 # DeltaV - was 12
+    Telecrystal: 14 # DeltaV - was 12
   categories:
   - UplinkWearables
 
@@ -2158,7 +2170,11 @@
   discountDownTo:
     Telecrystal: 2
   cost:
+<<<<<<< HEAD
     Telecrystal: 5
+=======
+    Telecrystal: 3
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   categories:
   - UplinkJob
   conditions:
@@ -2190,6 +2206,17 @@
     - Mime
 
 - type: listing
+  id: UplinkContrabandLighter
+  name: uplink-contraband-lighter-name
+  description: uplink-contraband-lighter-desc
+  icon: { sprite:  Objects/Tools/Lighters/syndielighter.rsi, state: icon}
+  productEntity: UplinkLighterBox
+  cost:
+    Telecrystal: 1
+  categories:
+  - UplinkPointless
+
+- type: listing
   id: UplinkSmugglerSatchel
   name: uplink-smuggler-satchel-name
   description: uplink-smuggler-satchel-desc
@@ -2201,3 +2228,43 @@
     Telecrystal: 2
   categories:
   - UplinkDeception
+<<<<<<< HEAD
+=======
+
+- type: listing
+  id: UplinkAcolyteArmor
+  name: uplink-acolyte-armor-name
+  description: uplink-acolyte-armor-desc
+  icon: { sprite: Clothing/OuterClothing/Armor/cult_armour.rsi, state: icon}
+  productEntity: ClothingBackpackDuffelAcolyteBundle
+  discountCategory: veryRareDiscounts
+  discountDownTo:
+    Telecrystal: 3
+  cost:
+    Telecrystal: 4
+  categories:
+  - UplinkJob
+  conditions:
+  - !type:BuyerJobCondition
+    whitelist:
+    - Chaplain
+
+- type: listing
+  id: UplinkSawAdvanced
+  name: uplink-saw-advanced-name
+  description: uplink-saw-advanced-desc
+  icon: { sprite:  Objects/Specific/Medical/Surgery/saw.rsi, state: advanced}
+  productEntity: SawAdvanced
+  discountCategory: rareDiscounts
+  discountDownTo:
+    Telecrystal: 1
+  cost:
+    Telecrystal: 2
+  categories:
+  - UplinkJob
+  conditions:
+  - !type:BuyerJobCondition
+    whitelist:
+    - MedicalDoctor
+    - Surgeon # DeltaV - Dr. Han I AM A SURGEON
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

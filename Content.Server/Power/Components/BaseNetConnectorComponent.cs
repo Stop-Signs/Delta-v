@@ -2,6 +2,12 @@
 using System.Linq;
 using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.NodeGroups;
+<<<<<<< HEAD
+=======
+using Content.Shared.NodeContainer;
+using Content.Shared.NodeContainer.NodeGroups;
+using Content.Shared.Power;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 namespace Content.Server.Power.Components
 {
@@ -91,12 +97,5 @@ namespace Content.Server.Power.Components
             _voltage = newVoltage;
             TryFindAndSetNet();
         }
-    }
-
-    public enum Voltage
-    {
-        High = NodeGroupID.HVPower,
-        Medium = NodeGroupID.MVPower,
-        Apc = NodeGroupID.Apc,
     }
 }

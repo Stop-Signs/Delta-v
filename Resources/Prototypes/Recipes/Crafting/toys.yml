@@ -19,7 +19,18 @@
   targetNode: suit
   category: construction-category-misc
   objectType: Item
+<<<<<<< HEAD
   description: Make yourself look just like Ian!
   icon:
     sprite: Clothing/OuterClothing/Suits/iansuit.rsi
     state: icon
+=======
+
+- type: construction
+  id: MoproachShoes
+  graph: MoproachShoes
+  startNode: start
+  targetNode: shoes
+  category: construction-category-misc
+  objectType: Item
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

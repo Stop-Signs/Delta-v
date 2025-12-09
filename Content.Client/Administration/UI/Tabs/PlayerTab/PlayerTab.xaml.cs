@@ -44,9 +44,15 @@ public sealed partial class PlayerTab : Control
         _adminSystem.OverlayEnabled += OverlayEnabled;
         _adminSystem.OverlayDisabled += OverlayDisabled;
 
+<<<<<<< HEAD
         _config.OnValueChanged(CCVars.AdminPlayerlistSeparateSymbols, PlayerListSettingsChanged);
         _config.OnValueChanged(CCVars.AdminPlayerlistHighlightedCharacterColor, PlayerListSettingsChanged);
         _config.OnValueChanged(CCVars.AdminPlayerlistRoleTypeColor, PlayerListSettingsChanged);
+=======
+        _config.OnValueChanged(CCVars.AdminPlayerTabRoleSetting, RoleSettingChanged, true);
+        _config.OnValueChanged(CCVars.AdminPlayerTabColorSetting, ColorSettingChanged, true);
+        _config.OnValueChanged(CCVars.AdminPlayerTabSymbolSetting, SymbolSettingChanged, true);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         OverlayButton.OnPressed += OverlayButtonPressed;
         ShowDisconnectedButton.OnPressed += ShowDisconnectedPressed;
@@ -60,7 +66,6 @@ public sealed partial class PlayerTab : Control
         SearchList.ItemKeyBindDown += (args, data) => OnEntryKeyBindDown?.Invoke(args, data);
 
         RefreshPlayerList(_adminSystem.PlayerList);
-
     }
 
     #region Antag Overlay
@@ -143,6 +148,7 @@ public sealed partial class PlayerTab : Control
         var entry = new PlayerTabEntry(player, new StyleBoxFlat(button.Index % 2 == 0 ? _altColor : _defaultColor));
         button.AddChild(entry);
         button.ToolTip = $"{player.Username}, {player.CharacterName}, {player.IdentityName}, {player.StartingJob}";
+        button.StyleClasses.Clear();
     }
 
     /// <summary>

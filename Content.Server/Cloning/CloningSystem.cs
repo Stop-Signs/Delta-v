@@ -24,7 +24,7 @@ namespace Content.Server.Cloning;
 ///     System responsible for making a copy of a humanoid's body.
 ///     For the cloning machines themselves look at CloningPodSystem, CloningConsoleSystem and MedicalScannerSystem instead.
 /// </summary>
-public sealed partial class CloningSystem : EntitySystem
+public sealed partial class CloningSystem : SharedCloningSystem
 {
     [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
@@ -112,6 +112,7 @@ public sealed partial class CloningSystem : EntitySystem
         return true;
     }
 
+<<<<<<< HEAD
     /// <summary>
 <<<<<<< HEAD
 =======
@@ -121,6 +122,9 @@ public sealed partial class CloningSystem : EntitySystem
     /// <param name="clone">The target Entity to clone components to.</param>
     /// <param name="settings">The clone settings prototype containing the list of components to clone.</param>
     public void CloneComponents(EntityUid original, EntityUid clone, CloningSettingsPrototype settings)
+=======
+    public override void CloneComponents(EntityUid original, EntityUid clone, CloningSettingsPrototype settings)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     {
         var componentsToCopy = settings.Components;
         var componentsToEvent = settings.EventComponents;
@@ -158,7 +162,8 @@ public sealed partial class CloningSystem : EntitySystem
             }
 
             // If the original does not have the component, then the clone shouldn't have it either.
-            RemComp(clone, componentRegistration.Type);
+            if (!HasComp(original, componentRegistration.Type))
+                RemComp(clone, componentRegistration.Type);
         }
 
         var cloningEv = new CloningEvent(settings, clone);
@@ -206,7 +211,7 @@ public sealed partial class CloningSystem : EntitySystem
         if (prototype == null)
             return null;
 
-        var spawned = EntityManager.SpawnAtPosition(prototype, coords);
+        var spawned = SpawnAtPosition(prototype, coords);
 
         // copy over important component data
         var ev = new CloningItemEvent(spawned);

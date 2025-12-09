@@ -274,6 +274,13 @@ namespace Content.Server.Construction
                     if(!insertStep.EntityValid(insert, EntityManager, Factory))
                         return HandleResult.False;
 
+<<<<<<< HEAD
+=======
+                    // Unremovable items can't be inserted
+                    if(HasComp<UnremoveableComponent>(insert))
+                        return HandleResult.False;
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                     // If we're only testing whether this step would be handled by the given event, then we're done.
                     if (validation)
                         return HandleResult.Validated;
@@ -563,6 +570,10 @@ namespace Content.Server.Construction
 
                 handled.Handled = true;
             }
+
+            // Make sure the event passes validation before enqueuing it
+            if (HandleEvent(uid, args, true, construction) != HandleResult.Validated)
+                return;
 
             // Enqueue this event so it'll be handled in the next tick.
             // This prevents some issues that could occur from entity deletion, component deletion, etc in a handler.

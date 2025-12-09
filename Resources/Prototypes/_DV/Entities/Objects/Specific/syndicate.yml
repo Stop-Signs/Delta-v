@@ -39,4 +39,8 @@
   components:
     - type: Store
       balance:
+<<<<<<< HEAD
         Telecrystal: 65
+=======
+        Telecrystal: 75 # not 65 but this is for nukies.
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

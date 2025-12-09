@@ -45,8 +45,17 @@ public sealed partial class PuddleSystem
             if (!_solutionContainerSystem.ResolveSolution(uid, puddle.SolutionName, ref puddle.Solution, out var puddleSolution))
                 continue;
 
+<<<<<<< HEAD
             var reagentTick = evaporation.EvaporationAmount * EvaporationCooldown.TotalSeconds;
             puddleSolution.SplitSolutionWithOnly(reagentTick, EvaporationReagents);
+=======
+            // Yes, this means that 50u water + 50u holy water evaporates twice as fast as 100u water.
+            foreach ((string evaporatingReagent, FixedPoint2 evaporatingSpeed) in GetEvaporationSpeeds(puddleSolution))
+            {
+                var reagentTick = evaporation.EvaporationAmount * EvaporationCooldown.TotalSeconds * evaporatingSpeed;
+                puddleSolution.SplitSolutionWithOnly(reagentTick, evaporatingReagent);
+            }
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
             // Despawn if we're done
             if (puddleSolution.Volume == FixedPoint2.Zero)

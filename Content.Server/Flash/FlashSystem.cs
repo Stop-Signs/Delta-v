@@ -1,28 +1,6 @@
-using System.Linq;
-using Content.Server.Flash.Components;
-using Content.Shared.Flash.Components;
-using Content.Server.Light.EntitySystems;
-using Content.Server.Popups;
-using Content.Server.Stunnable;
-using Content.Shared.Charges.Components;
-using Content.Shared.Charges.Systems;
-using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Flash;
-using Content.Shared.IdentityManagement;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Inventory;
-using Content.Shared.Tag;
-using Content.Shared.Traits.Assorted;
-using Content.Shared.Weapons.Melee.Events;
-using Content.Shared.StatusEffect;
-using Content.Shared.Examine;
-using Robust.Server.Audio;
-using Robust.Server.GameObjects;
-using Robust.Shared.Audio;
-using Robust.Shared.Random;
-using InventoryComponent = Content.Shared.Inventory.InventoryComponent;
-using Robust.Shared.Prototypes;
 
+<<<<<<< HEAD
 namespace Content.Server.Flash
 {
     internal sealed class FlashSystem : SharedFlashSystem
@@ -258,3 +236,8 @@ namespace Content.Server.Flash
         }
     }
 }
+=======
+namespace Content.Server.Flash;
+
+public sealed class FlashSystem : SharedFlashSystem;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

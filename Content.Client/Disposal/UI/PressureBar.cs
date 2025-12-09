@@ -1,4 +1,10 @@
+<<<<<<< HEAD:Content.Client/Disposal/UI/PressureBar.cs
 ﻿using Content.Shared.Disposal;
+=======
+﻿using System.Numerics;
+using Content.Shared.Disposal;
+using Content.Shared.Disposal.Unit;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d:Content.Client/Disposal/PressureBar.cs
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Timing;

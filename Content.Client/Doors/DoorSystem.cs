@@ -1,16 +1,22 @@
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
+using Content.Shared.SprayPainter.Prototypes;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
-using Robust.Client.ResourceManagement;
-using Robust.Shared.Serialization.TypeSerializers.Implementations;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client.Doors;
 
 public sealed class DoorSystem : SharedDoorSystem
 {
     [Dependency] private readonly AnimationPlayerSystem _animationSystem = default!;
+<<<<<<< HEAD
     [Dependency] private readonly IResourceCache _resourceCache = default!;
+=======
+    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly SpriteSystem _sprite = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     public override void Initialize()
     {
@@ -84,8 +90,13 @@ public sealed class DoorSystem : SharedDoorSystem
         if (!AppearanceSystem.TryGetData<DoorState>(entity, DoorVisuals.State, out var state, args.Component))
             state = DoorState.Closed;
 
+<<<<<<< HEAD
         if (AppearanceSystem.TryGetData<string>(entity, DoorVisuals.BaseRSI, out var baseRsi, args.Component))
             UpdateSpriteLayers(args.Sprite, baseRsi);
+=======
+        if (AppearanceSystem.TryGetData<string>(entity, PaintableVisuals.Prototype, out var prototype, args.Component))
+            UpdateSpriteLayers((entity.Owner, args.Sprite), prototype);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         if (_animationSystem.HasRunningAnimation(entity, DoorComponent.AnimationKey))
             _animationSystem.Stop(entity.Owner, DoorComponent.AnimationKey);
@@ -138,14 +149,22 @@ public sealed class DoorSystem : SharedDoorSystem
         }
     }
 
+<<<<<<< HEAD
     private void UpdateSpriteLayers(SpriteComponent sprite, string baseRsi)
+=======
+    private void UpdateSpriteLayers(Entity<SpriteComponent> sprite, string targetProto)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     {
-        if (!_resourceCache.TryGetResource<RSIResource>(SpriteSpecifierSerializer.TextureRoot / baseRsi, out var res))
-        {
-            Log.Error("Unable to load RSI '{0}'. Trace:\n{1}", baseRsi, Environment.StackTrace);
+        if (!_prototypeManager.TryIndex(targetProto, out var target))
             return;
-        }
 
+<<<<<<< HEAD
         sprite.BaseRSI = res.RSI;
+=======
+        if (!target.TryGetComponent(out SpriteComponent? targetSprite, _componentFactory))
+            return;
+
+        _sprite.SetBaseRsi(sprite.AsNullable(), targetSprite.BaseRSI);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 }

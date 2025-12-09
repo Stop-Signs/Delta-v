@@ -21,3 +21,8 @@ player-panel-delete = Delete
 player-panel-rejuvenate = Rejuvenate
 player-panel-false = False
 player-panel-true = True
+<<<<<<< HEAD
+=======
+player-panel-follow = Follow
+player-panel-camera = Camera
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

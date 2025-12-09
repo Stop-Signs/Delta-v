@@ -1,12 +1,20 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
+<<<<<<< HEAD
   "copyright": "Original by Emisse, modified by EmoGarbage404. Vox states by Flareguy for SS14 | vulpkanin version made by Floofers",
 
   "size": {
     "x": 32,
     "y": 32
   },
+=======
+  "copyright": "Original by Emisse, modified by EmoGarbage404. Vox states by Flareguy for SS14 | vulpkanin version made by Floofers, Feroxi sprites edited by juniwoofs (Delta-V), Dog states modified from base states by Sparlight (GitHub). Reptilian states by TiniestShark (Github).",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   "states": [
     {
       "name": "icon"
@@ -47,6 +55,37 @@
     {
       "name": "equipped-head-vulpkanin",
       "directions": 4
+<<<<<<< HEAD
+=======
+    },
+    {
+      "name": "equipped-head-feroxi",
+      "directions": 4
+    },
+    {
+        "name": "equipped-head-reptilian",
+        "directions": 4
+    },
+    {
+        "name": "equipped-head-light-reptilian",
+        "directions": 4
+    },
+    {
+        "name": "equipped-head-unshaded-reptilian",
+        "directions": 4
+    },
+    {
+        "name": "equipped-head-dog",
+        "directions": 4
+    },
+    {
+        "name": "equipped-head-light-dog",
+        "directions": 4
+    },
+    {
+        "name": "equipped-head-unshaded-dog",
+        "directions": 4
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
   ]
 }

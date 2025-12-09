@@ -1,5 +1,6 @@
 # Tier 1
 
+<<<<<<< HEAD
 - type: technology
   id: BasicAugmentation
   name: research-technology-basic-augmentation
@@ -26,24 +27,9 @@
   - LauncherSyringe
   - MiniSyringe
 
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 # Tier 2
-
-- type: technology
-  id: ImplantedTools
-  name: research-technology-implanted-tools
-  icon:
-    sprite: _DV/Objects/Augments/arm.rsi
-    state: base
-  discipline: Biochemical
-  tier: 2
-  cost: 10000
-  technologyPrerequisites: [ BasicAugmentation ]
-  recipeUnlocks:
-  - AugmentToolPanelCasing
-  - AugmentUtilityPanelElectronics
-  - AugmentBotanyPanelElectronics
-  - AugmentSurgeryPanelElectronics
-  - AugmentPaperworkPanelElectronics
 
 - type: technology
   id: Cloning

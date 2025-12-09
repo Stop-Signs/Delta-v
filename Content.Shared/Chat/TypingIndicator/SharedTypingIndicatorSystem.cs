@@ -2,6 +2,10 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Clothing;
 using Content.Shared.Inventory;
 using Robust.Shared.Player;
+<<<<<<< HEAD
+=======
+using Robust.Shared.Prototypes;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Chat.TypingIndicator;
@@ -18,8 +22,7 @@ public abstract class SharedTypingIndicatorSystem : EntitySystem
     /// <summary>
     ///     Default ID of <see cref="TypingIndicatorPrototype"/>
     /// </summary>
-    [ValidatePrototypeId<TypingIndicatorPrototype>]
-    public const string InitialIndicatorId = "default";
+    public static readonly ProtoId<TypingIndicatorPrototype> InitialIndicatorId = "default";
 
     public override void Initialize()
     {

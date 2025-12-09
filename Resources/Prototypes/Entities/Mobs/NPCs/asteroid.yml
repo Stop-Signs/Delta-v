@@ -19,13 +19,9 @@
     group: GenericNumber
   - type: StatusEffects
     allowed:
-    - SlowedDown
-    - Stutter
-    - Stun
     - Electrocution
     - TemporaryBlindness
     - RadiationProtection
-    - Drowsiness
     - Adrenaline
   - type: StandingState
   - type: Tag
@@ -70,7 +66,7 @@
         Piercing: 10
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - SalvageMob #DeltaV - Changed to SalvageMob to not be friendly to Ovinia
   - type: HTN
     rootTask:
       task: GoliathCompound
@@ -239,7 +235,7 @@
     count: 1
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - SalvageMob # DeltaV - Changed to SalvageMob
   - type: HTN
     rootTask:
       task: SimpleRangedHostileCompound
@@ -291,7 +287,7 @@
         acts: [ "Destruction" ]
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - SalvageMob # DeltaV - Changed to SalvageMob
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
@@ -406,7 +402,7 @@
     chemicalMaxVolume: 0
   - type: NpcFactionMember
     factions:
-    - SimpleHostile
+    - SalvageMob # DeltaV - Changed to SalvageMob
   - type: HTN
     rootTask:
       task: BasiliskCompound

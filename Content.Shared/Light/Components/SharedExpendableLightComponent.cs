@@ -35,8 +35,27 @@ public abstract partial class SharedExpendableLightComponent : Component
     [DataField("loopedSound")]
     public SoundSpecifier? LoopedSound { get; set; }
 
+<<<<<<< HEAD
     [DataField("dieSound")]
     public SoundSpecifier? DieSound { get; set; } = null;
+=======
+    [DataField]
+    public SoundSpecifier? LoopedSound;
+
+    [DataField]
+    public SoundSpecifier? DieSound;
+
+    // Begin DeltaV additions
+    [DataField(required: true)]
+    public float LitRadius = 0.0f;
+
+    [DataField(required: true)]
+    public float LitEnergy = 0.0f;
+
+    [DataField]
+    public float FadeInDuration = 0.0f;
+    // End DeltaV additions
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 }
 
 [Serializable, NetSerializable]

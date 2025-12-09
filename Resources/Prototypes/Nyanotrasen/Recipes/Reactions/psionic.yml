@@ -12,15 +12,21 @@
 #    LotophagoiOil: 1
 
 - type: reaction
-  id: CreateNormalityCrystal
+  id: CrystalNormality
   impact: Low
   quantized: true
   minTemp: 400
   reactants:
     Ash:
+<<<<<<< HEAD:Resources/Prototypes/Nyanotrasen/Recipes/Reactions/psionic.yml
       amount: 5 # DeltaV - Change from 10 to 5 to fit the guidebook recipe
     Water:
       amount: 5 # DeltaV - Change from 10 to 5 to fit the guidebook recipe
+=======
+      amount: 5
+    Holywater:
+      amount: 5
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d:Resources/Prototypes/_DV/Recipes/Reactions/psionic.yml
     Blood:
       amount: 5 # DeltaV - Change from 10 to 5 to fit the guidebook recipe
     Ectoplasm:

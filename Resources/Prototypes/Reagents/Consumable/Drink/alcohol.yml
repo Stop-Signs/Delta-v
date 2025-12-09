@@ -27,12 +27,11 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.05
-      - !type:GenericStatusEffect
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectSeeingRainbow
         conditions:
         - !type:ReagentThreshold
           min: 10
-        key: SeeingRainbows
-        component: SeeingRainbows
         type: Add
         time: 5
         refresh: false
@@ -567,7 +566,7 @@
   desc: reagent-desc-antifreeze
   physicalDesc: reagent-physical-desc-translucent
   flavor: antifreeze
-  color: "#ff7d63"
+  color: "#31f0ff" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/antifreeze.rsi
     state: icon_empty
@@ -761,7 +760,7 @@
   desc: reagent-desc-brave-bull
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: bravebull
-  color: "#664300"
+  color: "#9c968d" #DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/bravebullglass.rsi
     state: icon_empty
@@ -917,7 +916,7 @@
   desc: reagent-desc-driest-martini
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: driestmartini
-  color: "#2E6671"
+  color: "#7e3e13" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/driestmartiniglass.rsi
     state: icon_empty
@@ -979,7 +978,7 @@
   desc: reagent-desc-gin-fizz
   physicalDesc: reagent-physical-desc-fizzy
   flavor: ginfizz
-  color: "#664300"
+  color: "#ffffaa" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/ginfizzglass.rsi
     state: icon_empty
@@ -1003,7 +1002,7 @@
   desc: reagent-desc-gin-tonic
   physicalDesc: reagent-physical-desc-fizzy
   flavor: gintonic
-  color: "#004166"
+  color: "#cbdbdd" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/gintonicglass.rsi
     state: icon_empty
@@ -1048,15 +1047,25 @@
   name: reagent-name-grog
   parent: BaseAlcohol
   desc: reagent-desc-grog
-  physicalDesc: reagent-physical-desc-strong-smelling
+  physicalDesc: reagent-physical-desc-diluted # DeltaV: Desc changed
   flavor: grog
-  color: "#e3e77b"
+  color: "#cc953d" # DeltaV: Color Changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/beerstein.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: true
+  # Begin DeltaV additions
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 3
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: .04
+  # End DeltaV additions
 
 - type: reagent
   id: HippiesDelight
@@ -1078,9 +1087,17 @@
   name: reagent-name-hooch
   parent: BaseAlcohol
   desc: reagent-desc-hooch
-  physicalDesc: reagent-physical-desc-strong-smelling
+  physicalDesc: reagent-physical-desc-pungent # DeltaV: Desc changed
   flavor: hooch
-  color: "#664e00"
+  color: "#706a58" # DeltaV: color changed
+  # Begin DeltaV additions
+  metamorphicSprite:
+    sprite: _DV/Objects/Consumable/Drinks/hooch.rsi # DeltaV: Sprite changed
+    state: icon_empty
+  metamorphicMaxFillLevels: 6
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # End DeltaV additions
 
 - type: reagent
   id: IcedBeer
@@ -1089,7 +1106,7 @@
   desc: reagent-desc-iced-beer
   physicalDesc: reagent-physical-desc-bubbly
   flavor: icedbeer
-  color: "#664300"
+  color: "#e3e799" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/iced_beerglass.rsi
     state: icon_empty
@@ -1105,7 +1122,7 @@
   desc: reagent-desc-irish-slammer
   physicalDesc: reagent-physical-desc-bubbly
   flavor: irishslammer
-  color: "#2E6671"
+  color: "#47210a" #DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/irishslammer.rsi
     state: icon_empty
@@ -1128,7 +1145,7 @@
   desc: reagent-desc-irish-cream
   physicalDesc: reagent-physical-desc-creamy
   flavor: irish-cream #Delta-V Flavor additions
-  color: "#664300"
+  color: "#d9c7ac" #DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/irishcreamglass.rsi
     state: icon_empty
@@ -1151,7 +1168,7 @@
   desc: reagent-desc-irish-coffee
   physicalDesc: reagent-physical-desc-cloudy
   flavor: irishcoffee
-  color: "#664300"
+  color: "#7e3e13" #DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/irishcoffeeglass.rsi
     state: icon_empty
@@ -1174,7 +1191,7 @@
   desc: reagent-desc-long-island-iced-tea
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: longisland
-  color: "#664300"
+  color: "#ff6633" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/longislandicedteaglass.rsi
     state: icon_empty
@@ -1197,7 +1214,7 @@
   desc: reagent-desc-manhattan
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: manhattan
-  color: "#664300"
+  color: "#ff6633" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/manhattanglass.rsi
     state: icon_empty
@@ -1212,7 +1229,7 @@
   desc: reagent-desc-manhattan-project
   physicalDesc: reagent-physical-desc-overpowering
   flavor: manhattanproject
-  color: "#664300"
+  color: "#52e223" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/proj_manhattanglass.rsi
     state: icon_empty
@@ -1227,7 +1244,7 @@
   desc: reagent-desc-manly-dorf
   physicalDesc: reagent-physical-desc-fizzy-and-creamy
   flavor: rocksandstones
-  color: "#664300"
+  color: "#744200" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/manlydorfglass.rsi
     state: icon_empty
@@ -1258,7 +1275,7 @@
   desc: reagent-desc-martini
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: martini
-  color: "#664300"
+  color: "#bedaba" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/martiniglass.rsi
     state: icon_empty
@@ -1281,7 +1298,7 @@
   desc: reagent-desc-mead
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: mead
-  color: "#664300"
+  color: "#e0c05e" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/beerstein.rsi
     state: icon_empty
@@ -1307,17 +1324,35 @@
   fizziness: 0.3
 
 - type: reagent
+<<<<<<< HEAD
+=======
+  id: MonkeyBusiness
+  name: reagent-name-monkey-business
+  parent: BaseAlcohol
+  desc: reagent-desc-monkey-business
+  physicalDesc: reagent-physical-desc-tart
+  flavor: monkeybusiness
+  color: "#f75147" # DeltaV: Color changed
+  metamorphicSprite:
+    sprite: Objects/Consumable/Drinks/monkeybusiness.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+
+- type: reagent
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   id: Moonshine
   name: reagent-name-moonshine
   parent: BaseAlcohol
   desc: reagent-desc-moonshine
   physicalDesc: reagent-physical-desc-pungent
   flavor: moonshine
-  color: "#d1d7d155"
+  color: "#d4d3cd" # DeltaV: Color changed
   metamorphicSprite:
-    sprite: Objects/Consumable/Drinks/moonshineglass.rsi
+    sprite: _DV/Objects/Consumable/Drinks/moonshinebottle.rsi # DeltaV: Sprite changed
     state: icon_empty
-  metamorphicMaxFillLevels: 6
+  metamorphicMaxFillLevels: 4 # DeltaV: Fill levels reduced
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
   metabolisms:
@@ -1457,7 +1492,7 @@
   desc: reagent-desc-sbiten
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: sbiten
-  color: "#004166"
+  color: "#d8d7af" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/sbitenglass.rsi
     state: icon_empty
@@ -1519,7 +1554,7 @@
   name: reagent-name-silencer
   parent: BaseAlcohol
   desc: reagent-desc-silencer
-  physicalDesc: reagent-physical-desc-strong-smelling
+  physicalDesc: reagent-physical-desc-nothing # DeltaV: Desc changed
   flavor: silencer #Delta-V Flavor additions
   color: "#878787"
   metamorphicSprite:
@@ -1687,7 +1722,7 @@
   desc: reagent-desc-vodka-martini
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: vodkamartini
-  color: "#004666"
+  color: "#bedaba" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/martiniglass.rsi
     state: icon_empty
@@ -1710,7 +1745,7 @@
   desc: reagent-desc-vodka-tonic
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: vodkatonic
-  color: "#0064C8"
+  color: "#e9f6fa" # DeltaV: Color changed
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/vodkatonicglass.rsi
     state: icon_empty
@@ -1841,9 +1876,9 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
-        - !type:GenericStatusEffect
-          key: Drowsiness
-          time: 1.0
+        - !type:ModifyStatusEffect
+          effectProto: StatusEffectDrowsiness
+          time: 1
           type: Remove
   fizziness: 0.25
 
@@ -1872,9 +1907,9 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
-        - !type:GenericStatusEffect
-          key: Drowsiness
-          time: 1.0
+        - !type:ModifyStatusEffect
+          effectProto: StatusEffectDrowsiness
+          time: 1
           type: Remove
   fizziness: 0.15
 
@@ -1903,9 +1938,9 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
-        - !type:GenericStatusEffect
-          key: Drowsiness
-          time: 1.0
+        - !type:ModifyStatusEffect
+          effectProto: StatusEffectDrowsiness
+          time: 1
           type: Remove
   fizziness: 0.15
 
@@ -1934,9 +1969,9 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
-        - !type:GenericStatusEffect
-          key: Drowsiness
-          time: 1.0
+        - !type:ModifyStatusEffect
+          effectProto: StatusEffectDrowsiness
+          time: 1
           type: Remove
   fizziness: 0.25
 
@@ -1965,9 +2000,9 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
-        - !type:GenericStatusEffect
-          key: Drowsiness
-          time: 1.0
+        - !type:ModifyStatusEffect
+          effectProto: StatusEffectDrowsiness
+          time: 1
           type: Remove
   fizziness: 0.15
 
@@ -1996,9 +2031,9 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
-        - !type:GenericStatusEffect
-          key: Drowsiness
-          time: 1.0
+        - !type:ModifyStatusEffect
+          effectProto: StatusEffectDrowsiness
+          time: 1
           type: Remove
   fizziness: 0.25
 

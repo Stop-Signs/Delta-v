@@ -129,7 +129,7 @@
   id: UnholyWater # going to be renamed later alongside holy water
   name: reagent-name-unholy-water
   group: Toxins
-  desc: reagent-name-unholy-water
+  desc: reagent-desc-unholy-water
   physicalDesc: reagent-physical-desc-menacing
   flavor: UnholyWater
   color: "#1614143d"
@@ -167,3 +167,41 @@
       - !type:MovespeedModifier
         walkSpeedModifier: 0.5
         sprintSpeedModifier: 0.5
+<<<<<<< HEAD
+=======
+
+- type: reagent
+  id: Trinoxadone
+  name: reagent-name-trinoxadone
+  group: Medicine
+  desc: reagent-desc-trinoxadone
+  physicalDesc: reagent-physical-desc-cloudy
+  flavor: medicine
+  color: "#4f3670"
+  worksOnTheDead: true
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:EvenHealthChange
+        conditions:
+        - !type:Temperature
+          max: 213.0
+        - !type:MultiMobStateCondition
+          states: [ Alive, Critical ]
+        damage:
+          Brute: -1.5
+          Burn: -1.5
+          Toxin: -2
+      - !type:EvenHealthChange
+        conditions:
+        - !type:Temperature
+          max: 213.0
+        - !type:MobStateCondition
+          mobstate: Dead
+        - !type:TotalDamage
+          min: 210
+          max: 350
+        damage:
+          Brute: -2
+          Burn: -2
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

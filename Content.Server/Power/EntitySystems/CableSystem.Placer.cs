@@ -47,7 +47,11 @@ public sealed partial class CableSystem
         if (TryComp<StackComponent>(placer, out var stack) && !_stack.Use(placer, 1, stack))
             return;
 
+<<<<<<< HEAD
         var newCable = EntityManager.SpawnEntity(component.CablePrototypeId, grid.GridTileToLocal(snapPos));
+=======
+        var newCable = Spawn(component.CablePrototypeId, _map.GridTileToLocal(gridUid, grid, snapPos));
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         _adminLogger.Add(LogType.Construction, LogImpact.Low,
             $"{ToPrettyString(args.User):player} placed {ToPrettyString(newCable):cable} at {Transform(newCable).Coordinates}");
         args.Handled = true;

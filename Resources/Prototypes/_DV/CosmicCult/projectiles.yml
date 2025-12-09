@@ -110,6 +110,32 @@
         enabled: true
         reverseWhenFinished: true
 
+<<<<<<< HEAD
+=======
+- type: entity
+  id: ProjectileCosmicRazor
+  name: Astral Bolt
+  parent: ProjectileCosmic
+  categories: [ HideSpawnMenu ]
+  description: Ouch.
+  components:
+  - type: DamageMarkerOnCollide
+    whitelist:
+      components:
+      - MobState
+    damage:
+      types:
+        Cold: 15
+        Asphyxiation: 10
+        Ion: 15
+  - type: Projectile
+    impactEffect: BulletImpactEffectCosmic
+    damage:
+      types:
+        Cold: 10
+        Asphyxiation: 5
+        Ion: 8
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: entity
   id: BulletImpactEffectCosmic

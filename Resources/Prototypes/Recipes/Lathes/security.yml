@@ -39,6 +39,76 @@
     Steel: 300
 
 - type: latheRecipe
+<<<<<<< HEAD
+=======
+  id: PortableRecharger
+  result: PortableRecharger
+  categories:
+  - Clothing
+  completetime: 15
+  materials:
+    Steel: 2000
+    Uranium: 2000
+    Plastic: 1000
+    Plasma: 500
+    Glass: 500
+
+- type: latheRecipe
+  id: ClothingBackpackHarmpack
+  result: ClothingBackpackHarmpack
+  categories:
+  - Clothing
+  completetime: 15
+  materials:
+    Steel: 2000
+    Plastic: 1000
+    Plasma: 500
+    Gold: 500
+
+# Shields
+- type: latheRecipe
+  parent: BaseShieldRecipe
+  id: RiotShield
+  result: RiotShield
+  materials:
+    Steel: 400
+    Glass: 400
+
+- type: latheRecipe
+  parent: BaseShieldRecipe
+  id: TelescopicShield
+  result: TelescopicShield
+  materials:
+    Steel: 300
+    Glass: 800
+
+# Targets
+- type: latheRecipe
+  parent: BaseTargetRecipe
+  id: TargetHuman
+  result: TargetHuman
+
+- type: latheRecipe
+  parent: BaseTargetRecipe
+  id: TargetClown
+  result: TargetClown
+
+- type: latheRecipe
+  parent: BaseTargetRecipe
+  id: TargetSyndicate
+  result: TargetSyndicate
+
+# Tools
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: Handcuffs
+  result: Handcuffs
+  materials:
+    Steel: 300
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   id: Zipties
   result: Zipties
   completetime: 2

@@ -3,8 +3,13 @@
   id: RogueAscendedSpawn
   components:
   - type: StationEvent
+<<<<<<< HEAD
     weight: 6.5
     earliestStart: 30
+=======
+    weight: 4.5
+    earliestStart: 45
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     reoccurrenceDelay: 20
     minimumPlayers: 30
     duration: null
@@ -27,7 +32,7 @@
       briefing:
         text: rogue-ascended-role-greeting
         color: CadetBlue
-        sound: /Audio/_DV/CosmicCult/antag_cosmic_briefing.ogg
+        sound: /Audio/_DV/CosmicCult/antag_cosmic_AI_briefing.ogg
       components:
       - type: RogueAscended
 

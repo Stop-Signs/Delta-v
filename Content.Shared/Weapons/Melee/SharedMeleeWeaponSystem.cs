@@ -5,11 +5,17 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components; // DeltaV - Melee Stamina Resistance Override
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
+<<<<<<< HEAD
+=======
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.IdentityManagement;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.VirtualItem;
@@ -21,6 +27,12 @@ using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
+<<<<<<< HEAD
+=======
+using Content.Shared.Zombies; // DeltaV - Buff Zombies
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
@@ -33,6 +45,7 @@ namespace Content.Shared.Weapons.Melee;
 
 public abstract class SharedMeleeWeaponSystem : EntitySystem
 {
+<<<<<<< HEAD
     [Dependency] protected readonly ISharedAdminLogManager   AdminLogger     = default!;
     [Dependency] protected readonly ActionBlockerSystem      Blocker         = default!;
     [Dependency] protected readonly SharedCombatModeSystem   CombatMode      = default!;
@@ -47,6 +60,27 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] private   readonly SharedPhysicsSystem     _physics         = default!;
     [Dependency] private   readonly IPrototypeManager       _protoManager    = default!;
     [Dependency] private   readonly StaminaSystem           _stamina         = default!;
+=======
+    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency] protected readonly IMapManager MapManager = default!;
+    [Dependency] private   readonly INetManager _netMan = default!;
+    [Dependency] private   readonly IPrototypeManager _protoManager = default!;
+    [Dependency] private   readonly IRobustRandom _random = default!;
+    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
+    [Dependency] protected readonly ActionBlockerSystem Blocker = default!;
+    [Dependency] protected readonly DamageableSystem Damageable = default!;
+    [Dependency] private   readonly SharedHandsSystem _hands = default!;
+    [Dependency] private   readonly InventorySystem _inventory = default!;
+    [Dependency] private   readonly MeleeSoundSystem _meleeSound = default!;
+    [Dependency] protected readonly MobStateSystem MobState = default!;
+    [Dependency] private   readonly SharedAudioSystem _audio = default!;
+    [Dependency] protected readonly SharedCombatModeSystem CombatMode = default!;
+    [Dependency] protected readonly SharedInteractionSystem Interaction = default!;
+    [Dependency] private   readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] protected readonly SharedPopupSystem PopupSystem = default!;
+    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
+    [Dependency] private   readonly SharedStaminaSystem _stamina = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     private const int AttackMask = (int) (CollisionGroup.MobMask | CollisionGroup.Opaque);
 
@@ -283,15 +317,14 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         }
 
         // Use inhands entity if we got one.
-        if (EntityManager.TryGetComponent(entity, out HandsComponent? hands) &&
-            hands.ActiveHandEntity is { } held)
+        if (_hands.TryGetActiveItem(entity, out var held))
         {
             // Make sure the entity is a weapon AND it doesn't need
             // to be equipped to be used (E.g boxing gloves).
-            if (EntityManager.TryGetComponent(held, out melee) &&
+            if (TryComp(held, out melee) &&
                 !melee.MustBeEquippedToUse)
             {
-                weaponUid = held;
+                weaponUid = held.Value;
                 return true;
             }
 
@@ -301,7 +334,8 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
         // Use hands clothing if applicable.
         if (_inventory.TryGetSlotEntity(entity, "gloves", out var gloves) &&
-            TryComp<MeleeWeaponComponent>(gloves, out var glovesMelee))
+            TryComp<MeleeWeaponComponent>(gloves, out var glovesMelee)
+            && !HasComp<ZombieComponent>(entity)) // DeltaV - Zombies don't lose gloves, but also shouldn't use them for combat over their bite.
         {
             weaponUid = gloves.Value;
             melee = glovesMelee;
@@ -528,7 +562,13 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
             if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
             {
-                _stamina.TakeStaminaDamage(target.Value, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid);
+                //DeltaV - No Stamina Resistance Doubledipping, unless we want to.
+                var ignoreResist = true;
+                if (TryComp<StaminaResistanceComponent>(target, out var staminaResist))
+                    ignoreResist = !staminaResist.MeleeResistance;
+
+                _stamina.TakeStaminaDamage(target.Value, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid, ignoreResist: ignoreResist);
+                // END DeltaV
             }
 
             if (meleeUid == user)
@@ -572,6 +612,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         var distance = Math.Min(component.Range, direction.Length());
 
         var damage = GetDamage(meleeUid, user, component);
+        var resistanceBypass = GetResistanceBypass(meleeUid, user, component);
         var entities = GetEntityList(ev.Entities);
 
         if (entities.Count == 0)
@@ -676,14 +717,20 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             RaiseLocalEvent(entity, attackedEvent);
             var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-            var damageResult = Damageable.TryChangeDamage(entity, modifiedDamage, origin: user, partMultiplier: component.HeavyPartDamageMultiplier); // Shitmed Change
+            var damageResult = Damageable.TryChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass, partMultiplier: component.HeavyPartDamageMultiplier); // Shitmed Change
 
             if (damageResult != null && damageResult.GetTotal() > FixedPoint2.Zero)
             {
                 // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
                 if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
                 {
-                    _stamina.TakeStaminaDamage(entity, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid);
+                    //DeltaV - No Stamina Resistance Doubledipping, unless we want to.
+                    var ignoreResist = true;
+                    if (TryComp<StaminaResistanceComponent>(entity, out var staminaResist))
+                        ignoreResist = !staminaResist.MeleeResistance;
+
+                    _stamina.TakeStaminaDamage(entity, (bluntDamage * component.BluntStaminaDamageFactor).Float(), visual: false, source: user, with: meleeUid == user ? null : meleeUid, ignoreResist: ignoreResist);
+                    // END DeltaV
                 }
 
                 appliedDamage += damageResult;
@@ -802,8 +849,115 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             return false;
         }
 
+<<<<<<< HEAD
         // Play a sound to give instant feedback; same with playing the animations
         _meleeSound.PlaySwingSound(user, meleeUid, component);
+=======
+
+        if (MobState.IsIncapacitated(target.Value))
+        {
+            return false;
+        }
+
+        if (!TryComp<CombatModeComponent>(user, out var combatMode) ||
+            combatMode.CanDisarm != true)
+        {
+            return false;
+        }
+
+        // Need hands or to be able to be shoved over.
+        if (!TryComp<HandsComponent>(target, out var targetHandsComponent))
+        {
+            if (!TryComp<StatusEffectsComponent>(target, out var status) ||
+                !status.AllowedEffects.Contains("KnockedDown"))
+            {
+                // Notify disarmable
+                if (HasComp<MobStateComponent>(target.Value))
+                    PopupSystem.PopupClient(Loc.GetString("disarm-action-disarmable", ("targetName", target.Value)), target.Value);
+
+                return false;
+            }
+        }
+
+        if (!InRange(user, target.Value, component.Range, session))
+        {
+            return false;
+        }
+
+        EntityUid? inTargetHand = null;
+
+        if (_hands.TryGetActiveItem(target.Value, out var activeHeldEntity))
+        {
+            inTargetHand = activeHeldEntity.Value;
+        }
+
+        var attemptEvent = new DisarmAttemptEvent(target.Value, user, inTargetHand);
+
+        if (inTargetHand != null)
+        {
+            RaiseLocalEvent(inTargetHand.Value, ref attemptEvent);
+        }
+
+        RaiseLocalEvent(target.Value, ref attemptEvent);
+
+        if (attemptEvent.Cancelled)
+            return false;
+
+        var chance = CalculateDisarmChance(user, target.Value, inTargetHand, combatMode);
+
+        // At this point we diverge
+        if (_netMan.IsClient)
+        {
+            // Play a sound to give instant feedback; same with playing the animations
+            _meleeSound.PlaySwingSound(user, meleeUid, component);
+            return true;
+        }
+
+        if (_random.Prob(chance))
+        {
+            return false;
+        }
+
+        var eventArgs = new DisarmedEvent(target.Value, user, 1 - chance);
+        RaiseLocalEvent(target.Value, ref eventArgs);
+
+        // Nothing handled it so abort.
+        if (!eventArgs.Handled)
+        {
+            return false;
+        }
+
+        Interaction.DoContactInteraction(user, target);
+        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
+
+        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
+
+        _audio.PlayPvs(combatMode.DisarmSuccessSound, target.Value, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
+        var targetEnt = Identity.Entity(target.Value, EntityManager);
+        var userEnt = Identity.Entity(user, EntityManager);
+
+        var msgOther = Loc.GetString(
+            eventArgs.PopupPrefix + "popup-message-other-clients",
+            ("performerName", userEnt),
+            ("targetName", targetEnt));
+
+        var msgUser = Loc.GetString(eventArgs.PopupPrefix + "popup-message-cursor", ("targetName", targetEnt));
+
+        var filterOther = Filter.PvsExcept(user, entityManager: EntityManager);
+
+        PopupSystem.PopupEntity(msgOther, user, filterOther, true);
+        PopupSystem.PopupEntity(msgUser, target.Value, user);
+
+        if (eventArgs.IsStunned)
+        {
+
+            PopupSystem.PopupEntity(Loc.GetString("stunned-component-disarm-success-others", ("source", userEnt), ("target", targetEnt)), targetEnt, Filter.PvsExcept(user), true, PopupType.LargeCaution);
+            PopupSystem.PopupCursor(Loc.GetString("stunned-component-disarm-success", ("target", targetEnt)), user, PopupType.Large);
+
+            AdminLogger.Add(LogType.DisarmedKnockdown, LogImpact.Medium, $"{ToPrettyString(user):user} knocked down {ToPrettyString(target):target}");
+        }
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         return true;
     }
 

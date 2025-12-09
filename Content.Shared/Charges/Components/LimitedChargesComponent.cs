@@ -11,8 +11,12 @@ public sealed partial class LimitedChargesComponent : Component
     /// <summary>
     /// The maximum number of charges
     /// </summary>
+<<<<<<< HEAD
     [DataField("maxCharges"), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
+=======
+    [DataField, AutoNetworkedField]
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     public int MaxCharges = 3;
 
     /// <summary>

@@ -57,15 +57,6 @@
     count: 1
 
 - type: entity
-  id: Ointment10Lingering
-  parent: Ointment
-  suffix: 10, Lingering
-  components:
-  - type: Stack
-    lingering: true
-    count: 10
-
-- type: entity
   name: regenerative mesh
   description: Used to treat even the nastiest burns. Also effective against caustic burns.
   parent: BaseHealingItem
@@ -149,15 +140,6 @@
     count: 1
 
 - type: entity
-  id: Brutepack10Lingering
-  parent: Brutepack
-  suffix: 10, Lingering
-  components:
-  - type: Stack
-    lingering: true
-    count: 10
-
-- type: entity
   name: medicated suture
   description: A suture soaked in medicine, treats blunt-force trauma effectively and closes wounds.
   parent: BaseHealingItem
@@ -220,7 +202,7 @@
     damage:
       types:
         Bloodloss: -0.5 #lowers bloodloss damage
-    ModifyBloodLevel: 15 #restores about 5% blood per use on standard humanoids.
+    modifyBloodLevel: 15 #restores about 5% blood per use on standard humanoids.
     healingBeginSound:
       path: "/Audio/Items/Medical/brutepack_begin.ogg"
     healingEndSound:
@@ -233,11 +215,16 @@
 
 - type: entity
   parent: Bloodpack
-  id: Bloodpack10Lingering
-  suffix: 10, Lingering
+  id: Bloodpack1
+  suffix: Single
   components:
   - type: Stack
+<<<<<<< HEAD
     lingering: true
+=======
+    stackType: Bloodpack
+    count: 1
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: entity
   parent: BaseHealingItem
@@ -311,15 +298,6 @@
   components:
   - type: Stack
     count: 1
-
-- type: entity
-  id: Gauze10Lingering
-  parent: Gauze
-  suffix: 10, Lingering
-  components:
-  - type: Stack
-    lingering: true
-    count: 10
 
 - type: entity
   name: aloe cream

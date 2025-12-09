@@ -14,7 +14,13 @@
             !type:NanotrasenNameGenerator
             prefixCreator: 'NY'
         - type: StationEmergencyShuttle
+<<<<<<< HEAD
           emergencyShuttlePath: /Maps/_DV/Shuttles/NTES_UCLB.yml
+=======
+          emergencyShuttlePath: /Maps/_DV/Shuttles/Evac/ntes_uclb.yml
+        - type: StationCargoShuttle
+          path: /Maps/_DV/Shuttles/Cargo/ntcs_duster.yml
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         - type: StationJobs
           availableJobs:
           #civilian
@@ -60,7 +66,7 @@
             HeadOfPersonnel: [ 1, 1 ]
             Janitor: [ 2, 2 ]
             Mime: [ 1, 1 ]
-            Musician: [ 1, 1 ]
+            Musician: [ 2, 2 ]
             Reporter: [ 2, 2 ]
             ServiceWorker: [ 1, 2 ]
           #science

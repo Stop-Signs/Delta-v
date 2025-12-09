@@ -5,7 +5,7 @@ using Content.Shared.Construction;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
-using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
@@ -39,6 +39,7 @@ public class RCDSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedChargesSystem _charges = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
@@ -175,8 +176,13 @@ public class RCDSystem : EntitySystem
                 // Deconstructing a tile
                 else
                 {
+<<<<<<< HEAD
                     var deconstructedTile = _mapSystem.GetTileRef(mapGridData.Value.GridUid, mapGridData.Value.Component, mapGridData.Value.Location);
                     var protoName = !deconstructedTile.IsSpace() ? _deconstructTileProto : _deconstructLatticeProto;
+=======
+                    var deconstructedTile = _mapSystem.GetTileRef(gridUid.Value, mapGrid, location);
+                    var protoName = !_turf.IsSpace(deconstructedTile) ? _deconstructTileProto : _deconstructLatticeProto;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
                     if (_protoManager.TryIndex(protoName, out var deconProto))
                     {
@@ -205,8 +211,13 @@ public class RCDSystem : EntitySystem
         #endregion
 
         // Try to start the do after
+<<<<<<< HEAD
         var effect = Spawn(effectPrototype, mapGridData.Value.Location);
         var ev = new RCDDoAfterEvent(GetNetCoordinates(mapGridData.Value.Location), component.ConstructionDirection, component.ProtoId, cost, EntityManager.GetNetEntity(effect));
+=======
+        var effect = Spawn(effectPrototype, location);
+        var ev = new RCDDoAfterEvent(GetNetCoordinates(location), component.ConstructionDirection, component.ProtoId, cost, GetNetEntity(effect));
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         var doAfterArgs = new DoAfterArgs(EntityManager, user, delay, ev, uid, target: args.Target, used: uid)
         {
@@ -251,8 +262,18 @@ public class RCDSystem : EntitySystem
 
     private void OnDoAfter(EntityUid uid, RCDComponent component, RCDDoAfterEvent args)
     {
+<<<<<<< HEAD
         if (args.Cancelled && _net.IsServer)
             QueueDel(EntityManager.GetEntity(args.Effect));
+=======
+        if (args.Cancelled)
+        {
+            // Delete the effect entity if the do-after was cancelled (server-side only)
+            if (_net.IsServer)
+                QueueDel(GetEntity(args.Effect));
+            return;
+        }
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
         if (args.Handled || args.Cancelled || !_timing.IsFirstTimePredicted)
             return;
@@ -281,11 +302,10 @@ public class RCDSystem : EntitySystem
         var uid = GetEntity(ev.NetEntity);
 
         // Determine if player that send the message is carrying the specified RCD in their active hand
-        if (session.SenderSession.AttachedEntity == null)
+        if (session.SenderSession.AttachedEntity is not { } player)
             return;
 
-        if (!TryComp<HandsComponent>(session.SenderSession.AttachedEntity, out var hands) ||
-            uid != hands.ActiveHand?.HeldEntity)
+        if (_hands.GetActiveItem(player) != uid)
             return;
 
         if (!TryComp<RCDComponent>(uid, out var rcd))
@@ -365,7 +385,11 @@ public class RCDSystem : EntitySystem
         }
 
         // Check rule: Must place on subfloor
+<<<<<<< HEAD
         if (component.CachedPrototype.ConstructionRules.Contains(RcdConstructionRule.MustBuildOnSubfloor) && !mapGridData.Tile.Tile.GetContentTileDefinition().IsSubFloor)
+=======
+        if (prototype.ConstructionRules.Contains(RcdConstructionRule.MustBuildOnSubfloor) && !_turf.GetContentTileDefinition(tile).IsSubFloor)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         {
             if (popMsgs)
                 _popup.PopupClient(Loc.GetString("rcd-component-must-build-on-subfloor-message"), uid, user);
@@ -386,7 +410,11 @@ public class RCDSystem : EntitySystem
             }
 
             // Check rule: Tiles can't be identical
+<<<<<<< HEAD
             if (mapGridData.Tile.Tile.GetContentTileDefinition().ID == component.CachedPrototype.Prototype)
+=======
+            if (_turf.GetContentTileDefinition(tile).ID == prototype.Prototype)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             {
                 if (popMsgs)
                     _popup.PopupClient(Loc.GetString("rcd-component-cannot-build-identical-tile"), uid, user);
@@ -469,7 +497,11 @@ public class RCDSystem : EntitySystem
             }
 
             // The tile cannot be destroyed
+<<<<<<< HEAD
             var tileDef = (ContentTileDefinition) _tileDefMan[mapGridData.Tile.Tile.TypeId];
+=======
+            var tileDef = _turf.GetContentTileDefinition(tile);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
             if (tileDef.Indestructible)
             {
@@ -539,9 +571,15 @@ public class RCDSystem : EntitySystem
                 if (target == null)
                 {
                     // Deconstruct tile (either converts the tile to lattice, or removes lattice)
+<<<<<<< HEAD
                     var tile = (mapGridData.Tile.Tile.GetContentTileDefinition().ID != "Lattice") ? new Tile(_tileDefMan["Lattice"].TileId) : Tile.Empty;
                     _mapSystem.SetTile(mapGridData.GridUid, mapGridData.Component, mapGridData.Position, tile);
                     _adminLogger.Add(LogType.RCD, LogImpact.High, $"{ToPrettyString(user):user} used RCD to set grid: {mapGridData.GridUid} tile: {mapGridData.Position} open to space");
+=======
+                    var tileDef = (_turf.GetContentTileDefinition(tile).ID != "Lattice") ? new Tile(_tileDefMan["Lattice"].TileId) : Tile.Empty;
+                    _mapSystem.SetTile(gridUid, mapGrid, position, tileDef);
+                    _adminLogger.Add(LogType.RCD, LogImpact.High, $"{ToPrettyString(user):user} used RCD to set grid: {gridUid} tile: {position} open to space");
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
                 }
                 else
                 {

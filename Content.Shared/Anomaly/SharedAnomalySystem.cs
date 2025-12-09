@@ -119,6 +119,9 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <param name="uid"></param>
     public void StartSupercriticalEvent(EntityUid uid)
     {
+        if (!TryComp<AnomalyComponent>(ent, out var anomComp) || anomComp.CannotSupercrit) // imp
+            return;
+
         // don't restart it if it's already begun
         if (HasComp<AnomalySupercriticalComponent>(uid))
             return;
@@ -127,10 +130,19 @@ public abstract class SharedAnomalySystem : EntitySystem
         if (_net.IsServer)
             Log.Info($"Anomaly is going supercritical. Entity: {ToPrettyString(uid)}");
 
+<<<<<<< HEAD
         var super = AddComp<AnomalySupercriticalComponent>(uid);
         super.EndTime = Timing.CurTime + super.SupercriticalDuration;
         Appearance.SetData(uid, AnomalyVisuals.Supercritical, true);
         Dirty(uid, super);
+=======
+        Audio.PlayPvs(ent.Comp.SupercriticalSoundAtAnimationStart, ent);
+
+        var super = AddComp<AnomalySupercriticalComponent>(ent);
+        super.EndTime = Timing.CurTime + ent.Comp.SupercriticalDuration;
+        Appearance.SetData(ent, AnomalyVisuals.Supercritical, true);
+        Dirty(ent, super);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     }
 
     /// <summary>
@@ -321,6 +333,9 @@ public abstract class SharedAnomalySystem : EntitySystem
         var anomalyQuery = EntityQueryEnumerator<AnomalyComponent>();
         while (anomalyQuery.MoveNext(out var ent, out var anomaly))
         {
+            if (anomaly.CannotRandomPulse) // imp
+                continue;
+
             // if the stability is under the death threshold,
             // update it every second to start killing it slowly.
             if (anomaly.Stability < anomaly.DecayThreshold)
@@ -347,6 +362,9 @@ public abstract class SharedAnomalySystem : EntitySystem
         var supercriticalQuery = EntityQueryEnumerator<AnomalySupercriticalComponent, AnomalyComponent>();
         while (supercriticalQuery.MoveNext(out var ent, out var super, out var anom))
         {
+            if (anom.CannotSupercrit) // imp
+                continue;
+
             if (Timing.CurTime <= super.EndTime)
                 continue;
             DoAnomalySupercriticalEvent(ent, anom);

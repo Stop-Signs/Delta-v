@@ -48,6 +48,82 @@
           path: /Audio/Effects/break_stone.ogg
           params:
             volume: -6
+<<<<<<< HEAD
+=======
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 2000
+  # Delta V - add Tag
+  - type: Tag
+    tags:
+    - Wall
+    - Natural
+  # Delta V - end tags
+
+- type: entity
+  abstract: true
+  id: BaseRockGibtonite
+  suffix: Gibtonite
+  components:
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.Trigger.TriggerVisuals.VisualState:
+        "gib":
+          Primed:
+            state: gibtonite_active
+            shader: unshaded
+            visible: true
+          Unprimed:
+            state: gibtonite_inactive
+            visible: false
+  - type: TimerTrigger
+    examinable: false
+    beepInterval: 0.4
+    beepSound:
+      collection: GlassCrack
+  - type: RandomTimerTrigger
+    min: 8
+    max: 10
+  - type: ExplodeOnTrigger
+    keysIn:
+    - timer
+  - type: Explosive
+    explosionType: DemolitionCharge
+    totalIntensity: 450
+    intensitySlope: 2.5
+    maxIntensity: 10
+    canCreateVacuum: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 3
+      behaviors:
+      - !type:TimerStartBehavior
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+    - trigger:
+        !type:DamageTrigger
+        damage: 500 # you have to really smack it for it to manually detonate. re-examine once defusal exists
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:TriggerBehavior
+        keyOut: timer # explode immediately
+  - type: Gatherable # DeltaV - prevent mining gibtonite
+    toolWhitelist:
+      tags: []
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 # Ore veins
 - type: entity
@@ -718,6 +794,7 @@
   name: rock
   suffix: planetmap
   components:
+<<<<<<< HEAD
     - type: Transform
       noRot: true
     - type: SoundOnGather
@@ -756,6 +833,52 @@
           state: rock_north
         - map: [ "enum.EdgeLayer.West" ]
           state: rock_west
+=======
+  - type: Transform
+    noRot: true
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags:
+      - Pickaxe
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: IconSmooth
+    key: walls
+    mode: NoSprite
+  - type: Icon
+    sprite: Structures/Walls/rock.rsi
+    state: rock
+  - type: MiningScannerViewable
+  - type: SmoothEdge
+  - type: Sprite
+    sprite: Structures/Walls/rock.rsi
+    layers:
+    - state: rock
+    - map: [ "enum.EdgeLayer.South" ]
+      state: rock_south
+    - map: [ "enum.EdgeLayer.East" ]
+      state: rock_east
+    - map: [ "enum.EdgeLayer.North" ]
+      state: rock_north
+    - map: [ "enum.EdgeLayer.West" ]
+      state: rock_west
+  # Delta V - add Tag
+  - type: Tag
+    tags:
+    - Wall
+    - Natural
+  # Delta V - end tags
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 # Ore veins
 - type: entity
@@ -1938,6 +2061,7 @@
   description: An ore vein rich with coal.
   suffix: Coal
   components:
+<<<<<<< HEAD
     - type: OreVein
       oreChance: 1.0
       currentOre: OreCoal
@@ -1954,6 +2078,24 @@
           state: rock_chromite_west
         - state: rock_coal
           map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+=======
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OreCoal
+  - type: Sprite
+    layers:
+    - state: rock_chromite
+    - map: [ "enum.EdgeLayer.South" ]
+      state: rock_chromite_south
+    - map: [ "enum.EdgeLayer.East" ]
+      state: rock_chromite_east
+    - map: [ "enum.EdgeLayer.North" ]
+      state: rock_chromite_north
+    - map: [ "enum.EdgeLayer.West" ]
+      state: rock_chromite_west
+    - state: rock_coal
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: entity
   id: WallRockChromiteGold

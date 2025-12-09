@@ -35,8 +35,13 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 
     private void OnCvarChanged(bool value)
     {
+<<<<<<< HEAD
         var humanoidQuery = EntityManager.AllEntityQueryEnumerator<HumanoidAppearanceComponent, SpriteComponent>();
         while (humanoidQuery.MoveNext(out var _, out var humanoidComp, out var spriteComp))
+=======
+        var humanoidQuery = AllEntityQuery<HumanoidAppearanceComponent, SpriteComponent>();
+        while (humanoidQuery.MoveNext(out var uid, out var humanoidComp, out var spriteComp))
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         {
             UpdateSprite(humanoidComp, spriteComp);
         }

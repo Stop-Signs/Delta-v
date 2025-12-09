@@ -35,8 +35,12 @@ public sealed partial class BlockingSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly ExamineSystemShared _examine = default!;
+<<<<<<< HEAD
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
+=======
+    [Dependency] private readonly TurfSystem _turf = default!;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     public override void Initialize()
     {
@@ -102,7 +106,7 @@ public sealed partial class BlockingSystem : EntitySystem
         if (!handQuery.TryGetComponent(args.Performer, out var hands))
             return;
 
-        var shields = _handsSystem.EnumerateHeld(args.Performer, hands).ToArray();
+        var shields = _handsSystem.EnumerateHeld((args.Performer, hands)).ToArray();
 
         foreach (var shield in shields)
         {
@@ -158,8 +162,29 @@ public sealed partial class BlockingSystem : EntitySystem
 
         if (component.BlockingToggleAction != null)
         {
+<<<<<<< HEAD
             //Don't allow someone to block if they're not parented to a grid
             if (xform.GridUid != xform.ParentUid)
+=======
+            CantBlockError(user);
+            return false;
+        }
+
+        // Don't allow someone to block if they're not holding the shield
+        if (!_handsSystem.IsHolding(user, item, out _))
+        {
+            CantBlockError(user);
+            return false;
+        }
+
+        //Don't allow someone to block if someone else is on the same tile
+        var playerTileRef = _turf.GetTileRef(xform.Coordinates);
+        if (playerTileRef != null)
+        {
+            var intersecting = _lookup.GetLocalEntitiesIntersecting(playerTileRef.Value, 0f);
+            var mobQuery = GetEntityQuery<MobStateComponent>();
+            foreach (var uid in intersecting)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             {
                 CantBlockError(user);
                 return false;
@@ -296,7 +321,7 @@ public sealed partial class BlockingSystem : EntitySystem
         if (!handQuery.TryGetComponent(user, out var hands))
             return;
 
-        var shields = _handsSystem.EnumerateHeld(user, hands).ToArray();
+        var shields = _handsSystem.EnumerateHeld((user, hands)).ToArray();
 
         foreach (var shield in shields)
         {

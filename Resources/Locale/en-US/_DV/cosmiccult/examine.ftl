@@ -9,6 +9,7 @@ cosmic-examine-text-forthecult = [color=#4cabb3]This is our doing. As things sho
 cosmic-examine-text-imposition = [color=#4cabb3]A barrier of astral power wards them from injury![/color]
 cosmic-examine-text-god = [color=#4cabb3]the end is the end is the end is the end is the end is the end is the end is the end is the end is the end is[/color]
 cosmic-examine-text-subtle-mark = [color=#4cabb3]Otherwordly energies surge within their eyes![/color]
+cosmic-examine-text-injector = [color=#4cabb3]You feel like injecting this into yourself would be your last bad idea.[/color]
 
 <<<<<<< HEAD
 =======
@@ -19,7 +20,11 @@ cosmic-examine-text-culteffigy = [color=#4cabb3]This may prove useful.[/color]
 cosmic-examine-transmutable = This can be transmuted into [color=#4cabb3]{$result}[/color] by using [color=#4cabb3]{$glyph}[/color].
 cosmic-examine-transmutable-verb-text = Transmutability.
 cosmic-examine-transmutable-error = This item should be transmutable, but it doesn't seem to work.
+<<<<<<< HEAD
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
+=======
+cosmic-examine-text-injector-cult = [color=#4cabb3]A powerful dose of stimulants... or a poison for our enemies.[/color]
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 ## GLYPH EXAMINES
 cosmic-examine-glyph-cultcount = {$COUNT ->

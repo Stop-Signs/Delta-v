@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "version": 1,
   "license": "CC-BY-SA-3.0",
   "copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/blob/2a19963297f91efb452dbb5c1d4eb28a14776b0a/icons/mob/silicon/ai.dmi",
@@ -28,6 +29,14 @@
           0.1
         ]
       ]
+=======
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from vgstation at https://github.com/vgstation-coders/vgstation13/blob/e2923df112df8aa025846d0764697bad6506586a/icons/mob/AI.dmi - modified by chromiumboy, base modified by monotheonist.",
+    "size": {
+        "x": 32,
+        "y": 32
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     },
     {
       "name": "ai_camera",

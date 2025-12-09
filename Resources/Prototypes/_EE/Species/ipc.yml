@@ -31,7 +31,14 @@
     HeadTop: MobHumanoidAnyMarking
     HeadSide: MobHumanoidAnyMarking
     Tail: MobHumanoidAnyMarking
+<<<<<<< HEAD
     Hair: MobHumanoidMarkingMatchSkin
+=======
+    # Begin DeltaV Additions - Adds new layer types for markings-sake
+    Eyes: MobHumanoidAnyMarking
+    Hair: MobHumanoidAnyMarking
+    # End DeltaV Additions
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     Chest: MobIPCTorso
     LArm: MobIPCLArm
     RArm: MobIPCRArm

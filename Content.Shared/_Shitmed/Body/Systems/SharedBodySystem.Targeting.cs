@@ -31,7 +31,6 @@ public partial class SharedBodySystem
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
 
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     private readonly ProtoId<DamageTypePrototype>[] _severingDamageTypes = { "Slash", "Piercing", "Blunt" };
@@ -83,7 +82,7 @@ public partial class SharedBodySystem
             && damage <= entity.Comp.IntegrityThresholds[TargetIntegrity.HeavilyWounded]
             && _queryTargeting.HasComp(body)
             && !_mobState.IsDead(body))
-            _damageable.TryChangeDamage(entity, GetHealingSpecifier(entity), canSever: false, targetPart: GetTargetBodyPart(entity));
+            Damageable.TryChangeDamage(entity, GetHealingSpecifier(entity), canSever: false, targetPart: GetTargetBodyPart(entity));
     }
 
     public override void Update(float frameTime)
@@ -203,7 +202,7 @@ public partial class SharedBodySystem
                 if (canEvade && TryEvadeDamage(entity, GetEvadeChance(targetType)))
                     continue;
 
-                var damageResult = _damageable.TryChangeDamage(part.FirstOrDefault().Id, damage * partMultiplier, ignoreResistances, canSever: canSever);
+                var damageResult = Damageable.TryChangeDamage(part.FirstOrDefault().Id, damage * partMultiplier, ignoreResistances, canSever: canSever);
                 if (damageResult != null && damageResult.GetTotal() != 0)
                     landed = true;
             }
@@ -488,7 +487,7 @@ public partial class SharedBodySystem
             || !TryComp<StandingStateComponent>(uid, out var standingState)
             || _mobState.IsCritical(uid, mobState)
             || _mobState.IsDead(uid, mobState)
-            || standingState.CurrentState == StandingState.Lying)
+            || !standingState.Standing)
             return false;
 
         return true;

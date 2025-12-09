@@ -21,6 +21,7 @@
       amount: 3
 
 - type: entity
+<<<<<<< HEAD
   id: CrateOilPack
   parent: CrateMedical
   name: oil pack crate
@@ -30,3 +31,26 @@
     contents:
     - id: Oilpack
       amount: 5
+=======
+  id: CrateViralCarePackage
+  parent: CrateMedical
+  name: viral care package crate
+  description: Contains all you need to subdue a viral outbreak.
+  components:
+  - type: StorageFill
+    contents:
+    - id: JugPotassium
+    - id: JugNitrogen
+    - id: JugHydrogen
+    - id: JugSilicon
+    - id: Skimmer
+    - id: BoxBottle
+    - id: BoxSyringe
+    - id: ClothingOuterBioVirology
+      amount: 2
+    - id: ClothingHeadHatHoodBioVirology
+      amount: 2
+    - id: ClothingMaskSterile
+      amount: 2
+    - id: PaperViralCarePackageManual
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

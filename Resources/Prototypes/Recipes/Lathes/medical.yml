@@ -216,3 +216,42 @@
   materials:
     Steel: 100
     Plastic: 100
+<<<<<<< HEAD
+=======
+
+- type: latheRecipe
+  id: OffsetCane
+  result: OffsetCane
+  completetime: 2
+  materials:
+    Steel: 100
+    Plastic: 100
+
+- type: latheRecipe
+  id: OffsetCaneWood
+  result: OffsetCaneWood
+  completetime: 2
+  materials:
+    Steel: 100
+    Wood: 100
+
+- type: latheRecipe
+  id: LauncherSyringe
+  result: LauncherSyringe
+  completetime: 10
+  materials:
+    Silver: 200
+    Steel: 1000
+    Plastic: 200
+    Glass: 100
+
+- type: latheRecipe
+  id: MiniSyringe
+  result: MiniSyringe
+  completetime: 2
+  materials:
+    Steel: 200
+    Glass: 100
+    Plastic: 100
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

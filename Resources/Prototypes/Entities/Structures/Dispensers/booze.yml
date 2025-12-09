@@ -1,7 +1,7 @@
 - type: entity
-  id: BoozeDispenser
+  id: BoozeDispenserEmpty
   name: booze dispenser
-  suffix: Filled
+  suffix: Empty
   description: A booze dispenser with a single slot for a container to be filled.
   parent: ReagentDispenserBase
   components:
@@ -14,7 +14,41 @@
     storageWhitelist:
       tags:
       - DrinkBottle
+<<<<<<< HEAD
     pack: BoozeDispenserInventory
+=======
+  - type: Transform
+    noRot: false
+  - type: Machine
+    board: BoozeDispenserMachineCircuitboard
+  - type: GuideHelp
+    guides:
+    - Bartender
+    - Drinks
+  - type: StealTarget
+    stealGroup: BoozeDispenser
+
+- type: entity
+  id: BoozeDispenser
+  suffix: Filled
+  parent: BoozeDispenserEmpty
+  components:
+  - type: StorageFill
+    contents:
+    - id: DrinkAleBottleFullGrowler
+    - id: DrinkBeerGrowler
+    - id: DrinkCoffeeLiqueurBottleFull
+    - id: DrinkCognacBottleFull
+    - id: DrinkGinBottleFull
+    - id: DrinkMeadJug
+    - id: DrinkRumBottleFull
+    - id: DrinkTequilaBottleFull
+    - id: DrinkVermouthBottleFull
+    - id: DrinkVodkaBottleFull
+    - id: DrinkWhiskeyBottleFull
+    - id: DrinkWineBottleFull
+    - id: DrinkJaegermisterBottleFull # Den - Jaegerminsteeeer
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
   - type: Transform
     noRot: false
   - type: Machine
@@ -25,6 +59,7 @@
     - Drinks # DeltaV - doesn't exist
   - type: StealTarget
     stealGroup: BoozeDispenser
+<<<<<<< HEAD
 
 - type: entity
   id: BoozeDispenserEmpty
@@ -36,3 +71,5 @@
       tags:
       - DrinkBottle
     pack: EmptyInventory
+=======
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d

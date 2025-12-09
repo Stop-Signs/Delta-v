@@ -24,6 +24,7 @@
   - MineralScannerEmpty
   - AdvancedMineralScannerEmpty
   - OreBagOfHolding
+  - ClothingShoesBootsJump # DV - Jump Boots since its mining research
 
 - type: latheRecipePack
   id: CargoBoards

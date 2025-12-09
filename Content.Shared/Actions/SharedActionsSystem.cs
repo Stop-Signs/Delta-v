@@ -555,13 +555,18 @@ public abstract class SharedActionsSystem : EntitySystem
             return comp.CanTargetSelf;
 
         var targetAction = Comp<TargetActionComponent>(uid);
+
         // not using the ValidateBaseTarget logic since its raycast fails if the target is e.g. a wall
         if (targetAction.CheckCanAccess)
-            return _interaction.InRangeAndAccessible(user, target, range: targetAction.Range);
+            return _interaction.InRangeAndAccessible(user, target, targetAction.Range, targetAction.AccessMask);
 
-        // if not just checking pure range, let stored entities be targeted by actions
-        // if it's out of range it probably isn't stored anyway...
-        return _interaction.CanAccessViaStorage(user, target);
+        // Just check normal in range, allowing <= 0 range to mean infinite range.
+        if (targetAction.Range > 0
+            && !_transform.InRange(user, target, targetAction.Range))
+            return false;
+
+        // If checkCanAccess isn't set, we allow targeting things in containers
+        return _interaction.IsAccessible(user, target);
     }
 
     public bool ValidateWorldTarget(EntityUid user, EntityCoordinates target, Entity<WorldTargetActionComponent> ent)
@@ -747,7 +752,7 @@ public abstract class SharedActionsSystem : EntitySystem
     #region AddRemoveActions
 
     public EntityUid? AddAction(EntityUid performer,
-        string? actionPrototypeId,
+        [ForbidLiteral] string? actionPrototypeId,
         EntityUid container = default,
         ActionsComponent? component = null)
     {
@@ -767,7 +772,7 @@ public abstract class SharedActionsSystem : EntitySystem
     /// <param name="container">The entity that contains/enables this action (e.g., flashlight).</param>
     public bool AddAction(EntityUid performer,
         [NotNullWhen(true)] ref EntityUid? actionId,
-        string? actionPrototypeId,
+        [ForbidLiteral] string? actionPrototypeId,
         EntityUid container = default,
         ActionsComponent? component = null)
     {
@@ -778,7 +783,7 @@ public abstract class SharedActionsSystem : EntitySystem
     public bool AddAction(EntityUid performer,
         [NotNullWhen(true)] ref EntityUid? actionId,
         [NotNullWhen(true)] out ActionComponent? action,
-        string? actionPrototypeId,
+        [ForbidLiteral] string? actionPrototypeId,
         EntityUid container = default,
         ActionsComponent? component = null)
     {
@@ -1196,6 +1201,7 @@ public abstract class SharedActionsSystem : EntitySystem
     {
         curTime ??= GameTiming.CurTime;
         // TODO: Check for charge recovery timer
+        curTime ??= GameTiming.CurTime;
         return action.Cooldown.HasValue && action.Cooldown.Value.End > curTime;
     }
 
@@ -1217,4 +1223,27 @@ public abstract class SharedActionsSystem : EntitySystem
         Dirty(ent);
 >>>>>>> 496c0c511e446e3b6ce133b750e6003484d66e30
     }
+
+    // Shitmed Change Start - Starlight Abductors
+    public EntityUid[] HideActions(EntityUid performer, ActionsComponent? comp = null)
+    {
+        if (!Resolve(performer, ref comp, false))
+            return [];
+
+        var actions = comp.Actions.ToArray();
+        comp.Actions.Clear();
+        Dirty(performer, comp);
+        return actions;
+    }
+
+    public void UnHideActions(EntityUid performer, EntityUid[] actions, ActionsComponent? comp = null)
+    {
+        if (!Resolve(performer, ref comp, false))
+            return;
+
+        foreach (var action in actions)
+            comp.Actions.Add(action);
+        Dirty(performer, comp);
+    }
+    // Shitmed Change End
 }

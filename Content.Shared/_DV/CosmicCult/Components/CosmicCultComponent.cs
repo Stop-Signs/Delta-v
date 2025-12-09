@@ -63,7 +63,12 @@ public sealed partial class CosmicCultComponent : Component
     /// <summary>
     /// The duration of Shunt Subjectivity's trip to the cosmic void
     /// </summary>
+<<<<<<< HEAD
     [DataField] public TimeSpan CosmicBlankDuration = TimeSpan.FromSeconds(22);
+=======
+    [DataField] public TimeSpan CosmicBlankDuration = TimeSpan.FromSeconds(9);
+    public static readonly TimeSpan DefaultCosmicBlankDuration = TimeSpan.FromSeconds(9);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     /// <summary>
     /// The duration of Vacuous Imposition's shield.

@@ -86,9 +86,14 @@
   boilingPoint: 290.0 # Glycerin
   meltingPoint: 18.2
   tileReactions:
+<<<<<<< HEAD
     - !type:SpillTileReaction
       requiredSlipSpeed: 1
       superSlippery: true
+=======
+  - !type:SpillTileReaction
+  friction: 0.05
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
 - type: reagent
   id: SpaceGlue
@@ -112,11 +117,10 @@
   metabolisms:
     Narcotic:
       effects:
-      - !type:GenericStatusEffect
-        key: SeeingRainbows
-        component: SeeingRainbows
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectSeeingRainbow
         time: 5
+        type: Add
         refresh: false
     Drink:
       effects:

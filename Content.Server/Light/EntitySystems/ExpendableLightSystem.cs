@@ -171,7 +171,12 @@ namespace Content.Server.Light.EntitySystems
             }
 
             component.CurrentState = ExpendableLightState.BrandNew;
+<<<<<<< HEAD
             EntityManager.EnsureComponent<PointLightComponent>(uid);
+=======
+            component.StateExpiryTime = (float)component.GlowDuration.TotalSeconds;
+            EnsureComp<PointLightComponent>(uid);
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         }
 
         private void OnExpLightUse(Entity<ExpendableLightComponent> ent, ref UseInHandEvent args)

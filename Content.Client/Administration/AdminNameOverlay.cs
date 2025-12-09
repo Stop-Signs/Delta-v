@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Systems;
@@ -22,6 +23,11 @@ internal sealed class AdminNameOverlay : Overlay
     private readonly IEyeManager _eyeManager;
     private readonly EntityLookupSystem _entityLookup;
     private readonly IUserInterfaceManager _userInterfaceManager;
+<<<<<<< HEAD
+=======
+    private readonly SharedRoleSystem _roles;
+    private readonly IPrototypeManager _prototypeManager;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     private readonly Font _font;
     private readonly Font _fontBold;
     private bool _overlayClassic;
@@ -33,9 +39,17 @@ internal sealed class AdminNameOverlay : Overlay
     private int _overlayStackMax;
     private float _overlayMergeDistance;
 
+<<<<<<< HEAD
     //TODO make this adjustable via GUI
     private readonly ProtoId<RoleTypePrototype>[] _filter =
         ["SoloAntagonist", "TeamAntagonist", "SiliconAntagonist", "FreeAgent"];
+=======
+    //TODO make this adjustable via GUI?
+    private static readonly FrozenSet<ProtoId<RoleTypePrototype>> Filter =
+        new ProtoId<RoleTypePrototype>[] {"SoloAntagonist", "TeamAntagonist", "SiliconAntagonist", "FreeAgent"}
+        .ToFrozenSet();
+
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     private readonly string _antagLabelClassic = Loc.GetString("admin-overlay-antag-classic");
 
     public AdminNameOverlay(
@@ -45,13 +59,24 @@ internal sealed class AdminNameOverlay : Overlay
         IResourceCache resourceCache,
         EntityLookupSystem entityLookup,
         IUserInterfaceManager userInterfaceManager,
+<<<<<<< HEAD
         IConfigurationManager config)
+=======
+        IConfigurationManager config,
+        SharedRoleSystem roles,
+        IPrototypeManager prototypeManager)
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
     {
         _system = system;
         _entityManager = entityManager;
         _eyeManager = eyeManager;
         _entityLookup = entityLookup;
         _userInterfaceManager = userInterfaceManager;
+<<<<<<< HEAD
+=======
+        _roles = roles;
+        _prototypeManager = prototypeManager;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
         ZIndex = 200;
         // Setting these to a specific ttf would break the antag symbols
         _font = resourceCache.NotoStack();
@@ -104,6 +129,14 @@ internal sealed class AdminNameOverlay : Overlay
         foreach (var info in sortable.OrderBy(s => s.Item4.Y).ToList())
         {
             var playerInfo = info.Item1;
+            var rolePrototype = playerInfo.RoleProto == null
+                ? null
+                : _prototypeManager.Index(playerInfo.RoleProto.Value);
+
+            var roleName = Loc.GetString(rolePrototype?.Name ?? RoleTypePrototype.FallbackName);
+            var roleColor = rolePrototype?.Color ?? RoleTypePrototype.FallbackColor;
+            var roleSymbol = rolePrototype?.Symbol ?? RoleTypePrototype.FallbackSymbol;
+
             var aabb = info.Item2;
             var entity = info.Item3;
             var screenCoordinatesCenter = info.Item4;
@@ -186,6 +219,7 @@ internal sealed class AdminNameOverlay : Overlay
             // Classic Antag Label
             if (_overlayClassic && playerInfo.Antag)
             {
+<<<<<<< HEAD
                 var symbol = _overlaySymbols ? Loc.GetString("player-tab-antag-prefix") : string.Empty;
                 var label = _overlaySymbols
                     ? Loc.GetString("player-tab-character-name-antag-symbol",
@@ -196,10 +230,23 @@ internal sealed class AdminNameOverlay : Overlay
                 color.A = alpha;
                 args.ScreenHandle.DrawString(_fontBold, screenCoordinates + currentOffset, label, uiScale, color);
                 currentOffset += lineoffset;
+=======
+                case AdminOverlayAntagSymbolStyle.Specific:
+                    symbol = roleSymbol;
+                    break;
+                case AdminOverlayAntagSymbolStyle.Basic:
+                    symbol = Loc.GetString("player-tab-antag-prefix");
+                    break;
+                default:
+                case AdminOverlayAntagSymbolStyle.Off:
+                    symbol = string.Empty;
+                    break;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             }
             // Role Type
             else if (!_overlayClassic && _filter.Contains(playerInfo.RoleProto))
             {
+<<<<<<< HEAD
                 var symbol = _overlaySymbols && playerInfo.Antag ? playerInfo.RoleProto.Symbol : string.Empty;
                 var role = Loc.GetString(playerInfo.RoleProto.Name).ToUpper();
                 var label = _overlaySymbols
@@ -209,10 +256,40 @@ internal sealed class AdminNameOverlay : Overlay
                 color.A = alpha;
                 args.ScreenHandle.DrawString(_fontBold, screenCoordinates + currentOffset, label, uiScale, color);
                 currentOffset += lineoffset;
+=======
+                case AdminOverlayAntagFormat.Roletype:
+                    color = roleColor;
+                    symbol = IsFiltered(playerInfo.RoleProto) ? symbol : string.Empty;
+                    text = IsFiltered(playerInfo.RoleProto)
+                        ? roleName.ToUpper()
+                        : string.Empty;
+                    break;
+                case AdminOverlayAntagFormat.Subtype:
+                    color = roleColor;
+                    symbol = IsFiltered(playerInfo.RoleProto) ? symbol : string.Empty;
+                    text = IsFiltered(playerInfo.RoleProto)
+                        ? _roles.GetRoleSubtypeLabel(roleName, playerInfo.Subtype).ToUpper()
+                        : string.Empty;
+                    break;
+                default:
+                case AdminOverlayAntagFormat.Binary:
+                    color = Color.OrangeRed;
+                    symbol = playerInfo.Antag ? symbol : string.Empty;
+                    text = playerInfo.Antag ? _antagLabelClassic : string.Empty;
+                    break;
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
             }
 
             //Save the coordinates and size of the text block, for stack merge check
             drawnOverlays.Add((screenCoordinatesCenter, currentOffset));
         }
+    }
+
+    private static bool IsFiltered(ProtoId<RoleTypePrototype>? roleProtoId)
+    {
+        if (roleProtoId == null)
+            return false;
+
+        return Filter.Contains(roleProtoId.Value);
     }
 }

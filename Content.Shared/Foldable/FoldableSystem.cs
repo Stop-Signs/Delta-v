@@ -14,6 +14,12 @@ public sealed class FoldableSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedBuckleSystem _buckle = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
+<<<<<<< HEAD
+=======
+    [Dependency] private readonly AnchorableSystem _anchorable = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedPointLightSystem _pointLight = default!; // DeltaV - Holographic Rollerbeds emit light.
+>>>>>>> 9f6826ca6b052f8cef3a47cb9281a73b2877903d
 
     public override void Initialize()
     {
@@ -118,6 +124,9 @@ public sealed class FoldableSystem : EntitySystem
 
         if (!CanToggleFold(uid, comp))
             return false;
+
+        if (_pointLight.TryGetLight(uid, out var light)) // DeltaV - Holographic Rollerbeds emit light.
+            _pointLight.SetEnabled(uid, !state, light);
 
         SetFolded(uid, comp, state);
         return true;
