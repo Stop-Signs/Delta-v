@@ -74,3 +74,10 @@ public sealed class EntitySpokeEvent : EntityEventArgs
         ObfuscatedMessage = obfuscatedMessage;
     }
 }
+
+/// <summary>
+/// Raised on a speaking entity to allow overriding the chat type.
+/// Can't be put in common because it uses <see cref="InGameICChatType"/>.
+/// </summary>
+[ByRefEvent]
+public record struct SpeechTypeOverrideEvent(InGameICChatType DesiredType);

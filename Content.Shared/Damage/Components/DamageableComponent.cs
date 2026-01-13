@@ -81,6 +81,7 @@ public sealed partial class DamageableComponent : Component
     {
         // { MobState.Alive, "HealthIconFine" }, // DeltaV - Remove HealthIconFine so we can see speech bubbles
         { MobState.Critical, "HealthIconCritical" },
+        { MobState.SoftCrit, "HealthIconCritical" }, // Trauma
         { MobState.Dead, "HealthIconDead" },
     };
 

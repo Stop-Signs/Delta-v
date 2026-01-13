@@ -195,6 +195,12 @@ public sealed partial class ChatSystem : SharedChatSystem
             message = message[1..];
         }
 
+        // <Trauma> - let softcrit change speaking to whisper
+        var typeEv = new SpeechTypeOverrideEvent(desiredType);
+        RaiseLocalEvent(source, ref typeEv);
+        desiredType = typeEv.DesiredType;
+        // </Trauma>
+
         // DeltaV - Hushed trait logic
         // This needs to happen after prefix removal to avoid bug
         if (desiredType == InGameICChatType.Speak && HasComp<HushedComponent>(source))
