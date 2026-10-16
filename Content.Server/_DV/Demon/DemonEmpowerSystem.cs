@@ -107,6 +107,6 @@ public sealed partial class DemonEmpowerSystem : EntitySystem
         comp.CurrentSpell = null;
 
         // minus 2 billion aura
-        _appearanceSystem.SetData(uid, "DemonAuraColor", null);
+        _appearanceSystem.SetData(uid, "DemonAuraColor", Color.Transparent);
     }
 }
