@@ -1,0 +1,29 @@
+﻿- type: demonSpell
+  id: FireBall
+  auraColor: "FF4500"
+  Ability: FireBallAbility
+  Weight: # TBD
+
+- type: demonSpell
+  id: Zoltraak
+  auraColor: "F5FBFF"
+  Ability: ZoltraakAbility
+  Weight: # TBD
+
+- type: demonSpell
+  id: IceShot
+  auraColor: "00C2FF"
+  Ability: IceShotAbility
+  Weight: #TBD
+
+- type: demonSpell
+  id: Lightning
+  auraColor: "FFF257"
+  Ability: LightningAbility
+  Weight: #TBD
+
+- type: demonSpell
+  id: FireBlast
+  auraColor: "FF9973"
+  Ability: FireBlastAbility
+  Weight: #TBD
