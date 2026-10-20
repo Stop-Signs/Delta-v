@@ -1,0 +1,9 @@
+﻿- type: entity
+  id: ActionDemonEmpower
+  name: Empower
+  description: Enter an empowered state and gain a random spell
+  components:
+  - type: InstantAction
+    icon:
+    event: !type:demonEmpowerACtionEvent
+    useDelay: 15

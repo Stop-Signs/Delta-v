@@ -3,7 +3,7 @@
 namespace Content.Client._DV.Demon;
 
 [RegisterComponent]
-public sealed partial class DemonAuraVisaulsComponent : Component
+public sealed partial class DemonAuraVisualsComponent : Component
 {
 
 }
